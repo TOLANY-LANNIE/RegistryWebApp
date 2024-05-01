@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { defer, NEVER, Subject } from 'rxjs';
 import { finalize, share } from 'rxjs/operators';
-import { LoaderState } from '../models/loaderstate.model';
+import { LoaderState } from '../../models/loaderstate.model';
 
 @Injectable({
   providedIn: 'root',
