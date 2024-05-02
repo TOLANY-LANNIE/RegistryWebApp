@@ -1,11 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AttendeesListComponent } from './features/attendees-list/attendees-list.component';
-import { AttendeesSubmissionComponent } from './features/attendees-submission/attendees-submission.component';
-
+import { RegistrationFormComponent } from './features/registration-form/registration-form.component';
 const routes: Routes = [
     {path: 'home', component:AttendeesListComponent},
-    {path: 'submission/:id', component: AttendeesSubmissionComponent},
+    {path: 'registration/:id', component: RegistrationFormComponent},
     {path:'', redirectTo:'/home', pathMatch:'full'}
 ];
 
