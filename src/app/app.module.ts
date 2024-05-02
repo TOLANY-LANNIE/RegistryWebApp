@@ -16,6 +16,7 @@ import { AttendeesListComponent } from './features/attendees-list/attendees-list
 import { LoaderComponent } from './features/loader/loader.component';
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 import { RegistrationFormComponent } from './features/registration-form/registration-form.component';
+import { EventsComponent } from './features/events/events.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -31,7 +32,7 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule} from '@angular/material/card';
 import { MatTableModule} from '@angular/material/table';
 import { MatGridListModule} from '@angular/material/grid-list';
-import { MatPaginator } from '@angular/material/paginator';
+
 
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule} from '@angular/material/dialog';
@@ -47,7 +48,8 @@ import { environment } from '../environment/environment.prod';
     AttendeesListComponent,
     LoaderComponent,
     SideMenuComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    EventsComponent
   ],
   imports:[
     BrowserModule,
