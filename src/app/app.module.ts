@@ -31,10 +31,15 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule} from '@angular/material/card';
 import { MatTableModule} from '@angular/material/table';
 import { MatGridListModule} from '@angular/material/grid-list';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule} from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort'
+
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+import { environment } from '../environment/environment.prod';
 
 @NgModule({
   declarations:[
@@ -67,8 +72,13 @@ import { MatSortModule } from '@angular/material/sort'
     MatFormFieldModule,
     MatCardModule,
     MatTableModule,
-    MatGridListModule
+    MatGridListModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatSortModule,
 
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
   ],
   providers:[
     {
