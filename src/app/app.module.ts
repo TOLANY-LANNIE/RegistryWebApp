@@ -33,7 +33,7 @@ import { MatCardModule} from '@angular/material/card';
 import { MatTableModule} from '@angular/material/table';
 import { MatGridListModule} from '@angular/material/grid-list';
 
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule} from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort'
@@ -78,6 +78,7 @@ import { environment } from '../environment/environment.prod';
     MatPaginatorModule,
     MatDialogModule,
     MatSortModule,
+    MatExpansionModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,

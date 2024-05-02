@@ -1,1 +1,70 @@
-<p>events works!</p>
+<div class="container" fxLayout="row" fxLayoutAlign="space-between">
+    <div fxFlex="1 1 auto">
+      <mat-card>
+        <mat-card-content>
+          <div class="card-header">
+            <h3>Events' Attendees</h3>
+            <div class="parent-div">
+                <div class="search-dive">
+                  <div class="search-bar">
+                    <div class="search-container">
+                      <span class="search-icon">
+                      </span>
+                        <mat-form-field appearance="outline">
+                          <input (keyup)="applyFilter($event)" matInput placeholder="Search">
+                          <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                  </div>
+                  <button mat-flat-button color="primary" class="btn">
+                    <mat-icon>add</mat-icon>
+                    Create Event
+                  </button>
+                </div>
+              </div>
+          </div>
+  
+          <div class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSource" matSort>
+              <!-- Title Column -->
+              <ng-container matColumnDef="Title">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.Title }} </mat-cell>
+              </ng-container>
+            
+              <!-- Date Column -->
+              <ng-container matColumnDef="Date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.Date }} </mat-cell>
+              </ng-container>
+            
+              <!-- Location Column -->
+              <ng-container matColumnDef="Location">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Location </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.Location }} </mat-cell>
+              </ng-container>
+            
+              <!-- Capacity Column -->
+              <ng-container matColumnDef="Capacity">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.Capacity }} </mat-cell>
+              </ng-container>
+            
+              <!-- Description Column -->
+              <ng-container matColumnDef="Description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.Description }} </mat-cell>
+              </ng-container>
+            
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
