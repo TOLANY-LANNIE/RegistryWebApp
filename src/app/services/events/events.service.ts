@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore,DocumentReference } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { AngularFirestore, } from '@angular/fire/compat/firestore';
 import { Event } from '../../models/event.model';
-import { filter } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,34 +15,34 @@ export class EventsService {
       this.db.collection('Events').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
     })
   }
-
-  // Method to add a new event to Firebase
-  addEvent(event: Event): Promise<DocumentReference<Event>> {
-    // Add event data to the 'events' collection
-    return this.db.collection<Event>('events').add(event);
+  addNewEvent(event: Event, newId: string): void {
+    this.db.collection('Events').doc(newId).set({
+      title: event.title,
+      date: event.date,
+      description: event.description,
+      location: event.location,
+      capacity: event.capacity,
+      status: event.status
+    })
   }
 
-  // Method to get all events from Firebase
-  getEvents(): Observable<Event[]> {
-    return this.db.collection<Event>('events').valueChanges();
+  updateEvent(eventId: string, eventData: Event): Promise<void> {
+    return this.db.collection('Events').doc(eventId).update(eventData);
   }
 
-  // Method to get event by ID from Firebase
+  deleteEvent(eventId: string): Promise<void> {
+    return this.db.collection('Events').doc(eventId).delete();
+  }
+
   getEventById(eventId: string): Observable<Event> {
-    return this.db.doc<Event>(`events/${eventId}`).valueChanges()
+    return this.db.collection('events').doc<Event>(eventId).valueChanges()
       .pipe(
-        filter((event: any) => !!event) // Filter out undefined events
+        map(event => {
+          if (!event) {
+            throw new Error(`Event with ID ${eventId} not found`);
+          }
+          return event;
+        })
       );
   }
-
-  // Method to update an existing event in Firebase
-  updateEvent(eventId: string, eventData: Event): Promise<void> {
-    return this.db.doc(`events/${eventId}`).update(eventData);
-  }
-
-  // Method to delete an event from Firebase
-  deleteEvent(eventId: string): Promise<void> {
-    return this.db.doc(`events/${eventId}`).delete();
-  }
-
 }

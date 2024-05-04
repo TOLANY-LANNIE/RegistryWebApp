@@ -5,5 +5,6 @@ export interface Event {
     date: Date; // Date of the event
     location: string; // Location of the event
     capacity: number; // Maximum capacity of attendees for the event
+    status: boolean
   }
   
