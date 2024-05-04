@@ -11,5 +11,17 @@ export class EventsService {
     return new Promise<any>((resolve)=> {
       this.db.collection('Events').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
     })
-}
+  }
+
+  addEvent(event:any){
+    
+  }
+
+  updateEvent(){
+
+  }
+
+  deleteEvent(){
+
+  }
 }

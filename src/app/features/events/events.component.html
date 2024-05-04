@@ -3,7 +3,7 @@
       <mat-card>
         <mat-card-content>
           <div class="card-header">
-            <h3>Events' Attendees</h3>
+            <h3>Events</h3>
             <div class="parent-div">
                 <div class="search-dive">
                   <div class="search-bar">
@@ -50,12 +50,7 @@
                 <mat-cell *matCellDef="let element"> {{ element.Capacity }} </mat-cell>
               </ng-container>
             
-              <!-- Description Column -->
-              <ng-container matColumnDef="Description">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.Description }} </mat-cell>
-              </ng-container>
-            
+          
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
             </mat-table>

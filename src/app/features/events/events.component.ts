@@ -11,7 +11,7 @@ import { EventsService } from '../../services/events/events.service';
   styleUrl: './events.component.scss'
 })
 export class EventsComponent implements AfterViewInit  {
-  displayedColumns: string[] = ['Title','Date','Location', 'Capacity','Description'];
+  displayedColumns: string[] = ['Title','Date','Location', 'Capacity'];
   dataSource: MatTableDataSource<any>
   searchString ='';
   panelOpenState = false;
