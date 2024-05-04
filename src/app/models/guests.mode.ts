@@ -14,6 +14,6 @@ export interface Doctor {
     dietaryDetails?:{
         dietary: string;
         allergies: string; 
-
+    }
 }
   
