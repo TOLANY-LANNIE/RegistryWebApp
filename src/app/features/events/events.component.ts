@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import {Sort, MatSort} from '@angular/material/sort';
 import { EventsService } from '../../services/events/events.service';
+import { AddEventComponent } from '../../modals/add-event/add-event.component';
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
@@ -83,4 +84,20 @@ export class EventsComponent implements AfterViewInit  {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+
+  /**
+   * Opens the Add Category Dialog
+   */
+  openAddEventModal(){
+    const dialogRef = this.dialog.open(AddEventComponent,{
+      data: {},
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 }

@@ -15,14 +15,14 @@ export class EventsService {
       this.db.collection('Events').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
     })
   }
-  addNewEvent(event: Event, newId: string): void {
-    this.db.collection('Events').doc(newId).set({
-      title: event.title,
-      date: event.date,
-      description: event.description,
-      location: event.location,
-      capacity: event.capacity,
-      status: event.status
+  addNewEvent(event: Event,): void {
+    this.db.collection('Events').add({
+      Title: event.title,
+      Date: event.date,
+      Description: event.description,
+      Location: event.location,
+      Capacity: event.capacity,
+      Status: event.status
     })
   }
 
