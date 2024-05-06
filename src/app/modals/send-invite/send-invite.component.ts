@@ -6,12 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Event } from '../../models/event.model';
 import { DatePipe } from '@angular/common';
 @Component({
-  selector: 'app-add-event',
-  templateUrl: './add-event.component.html',
-  styleUrl: './add-event.component.scss',
+  selector: 'app-send-invite',
+  templateUrl: './send-invite.component.html',
+  styleUrl: './send-invite.component.scss',
   providers: [DatePipe] 
 })
-export class AddEventComponent {
+export class SendInviteComponent {
    /**
     * Component FormGroup
    */
@@ -28,7 +28,7 @@ export class AddEventComponent {
     constructor(
       private fb: FormBuilder,
       @Inject(MAT_DIALOG_DATA) public data: any,
-      public dialogRef: MatDialogRef<AddEventComponent>,
+      public dialogRef: MatDialogRef<SendInviteComponent>,
       public dialog: MatDialog,
       private service:EventsService,
       private snackBar: MatSnackBar,

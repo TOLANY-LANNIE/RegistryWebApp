@@ -5,6 +5,8 @@ export interface Doctor {
     surname: string; // Surname of the doctor
     contact: string; // Contact number of the doctor
     email: string; // Email address of the doctor
+    transfersRequired: boolean;
+    accomodationRequired:boolean;
     flightDetails?: {
       flightDate: string; // Date of the flight (format: 'YYYY-MM-DD')
       flightTime: string; // Time of the flight (format: 'HH:MM')

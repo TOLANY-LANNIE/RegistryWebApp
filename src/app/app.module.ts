@@ -10,6 +10,7 @@ import { GlobalInterceptor } from './interceptors/http.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
+import { SendInviteComponent } from './modals/send-invite/send-invite.component';
 
 import { AppComponent } from './app.component';
 import { AttendeesListComponent } from './features/attendees-list/attendees-list.component';
@@ -39,6 +40,7 @@ import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule} from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort'
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
@@ -52,7 +54,8 @@ import { environment } from '../environment/environment.prod';
     SideMenuComponent,
     RegistrationFormComponent,
     EventsComponent,
-    AddEventComponent
+    AddEventComponent,
+    SendInviteComponent
   ],
   imports:[
     BrowserModule,
@@ -84,6 +87,7 @@ import { environment } from '../environment/environment.prod';
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
