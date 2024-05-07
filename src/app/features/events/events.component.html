@@ -49,8 +49,20 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{ element.Capacity }} </mat-cell>
               </ng-container>
+
+               <!-- MoreOptions Column -->
+            <ng-container matColumnDef="MoreOptions">
+              <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="edit(element)" title="Edit">
+                  <mat-icon color="primary">edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="delete(element)" title="Delete">
+                  <mat-icon color="warn">delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
             
-          
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
             </mat-table>

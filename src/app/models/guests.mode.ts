@@ -1,4 +1,4 @@
-export interface Doctor {
+export interface Guest {
     id: number; // Unique identifier for the doctor
     practiseNumber: string; // Practise number of the doctor
     name: string; // Name of the doctor

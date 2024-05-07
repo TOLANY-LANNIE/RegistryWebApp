@@ -14,7 +14,7 @@ import { Sort } from '@angular/material/sort';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['Title', 'Date', 'Location', 'Capacity'];
+  displayedColumns: string[] = ['Title', 'Date', 'Location', 'Capacity','MoreOptions'];
   dataSource: MatTableDataSource<any>;
   searchString = '';
   panelOpenState = false;
@@ -27,8 +27,12 @@ export class EventsComponent implements AfterViewInit {
     private service: EventsService
   ) {}
 
-  ngAfterViewInit() {
+  ngOnInit(){
     this.getEvents(); // Load events after view initialization
+  }
+
+  ngAfterViewInit() {
+   
   }
 
   async getEvents() {
@@ -70,5 +74,13 @@ export class EventsComponent implements AfterViewInit {
         this.getEvents(); // Refresh events data after adding a new event
       }
     });
+  }
+
+  edit(event:any){
+
+  }
+
+  delete(event:any){
+    
   }
 }
