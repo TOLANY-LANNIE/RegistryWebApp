@@ -17,17 +17,18 @@ export class EventsService {
   }
   addNewEvent(event: Event,): void {
     this.db.collection('Events').add({
-      Title: event.title,
-      Date: event.date,
-      Description: event.description,
-      Location: event.location,
-      Capacity: event.capacity,
-      Status: event.status
+      Title: event.Title,
+      Date: event.Date,
+      Description: event.Description,
+      Location: event.Location,
+      Capacity: event.Capacity,
+      Status: event.Status
     })
   }
 
   updateEvent(eventId: string, eventData: Event): Promise<void> {
-    return this.db.collection('Events').doc(eventId).update(eventData);
+   // return this.db.collection('Events').doc(eventId).update(eventData);
+    return this.db.doc(`Events/${eventId}`).update(eventData);
   }
 
   deleteEvent(eventId: string): Promise<void> {

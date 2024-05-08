@@ -5,6 +5,7 @@ import { EventsService } from '../../services/events/events.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Event } from '../../models/event.model';
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-add-event',
   templateUrl: './add-event.component.html',
@@ -51,9 +52,10 @@ export class AddEventComponent {
     }
   
 
-    onCancel(){
+    
+     onCancel(){
 
-    }
+     }
 
     onSubmit(): void {
       // Check if the addEventFormGroup is invalid, if it is, return early
@@ -64,13 +66,12 @@ export class AddEventComponent {
     const formattedDate = this.datePipe.transform(this.addEventFormGroup.value.date, 'dd/MM/yyyy'); // Format date
       // Getting data from the addEventFormGroup
       const event: Event = {
-        id: '',
-        title: this.addEventFormGroup.value.title,
-        date: formattedDate,
-        description: this.addEventFormGroup.value.description,
-        location: this.addEventFormGroup.value.location,
-        capacity: this.addEventFormGroup.value.capacity,
-        status: true
+        Title: this.addEventFormGroup.value.title,
+        Date: formattedDate,
+        Description: this.addEventFormGroup.value.description,
+        Location: this.addEventFormGroup.value.location,
+        Capacity: this.addEventFormGroup.value.capacity,
+        Status: true
       };
     
       try {

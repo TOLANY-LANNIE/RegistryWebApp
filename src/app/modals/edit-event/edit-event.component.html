@@ -1,1 +1,58 @@
-<p>edit-event works!</p>
+<h2 mat-dialog-title class='dialog-title'>Edit Event</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="editEventFormGroup" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Event Title</mat-label>
+              <input matInput 
+                    placeholder="eg. Doctor's Conference"
+                    formControlName="title" 
+                    [(ngModel)]="data.Title">
+              <mat-error *ngIf="editEventFormGroup.get('title')?.invalid && editEventFormGroup.get('title')?.touched">Title is required</mat-error>
+            </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date" 
+                [(ngModel)]="data.Date">
+                <mat-hint align="end">MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="editEventFormGroup.get('date')?.invalid && editEventFormGroup.get('date')?.touched">Date is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea matInput placeholder="eg. Doctor's Conference" formControlName="description"[(ngModel)]="data.Description"></textarea>
+                <mat-error *ngIf="editEventFormGroup.get('description')?.invalid && editEventFormGroup.get('description')?.touched">Description is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput placeholder="eg. Doctor's Conference" formControlName="location" [(ngModel)]="data.Location">
+                <mat-error *ngIf="editEventFormGroup.get('location')?.invalid && editEventFormGroup.get('location')?.touched">Location is required</mat-error>
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline">
+                <mat-label>Capacity</mat-label>
+                <input matInput placeholder="eg. 200" formControlName="capacity" [(ngModel)]="data.Capacity">
+                <mat-hint align="end">Only numbers are allowed</mat-hint>
+                <mat-error *ngIf="editEventFormGroup.get('capacity')?.hasError('required') && editEventFormGroup.get('capacity')?.touched">Capacity is required</mat-error>
+                <mat-error *ngIf="editEventFormGroup.get('capacity')?.hasError('pattern') && editEventFormGroup.get('capacity')?.touched">Only numbers are allowed</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Active Status</mat-label>
+                <mat-select  formControlName="status">
+                  <mat-option value=true>Active</mat-option>
+                  <mat-option value=false>Inactive</mat-option>
+                </mat-select>
+                <mat-error *ngIf="editEventFormGroup.get('status')?.hasError('required') && editEventFormGroup.get('capacity')?.touched">Active Status is required</mat-error>
+              </mat-form-field>
+          </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  type="submit" [disabled]="editEventFormGroup.invalid" (click)="onSubmit()">Save</button>
+</mat-dialog-actions>

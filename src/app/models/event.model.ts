@@ -1,10 +1,9 @@
 export interface Event {
-    id: string; // Unique identifier for the event
-    title: string; // Title of the event
-    description: string; // Description of the event
-    date: any; // Date of the event
-    location: string; // Location of the event
-    capacity: number; // Maximum capacity of attendees for the event
-    status: boolean
+    Title: string; // Title of the event
+    Description: string; // Description of the event
+    Date: any; // Date of the event
+    Location: string; // Location of the event
+    Capacity: number; // Maximum capacity of attendees for the event
+    Status: boolean
   }
   

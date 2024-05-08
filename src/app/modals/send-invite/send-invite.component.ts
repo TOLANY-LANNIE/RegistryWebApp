@@ -64,13 +64,12 @@ export class SendInviteComponent {
     const formattedDate = this.datePipe.transform(this.addEventFormGroup.value.date, 'dd/MM/yyyy'); // Format date
       // Getting data from the addEventFormGroup
       const event: Event = {
-        id: '',
-        title: this.addEventFormGroup.value.title,
-        date: formattedDate,
-        description: this.addEventFormGroup.value.description,
-        location: this.addEventFormGroup.value.location,
-        capacity: this.addEventFormGroup.value.capacity,
-        status: true
+        Title: this.addEventFormGroup.value.title,
+        Date: formattedDate,
+        Description: this.addEventFormGroup.value.description,
+        Location: this.addEventFormGroup.value.location,
+        Capacity: this.addEventFormGroup.value.capacity,
+        Status: true
       };
     
       try {

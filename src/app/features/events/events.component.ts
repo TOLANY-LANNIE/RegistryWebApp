@@ -1,20 +1,29 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { EventsService } from '../../services/events/events.service';
 import { AddEventComponent } from '../../modals/add-event/add-event.component';
 import { Sort } from '@angular/material/sort';
-
+import { EditEventComponent } from '../../modals/edit-event/edit-event.component';
+import { DeleteAlertComponent } from '../../modals/delete-alert/delete-alert.component';
+import { Router } from '@angular/router';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+} from '@angular/material/dialog';
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['Title', 'Date', 'Location', 'Capacity','MoreOptions'];
+  displayedColumns: string[] = ['Title', 'Date', 'Location', 'Capacity','Status','MoreOptions'];
   dataSource: MatTableDataSource<any>;
   searchString = '';
   panelOpenState = false;
@@ -24,7 +33,8 @@ export class EventsComponent implements AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer,
-    private service: EventsService
+    private service: EventsService,
+    private router: Router
   ) {}
 
   ngOnInit(){
@@ -60,6 +70,9 @@ export class EventsComponent implements AfterViewInit {
     }
   }
 
+  /**
+   * opend the 'Create Event' dialog
+   */
   openAddEventModal() {
     const dialogRef = this.dialog.open(AddEventComponent, {
       data: {},
@@ -67,7 +80,6 @@ export class EventsComponent implements AfterViewInit {
       panelClass: 'fullscreen-dialog',
       width: '500px',
     });
-
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
       if (result === true) {
@@ -76,11 +88,43 @@ export class EventsComponent implements AfterViewInit {
     });
   }
 
-  edit(event:any){
+   /**
+   * open the "Delete Alert" dialog
+   */
+   openDeleteAlert(enterAnimationDuration: string, exitAnimationDuration: string, event:any){
+   const dialogRef = this.dialog.open(DeleteAlertComponent, {
+    data:event,
+    enterAnimationDuration,
+    exitAnimationDuration,
+    width: '250px',
+  });
+  dialogRef.afterClosed().subscribe(result => {
+     console.log(`Dialog result: ${result}`);
+    if (result) {
+     this.getEvents(); // Refresh events data after adding a new event
+    }
+  });
+   }
+   /**
+    * opens the 'Edit Attendee' dialog
+    */
+   openEditDialog(event:any){
+    //console.log(event);
+    const dialogRef = this.dialog.open(EditEventComponent, {
+      data:event,
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+      if (result === true) {
+        this.getEvents(); // Refresh events data after adding a new event
+      }
+    });
+   }
 
-  }
-
-  delete(event:any){
-    
-  }
+   navigateToAttendees(event:any){
+    this.router.navigate(['/attendees', event]);
+   }
 }

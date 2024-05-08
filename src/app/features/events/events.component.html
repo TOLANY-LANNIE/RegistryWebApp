@@ -29,8 +29,9 @@
               <!-- Title Column -->
               <ng-container matColumnDef="Title">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.Title }} </mat-cell>
+                <mat-cell *matCellDef="let element" (click)="navigateToAttendees(element)"> {{ element.Title }} </mat-cell>
               </ng-container>
+              
             
               <!-- Date Column -->
               <ng-container matColumnDef="Date">
@@ -50,14 +51,21 @@
                 <mat-cell *matCellDef="let element"> {{ element.Capacity }} </mat-cell>
               </ng-container>
 
+              <!-- Status Column -->
+              <ng-container matColumnDef="Status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.Status ? 'Active' : 'Inactive' }} </mat-cell>
+              </ng-container>
+              
+
                <!-- MoreOptions Column -->
             <ng-container matColumnDef="MoreOptions">
               <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
               <mat-cell *matCellDef="let element"> 
-                <button mat-icon-button (click)="edit(element)" title="Edit">
+                <button mat-icon-button (click)=" openEditDialog(element)" title="Edit">
                   <mat-icon color="primary">edit</mat-icon>
                 </button>
-                <button mat-icon-button (click)="delete(element)" title="Delete">
+                <button mat-icon-button (click)="openDeleteAlert('1000ms', '1500ms',element)" title="Delete">
                   <mat-icon color="warn">delete</mat-icon>
                 </button>
               </mat-cell>

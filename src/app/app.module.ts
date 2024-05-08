@@ -19,6 +19,9 @@ import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 import { RegistrationFormComponent } from './features/registration-form/registration-form.component';
 import { EventsComponent } from './features/events/events.component';
 import { AddEventComponent } from './modals/add-event/add-event.component';
+import { EditAttendeeComponent } from './modals/edit-attendee/edit-attendee.component';
+import { EditEventComponent } from './modals/edit-event/edit-event.component';
+import { DeleteAlertComponent } from './modals/delete-alert/delete-alert.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -55,7 +58,9 @@ import { environment } from '../environment/environment.prod';
     RegistrationFormComponent,
     EventsComponent,
     AddEventComponent,
-    SendInviteComponent
+    SendInviteComponent,
+    EditEventComponent,
+    DeleteAlertComponent,
   ],
   imports:[
     BrowserModule,
