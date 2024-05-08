@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-content>
         <div class="card-header">
-          <h3>Events' Attendees</h3>
+          <h3>{{event.Title}} Attendees</h3>
           <div class="parent-div">
               <div class="search-dive">
                 <div class="search-bar">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="mat-elevation-z8">
-          <mat-table [dataSource]="dataSource" matSort>
+          <mat-table [dataSource]="dataSource" matSort matSort *ngIf="dataSource.data.length > 0; else noAttendees">
             <!-- Name Column -->
             <ng-container matColumnDef="Name">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
@@ -43,16 +43,16 @@
               <mat-cell *matCellDef="let element"> {{ element.PracticeNumber }} </mat-cell>
             </ng-container>
           
-            <!-- Email Column -->
-            <ng-container matColumnDef="Email">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.Email }} </mat-cell>
-            </ng-container>
-          
             <!-- Contact Column -->
             <ng-container matColumnDef="Contact">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Contact </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{ element.Contact }} </mat-cell>
+            </ng-container>
+
+             <!-- Email Column -->
+             <ng-container matColumnDef="Email">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ element.Email }} </mat-cell>
             </ng-container>
 
             <!-- MoreOptions Column -->
@@ -72,9 +72,10 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
           </mat-table>
-          
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-          
+          <ng-template #noAttendees>
+            <div class="no-attendees-message">No Attendees</div>
+          </ng-template>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>        
         </div>
       </mat-card-content>
     </mat-card>

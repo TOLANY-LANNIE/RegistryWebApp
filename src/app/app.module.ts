@@ -22,6 +22,7 @@ import { AddEventComponent } from './modals/add-event/add-event.component';
 import { EditAttendeeComponent } from './modals/edit-attendee/edit-attendee.component';
 import { EditEventComponent } from './modals/edit-event/edit-event.component';
 import { DeleteAlertComponent } from './modals/delete-alert/delete-alert.component';
+import { BreadcrumbsComponent } from './features/breadcrumbs/breadcrumbs.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -61,6 +62,7 @@ import { environment } from '../environment/environment.prod';
     SendInviteComponent,
     EditEventComponent,
     DeleteAlertComponent,
+    BreadcrumbsComponent
   ],
   imports:[
     BrowserModule,

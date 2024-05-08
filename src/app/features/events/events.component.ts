@@ -125,6 +125,7 @@ export class EventsComponent implements AfterViewInit {
    }
 
    navigateToAttendees(event:any){
-    this.router.navigate(['/attendees', event]);
+    const serializedData = JSON.stringify(event);
+    this.router.navigate(['/attendees'], { queryParams: { data: serializedData } });
    }
 }

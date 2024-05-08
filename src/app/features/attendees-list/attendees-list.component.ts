@@ -7,6 +7,9 @@ import { Guest } from '../../models/guests.mode';
 import { MatDialog } from '@angular/material/dialog';
 import { AttendeesService } from '../../services/attendees/attendees.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.service';
+
 @Component({
   selector: 'app-attendees-list',
   templateUrl: './attendees-list.component.html',
@@ -21,24 +24,38 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 })
 export class AttendeesListComponent implements AfterViewInit{
 
-  displayedColumns = ['Name', 'Surname', 'PracticeNumber', 'Email', 'Contact','MoreOptions'];
+  displayedColumns = ['Name', 'Surname', 'PracticeNumber','Contact','Email','MoreOptions'];
   searchString = '';
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   attendees: Guest[]=[];
+  event:any;
 
   constructor(
     private dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer,
-    private service: AttendeesService
-  ) {}
+    private service: AttendeesService,
+    private route: ActivatedRoute,
+    private breadcrumbService: BreadcrumbsService
+  ) {
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   ngOnInit(){
+    this.route.queryParams.subscribe(params => {
+      const serializedData = params['data'];
+      this.event = JSON.parse(serializedData);
+      console.log(this.event);
+    });
+
+    const breadcrumbs = [
+      { label: this.event.Title, url: '/Events/'+this.event.Title},
+    ];
+    this.breadcrumbService.setBreadcrumbs(breadcrumbs);
     this.loadDoctors()
   }
 
