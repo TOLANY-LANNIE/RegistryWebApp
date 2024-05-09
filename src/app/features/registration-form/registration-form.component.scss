@@ -1,2 +1,29 @@
 @import '../../../assets/common.scss';
 
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .container {
+    display: flex;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  
+  .container mat-form-field + mat-form-field {
+    margin-left: 16px;
+    padding-bottom: 16px;
+  }
+  
+.form-header {
+    text-align: center;
+    margin-bottom: 20px; /* Adjust margin as needed */
+  }
+
+  .divider {
+    border-top: 1px solid #ccc; /* Gray border */
+    margin: 20px 0; /* Adjust margin as needed */
+    width: 100%; /* Full width */
+  }

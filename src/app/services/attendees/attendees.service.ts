@@ -23,4 +23,17 @@ export class AttendeesService {
       throw error;
     });
   }
+
+  getAllAttendeesByEvent(eventId: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection('Attendees', ref => ref.where('Event', '==', eventId)).valueChanges({ idField: 'id' }).subscribe({
+        next: (attendees) => {
+          resolve(attendees);
+        },
+        error: (error) => {
+          reject(error);
+        }
+      });
+    });
+  }
 }

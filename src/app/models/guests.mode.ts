@@ -7,15 +7,12 @@ export interface Guest {
     email: string; // Email address of the doctor
     transfersRequired: boolean;
     accomodationRequired:boolean;
-    flightDetails?: {
-      flightDate: string; // Date of the flight (format: 'YYYY-MM-DD')
-      flightTime: string; // Time of the flight (format: 'HH:MM')
-      connectingFlight: boolean; // Whether the doctor needs a connecting flight
-      transferDetails?: string; // Details about the connecting flight or transfer
-    };
-    dietaryDetails?:{
-        dietary: string;
-        allergies: string; 
-    }
+    flightDate:Date;
+    flightDetails: string;
+    transferFlight: boolean; // Whether the doctor needs a connecting flight
+    transferDetails?: string; // Details about the connecting flight or transfer
+    dietary: string;
+    allergies: string; 
+    accommodation: boolean;
 }
   

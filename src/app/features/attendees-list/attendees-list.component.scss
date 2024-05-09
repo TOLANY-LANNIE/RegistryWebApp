@@ -7,4 +7,10 @@
     color: red; /* Adjust the color as needed */
     background-color: lightgray;
   }
-  
+  .button-container{
+    display: flex;
+    width: 120px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    align-content: start;
+  }

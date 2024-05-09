@@ -43,11 +43,11 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Active Status</mat-label>
-                <mat-select  formControlName="status">
+                <mat-select  formControlName="status"[(ngModel)]="data.Status">
                   <mat-option value=true>Active</mat-option>
                   <mat-option value=false>Inactive</mat-option>
                 </mat-select>
-                <mat-error *ngIf="editEventFormGroup.get('status')?.hasError('required') && editEventFormGroup.get('capacity')?.touched">Active Status is required</mat-error>
+                <mat-error *ngIf="editEventFormGroup.get('status')?.hasError('required') && editEventFormGroup.get('status')?.touched">Active Status is required</mat-error>
               </mat-form-field>
           </div>
     </form>

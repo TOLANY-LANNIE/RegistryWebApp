@@ -23,6 +23,7 @@ import { EditAttendeeComponent } from './modals/edit-attendee/edit-attendee.comp
 import { EditEventComponent } from './modals/edit-event/edit-event.component';
 import { DeleteAlertComponent } from './modals/delete-alert/delete-alert.component';
 import { BreadcrumbsComponent } from './features/breadcrumbs/breadcrumbs.component';
+import { NumberRestricDirective } from './utils/utils';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -50,6 +51,7 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { environment } from '../environment/environment.prod';
 
+
 @NgModule({
   declarations:[
     AppComponent,
@@ -62,7 +64,8 @@ import { environment } from '../environment/environment.prod';
     SendInviteComponent,
     EditEventComponent,
     DeleteAlertComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    NumberRestricDirective 
   ],
   imports:[
     BrowserModule,

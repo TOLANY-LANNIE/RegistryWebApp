@@ -25,8 +25,8 @@ import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.servi
 export class AttendeesListComponent implements AfterViewInit{
 
   displayedColumns = ['Name', 'Surname', 'PracticeNumber','Contact','Email','MoreOptions'];
-  searchString = '';
   dataSource: MatTableDataSource<any>;
+  searchString = '';
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   attendees: Guest[]=[];
@@ -42,8 +42,7 @@ export class AttendeesListComponent implements AfterViewInit{
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  
   }
   ngOnInit(){
     this.route.queryParams.subscribe(params => {
@@ -56,12 +55,14 @@ export class AttendeesListComponent implements AfterViewInit{
       { label: this.event.Title, url: '/Events/'+this.event.Title},
     ];
     this.breadcrumbService.setBreadcrumbs(breadcrumbs);
-    this.loadDoctors()
+    this.loadDoctors();
+    //this.getAttendeesForEvent(this.event.id);
   }
 
   async loadDoctors(): Promise<void> {
     try {
-      this.attendees = await this.service.getAllAttendees();
+      this.attendees = await this.service.getAllAttendeesByEvent(this.event.id);
+      console.log(this.attendees)
       this.dataSource = new MatTableDataSource(this.attendees);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

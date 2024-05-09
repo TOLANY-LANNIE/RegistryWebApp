@@ -51,6 +51,7 @@ export class EventsComponent implements AfterViewInit {
       this.dataSource = new MatTableDataSource(events);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log(this.dataSource.data)
     } catch (error) {
       console.error('Error fetching events:', error);
       // Handle the error appropriately
@@ -82,9 +83,7 @@ export class EventsComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
-      if (result === true) {
         this.getEvents(); // Refresh events data after adding a new event
-      }
     });
   }
 
@@ -125,6 +124,7 @@ export class EventsComponent implements AfterViewInit {
    }
 
    navigateToAttendees(event:any){
+    console.log(event)
     const serializedData = JSON.stringify(event);
     this.router.navigate(['/attendees'], { queryParams: { data: serializedData } });
    }

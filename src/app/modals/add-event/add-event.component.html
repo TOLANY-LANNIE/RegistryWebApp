@@ -34,7 +34,7 @@
               
               <mat-form-field appearance="outline">
                 <mat-label>Capacity</mat-label>
-                <input matInput placeholder="eg. 200" formControlName="capacity">
+                <input matInput placeholder="eg. 200" formControlName="capacity" restrictNumbers>
                 <mat-hint align="end">Only numbers are allowed</mat-hint>
                 <mat-error *ngIf="addEventFormGroup.get('capacity')?.hasError('required') && addEventFormGroup.get('capacity')?.touched">Capacity is required</mat-error>
                 <mat-error *ngIf="addEventFormGroup.get('capacity')?.hasError('pattern') && addEventFormGroup.get('capacity')?.touched">Only numbers are allowed</mat-error>
