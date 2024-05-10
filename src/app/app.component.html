@@ -1,8 +1,8 @@
 <!--LoaderComponent-->
 <app-loader></app-loader>
 
-
- <!--HeaderComponent-->
+<ng-container *ngIf="showHeaderAndSideMenu">
+  <!--HeaderComponent-->
  <mat-toolbar class="mat-elevation-z3" color="primary">
   <button mat-icon-button (click)="collapsed.set(!collapsed())">
     <mat-icon>menu</mat-icon>
@@ -22,3 +22,6 @@
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
+</ng-container>
+<!-- Only display the router outlet without header and side menu for the login page -->
+<router-outlet *ngIf="!showHeaderAndSideMenu"></router-outlet>

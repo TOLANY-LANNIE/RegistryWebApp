@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guest } from '../../models/guests.mode';
 import { DatePipe } from '@angular/common';
 import { AttendeesService } from '../../services/attendees/attendees.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
@@ -27,15 +27,19 @@ export class RegistrationFormComponent implements OnInit {
   flightDetails='';
   transfer: boolean;
   accommodation: boolean;
+  eventId: string;
 
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
     private service: AttendeesService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.eventId = this.route.snapshot.queryParams['eventId'];
+    console.log(this.eventId)
     this.attendeeForm = this.fb.group({
       practiseNumber:['',Validators.required],
       name:['',Validators.required],
@@ -48,7 +52,6 @@ export class RegistrationFormComponent implements OnInit {
       flightDetails: ['', [Validators.required]],
       transfer: ['', [Validators.required]],
       accommodation: ['', [Validators.required]],
-    
     });
   }
 
@@ -70,12 +73,12 @@ export class RegistrationFormComponent implements OnInit {
       FlightDetails: this.attendeeForm.value.flightDetails,
       TransfersRequired:this.attendeeForm.value.transfer,
       AccomodationRequired: this.attendeeForm.value.accommodation,
-      Event:"adBDB7i7Zoansx0ehg9X"
+      Event:this.eventId
     };
 
     this.service.addNewAttendee(guest)
     .then(() => {
-      this.router.navigate(['/thank-you']);
+      this.router.navigate(['/invite/thank-you']);
       console.log('Guest added successfully');
 
     })

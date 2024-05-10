@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Event } from '../../models/event.model';
-import { DatePipe } from '@angular/common';
+import emailjs from '@emailjs/browser';
+import { EmailService } from '../../services/email-service/email-service.service';
+
+
 @Component({
   selector: 'app-send-invite',
   templateUrl: './send-invite.component.html',
   styleUrl: './send-invite.component.scss',
-  providers: [DatePipe] 
 })
 export class SendInviteComponent {
    /**
@@ -32,22 +33,19 @@ export class SendInviteComponent {
       public dialog: MatDialog,
       private service:EventsService,
       private snackBar: MatSnackBar,
-      private datePipe: DatePipe,
-
+      private emailService: EmailService
     ){
 
     }
 
     ngOnInit(): void {
       this.addEventFormGroup= this.fb.group({
-  
-        title: ['', [Validators.required]],
-        date: ['', [Validators.required]],
-        description: ['', [Validators.required]],
-        location: ['', [Validators.required]],
-        capacity: ['', [Validators.required]],
-        status:['', [Validators.required]],
+        name: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
       });
+
+      console.log(this.data)
+      console.log(this.emailService.generateRegistrationLink(this.data.id))
     }
   
 
@@ -55,31 +53,18 @@ export class SendInviteComponent {
 
     }
 
-    onSubmit(): void {
-      // Check if the addEventFormGroup is invalid, if it is, return early
-      if (this.addEventFormGroup.invalid) {
-        return;
-      }
-       // Getting data from the addEventFormGroup
-    const formattedDate = this.datePipe.transform(this.addEventFormGroup.value.date, 'dd/MM/yyyy'); // Format date
-      // Getting data from the addEventFormGroup
-      const event: Event = {
-        Title: this.addEventFormGroup.value.title,
-        Date: formattedDate,
-        Description: this.addEventFormGroup.value.description,
-        Location: this.addEventFormGroup.value.location,
-        Capacity: this.addEventFormGroup.value.capacity,
-        Status: true
-      };
-    
-      try {
-        this.service.addNewEvent(event);
-        console.log('Event added successfully');
-        // Optionally, you can close the dialog or show a success message here
-      } catch (error) {
-        console.error('Error adding event:', error);
-        // Handle error here, show error message or take appropriate action
-      }
+    async sendEmail(){
+      emailjs.init("KDgLZCkmqFbxsdIxR");
+      emailjs.send("service_lp2dh2j","template_7b3s4v1",{
+        to_name: this.addEventFormGroup.value.name,
+        event: this.data.Title,
+        form_url: this.emailService.generateRegistrationLink(this.data.id),
+        from_name: "Registry App",
+        reply_to: "thulani.mpofu2021@gmail.com",
+        send_to: this.addEventFormGroup.value.email,
+        });
+
+      alert("Invitation Sent");
     }
     
 }

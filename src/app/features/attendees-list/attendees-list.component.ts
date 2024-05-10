@@ -9,6 +9,7 @@ import { AttendeesService } from '../../services/attendees/attendees.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.service';
+import { SendInviteComponent } from '../../modals/send-invite/send-invite.component';
 
 @Component({
   selector: 'app-attendees-list',
@@ -88,6 +89,18 @@ export class AttendeesListComponent implements AfterViewInit{
   applyFilter(event: Event) {
    /*  const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase(); */
+  }
+
+  openInviteModal() {
+    const dialogRef = this.dialog.open(SendInviteComponent, {
+      data: this.event,
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   edit(guest:any){

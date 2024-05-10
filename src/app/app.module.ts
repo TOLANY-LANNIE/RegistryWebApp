@@ -25,6 +25,7 @@ import { DeleteAlertComponent } from './modals/delete-alert/delete-alert.compone
 import { BreadcrumbsComponent } from './features/breadcrumbs/breadcrumbs.component';
 import { NumberRestricDirective } from './utils/utils';
 import { ThankyouComponent } from './features/thankyou/thankyou.component';
+import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -67,7 +68,8 @@ import { environment } from '../environment/environment.prod';
     DeleteAlertComponent,
     BreadcrumbsComponent,
     NumberRestricDirective,
-    ThankyouComponent
+    ThankyouComponent,
+   LoginLayoutComponent, 
   ],
   imports:[
     BrowserModule,

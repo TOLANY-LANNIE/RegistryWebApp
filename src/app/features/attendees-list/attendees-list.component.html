@@ -23,7 +23,7 @@
                       </mat-form-field>
                   </div>
                 </div>
-                <button mat-flat-button color="primary" class="btn">
+                <button mat-flat-button color="primary" class="btn" (click)=" openInviteModal()">
                   <mat-icon>mail</mat-icon>
                   Invite Guest
                 </button>
@@ -63,16 +63,16 @@
             </ng-container>
 
             <!-- MoreOptions Column -->
-            <ng-container matColumnDef="MoreOptions">
+           <ng-container matColumnDef="MoreOptions">
               <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
               <mat-cell *matCellDef="let element"> 
-                <button mat-icon-button (click)="edit(element)" title="Edit">
+               <!--  <button mat-icon-button (click)="edit(element)" title="Edit">
                   <mat-icon color="primary">edit</mat-icon>
+                </button> -->
+                <button mat-icon-button (click)="delete(element)" title="Details">
+                  <mat-icon color="primary">details</mat-icon>
                 </button>
-                <button mat-icon-button (click)="delete(element)" title="Delete">
-                  <mat-icon color="warn">delete</mat-icon>
-                </button>
-              </mat-cell>
+              </mat-cell> 
               
             </ng-container>
           
