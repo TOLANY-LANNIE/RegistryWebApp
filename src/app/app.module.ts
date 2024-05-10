@@ -24,6 +24,7 @@ import { EditEventComponent } from './modals/edit-event/edit-event.component';
 import { DeleteAlertComponent } from './modals/delete-alert/delete-alert.component';
 import { BreadcrumbsComponent } from './features/breadcrumbs/breadcrumbs.component';
 import { NumberRestricDirective } from './utils/utils';
+import { ThankyouComponent } from './features/thankyou/thankyou.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -65,7 +66,8 @@ import { environment } from '../environment/environment.prod';
     EditEventComponent,
     DeleteAlertComponent,
     BreadcrumbsComponent,
-    NumberRestricDirective 
+    NumberRestricDirective,
+    ThankyouComponent
   ],
   imports:[
     BrowserModule,
