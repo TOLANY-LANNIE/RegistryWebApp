@@ -65,12 +65,15 @@
             <!-- MoreOptions Column -->
            <ng-container matColumnDef="MoreOptions">
               <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
-              <mat-cell *matCellDef="let element"> 
-               <!--  <button mat-icon-button (click)="edit(element)" title="Edit">
+              <mat-cell *matCellDef="let element">
+                <button mat-icon-button title="Details">
+                  <mat-icon color="primary">info</mat-icon>
+                </button> 
+                <button mat-icon-button title="Edit">
                   <mat-icon color="primary">edit</mat-icon>
-                </button> -->
-                <button mat-icon-button (click)="delete(element)" title="Details">
-                  <mat-icon color="primary">details</mat-icon>
+                </button>
+                <button mat-icon-button title="Delete">
+                  <mat-icon color="warn">delete</mat-icon>
                 </button>
               </mat-cell> 
               

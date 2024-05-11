@@ -29,8 +29,9 @@
               <!-- Title Column -->
               <ng-container matColumnDef="Title">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-                <mat-cell *matCellDef="let element" (click)="navigateToAttendees(element)"> {{ element.Title }} </mat-cell>
+                <mat-cell *matCellDef="let element" class="clickable-cell" (click)="navigateToAttendees(element)"> {{ element.Title }} </mat-cell>
               </ng-container>
+              
               
             
               <!-- Date Column -->
@@ -62,6 +63,9 @@
             <ng-container matColumnDef="MoreOptions">
               <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
               <mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="viewDetails(element)" title="Details">
+                  <mat-icon color="primary">info</mat-icon>
+                </button>
                 <button mat-icon-button (click)=" openEditDialog(element)" title="Edit">
                   <mat-icon color="primary">edit</mat-icon>
                 </button>

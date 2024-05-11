@@ -123,6 +123,10 @@ export class EventsComponent implements AfterViewInit {
     });
    }
 
+   viewDetails(event:any){
+
+   }
+
    navigateToAttendees(event:any){
     console.log(event)
     const serializedData = JSON.stringify(event);
