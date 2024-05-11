@@ -1,0 +1,14 @@
+:host * {
+  transition: all 500ms ease-in-out;
+}
+
+.selected-menu-item {
+  border-left-color: #3F51B5 !important;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.menu-item {
+  border-left: 5px solid;
+  border-left-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+}/*# sourceMappingURL=side-menu.component.css.map */

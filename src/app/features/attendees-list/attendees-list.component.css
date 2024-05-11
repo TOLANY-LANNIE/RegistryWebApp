@@ -1,0 +1,62 @@
+.container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+h3 {
+  color: #332f2f;
+  font-weight: bold;
+  font-style: oblique;
+}
+
+mat-table {
+  width: 100%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.parent-div {
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.parent-div .search-dive .search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.parent-div .search-dive .search-bar .search-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.parent-div .search-dive .btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.no-attendees-message {
+  text-align: left;
+  padding: 20px;
+  font-size: 1.2em;
+  color: red; /* Adjust the color as needed */
+  background-color: lightgray;
+}
+
+.button-container {
+  display: flex;
+  width: 120px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  align-content: start;
+}/*# sourceMappingURL=attendees-list.component.css.map */
