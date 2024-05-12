@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environment/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,6 @@ export class EmailService {
     // Convert URL tree to string
     const url = this.router.serializeUrl(urlTree);
 
-    return 'http://localhost:4200'+url;
+    return environment.baseurl+url;
   }
 }
