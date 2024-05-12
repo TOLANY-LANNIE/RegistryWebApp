@@ -1,5 +1,5 @@
 [build]
-base ="registry-app"
+base ="registry-demo"
 command = "ng build --configuration production"
 publish ="dist/browser"
 
