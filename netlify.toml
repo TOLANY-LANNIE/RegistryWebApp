@@ -1,9 +1,0 @@
-[build]
-base ="registrydemo"
-command = "ng build --configuration production"
-publish ="dist/browser"
-
-[[redirects]]
-from ="/*"
-to ="/index.html"
-status =200
