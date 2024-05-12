@@ -99,9 +99,7 @@ export class EventsComponent implements AfterViewInit {
   });
   dialogRef.afterClosed().subscribe(result => {
      console.log(`Dialog result: ${result}`);
-    if (result) {
      this.getEvents(); // Refresh events data after adding a new event
-    }
   });
    }
    /**
@@ -116,10 +114,7 @@ export class EventsComponent implements AfterViewInit {
       width: '500px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      //console.log(`Dialog result: ${result}`);
-      if (result === true) {
-        this.getEvents(); // Refresh events data after adding a new event
-      }
+      this.getEvents(); // Refresh events data after adding a new event
     });
    }
 

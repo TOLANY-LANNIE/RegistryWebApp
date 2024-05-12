@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject,ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
@@ -10,7 +10,8 @@ import { DatePipe } from '@angular/common';
   selector: 'app-add-event',
   templateUrl: './add-event.component.html',
   styleUrl: './add-event.component.scss',
-  providers: [DatePipe] 
+  providers: [DatePipe] ,
+  encapsulation: ViewEncapsulation.None,
 })
 export class AddEventComponent {
    /**
@@ -57,14 +58,12 @@ export class AddEventComponent {
 
      }
 
-    onSubmit(): void {
-      // Check if the addEventFormGroup is invalid, if it is, return early
+     onSubmit(): void {
       if (this.addEventFormGroup.invalid) {
         return;
       }
-       // Getting data from the addEventFormGroup
-    const formattedDate = this.datePipe.transform(this.addEventFormGroup.value.date, 'dd/MM/yyyy'); // Format date
-      // Getting data from the addEventFormGroup
+    
+      const formattedDate = this.datePipe.transform(this.addEventFormGroup.value.date, 'dd/MM/yyyy');
       const event: Event = {
         Title: this.addEventFormGroup.value.title,
         Date: formattedDate,
@@ -76,11 +75,16 @@ export class AddEventComponent {
     
       try {
         this.service.addNewEvent(event);
-        console.log('Event added successfully');
-        // Optionally, you can close the dialog or show a success message here
+        this.snackBar.open('Event added successfully', 'Close', {
+          duration: 2000, // Duration in milliseconds
+          panelClass: 'snackbar'
+        });
       } catch (error) {
         console.error('Error adding event:', error);
-        // Handle error here, show error message or take appropriate action
+        this.snackBar.open('Error adding event', 'Close', {
+          duration: 2000, // Duration in milliseconds
+          panelClass:'red-snackbar'
+        });
       }
     }
     
