@@ -17,13 +17,15 @@ import {
   MatDialogTitle,
   MatDialogContent,
 } from '@angular/material/dialog';
+import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
+
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['Title', 'Date', 'Location', 'Capacity','Status','MoreOptions'];
+  displayedColumns: string[] = ['Title', 'Date', 'Location', 'Capacity', 'Status', 'MoreOptions'];
   dataSource: MatTableDataSource<any>;
   searchString = '';
   panelOpenState = false;
@@ -83,29 +85,29 @@ export class EventsComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
-        this.getEvents(); // Refresh events data after adding a new event
+      this.getEvents(); // Refresh events data after adding a new event
     });
   }
 
    /**
    * open the "Delete Alert" dialog
    */
-   openDeleteAlert(enterAnimationDuration: string, exitAnimationDuration: string, event:any){
-   const dialogRef = this.dialog.open(DeleteAlertComponent, {
-    data:event,
-    enterAnimationDuration,
-    exitAnimationDuration,
-    width: '250px',
-  });
-  dialogRef.afterClosed().subscribe(result => {
-     console.log(`Dialog result: ${result}`);
-     this.getEvents(); // Refresh events data after adding a new event
-  });
-   }
-   /**
-    * opens the 'Edit Attendee' dialog
-    */
-   openEditDialog(event:any){
+  openDeleteAlert(enterAnimationDuration: string, exitAnimationDuration: string, event:any){
+    const dialogRef = this.dialog.open(DeleteAlertComponent, {
+      data:event,
+      enterAnimationDuration,
+      exitAnimationDuration,
+      width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getEvents(); // Refresh events data after adding a new event
+    });
+  }
+
+  /**
+   * opens the 'Edit Attendee' dialog
+   */
+  openEditDialog(event:any){
     //console.log(event);
     const dialogRef = this.dialog.open(EditEventComponent, {
       data:event,
@@ -116,15 +118,28 @@ export class EventsComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getEvents(); // Refresh events data after adding a new event
     });
-   }
+  }
 
-   viewDetails(event:any){
+  viewDetails(event:any){
+    //console.log(event);
+    const dialogRef = this.dialog.open(EventDetailsComponent, {
+      data:event,
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getEvents(); // Refresh events data after adding a new event
+    });
+  }
 
-   }
-
-   navigateToAttendees(event:any){
+  navigateToAttendees(event:any){
     console.log(event)
     const serializedData = JSON.stringify(event);
     this.router.navigate(['/attendees'], { queryParams: { data: serializedData } });
-   }
+  }
+
+  getBadgeColor(status: boolean): string {
+    return status ? '#00E676' : '#F57C00';
+  }
 }

@@ -43,13 +43,14 @@
               
               <mat-form-field appearance="outline">
                 <mat-label>Active Status</mat-label>
-                <mat-select  formControlName="status">
-                  <mat-option value=true>Active</mat-option>
-                  <mat-option value=false>Inactive</mat-option>
+                <mat-select formControlName="status">
+                  <mat-option [value]="true">Active</mat-option>
+                  <mat-option [value]="false">Inactive</mat-option>
                 </mat-select>
-                <mat-error *ngIf="addEventFormGroup.get('status')?.hasError('required') && addEventFormGroup.get('capacity')?.touched">Active Status is required</mat-error>
-              </mat-form-field>
-              
+                <mat-error *ngIf="addEventFormGroup.get('status')?.hasError('required') && addEventFormGroup.get('status')?.touched">
+                  Active Status is required
+                </mat-error>
+              </mat-form-field>              
           </div>
     </form>
 </mat-dialog-content>

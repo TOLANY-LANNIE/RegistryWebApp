@@ -62,8 +62,9 @@ export class EditEventComponent {
     if (this.editEventFormGroup.invalid) {
       return;
     }
-     // Getting data from the editEventFormGroup
-  const formattedDate = this.datePipe.transform(this.editEventFormGroup.value.date, 'dd/MM/yyyy'); // Format date
+  
+    // Getting data from the editEventFormGroup
+    const formattedDate = this.datePipe.transform(this.editEventFormGroup.value.date, 'dd/MM/yyyy'); // Format date
     // Getting data from the editEventFormGroup
     const event: Event = {
       Title: this.editEventFormGroup.value.title,
@@ -71,17 +72,22 @@ export class EditEventComponent {
       Description: this.editEventFormGroup.value.description,
       Location: this.editEventFormGroup.value.location,
       Capacity: this.editEventFormGroup.value.capacity,
-      Status: this.editEventFormGroup.value.status
+      Status: JSON.parse(this.editEventFormGroup.value.status)
     };
-
+  
     this.service.updateEvent(this.data.id, event)
-    .then(() => {
-      console.log('Event updated successfully');
-    })
-    .catch(error => {
-      console.error('Error updating event:', error);
-      // Optionally, you can handle the error here, such as displaying a message to the user
-    });
+      .then(() => {
+        this.snackBar.open('Event updated successfully', 'Close', {
+          duration: 2000, // Duration in milliseconds
+        });
+      })
+      .catch(error => {
+        this.snackBar.open('Error updating event', 'Close', {
+          duration: 2000, // Duration in milliseconds
+        });
+        //console.error('Error updating event:', error);
+        // Optionally, you can handle the error here, such as displaying a message to the user
+      });
   }
   
 }

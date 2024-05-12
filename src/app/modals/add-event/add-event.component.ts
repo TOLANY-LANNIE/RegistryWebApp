@@ -70,9 +70,9 @@ export class AddEventComponent {
         Description: this.addEventFormGroup.value.description,
         Location: this.addEventFormGroup.value.location,
         Capacity: this.addEventFormGroup.value.capacity,
-        Status: true
+        Status: this.addEventFormGroup.value.status,
       };
-    
+      console.log(this.addEventFormGroup.value.status)    
       try {
         this.service.addNewEvent(event);
         this.snackBar.open('Event added successfully', 'Close', {

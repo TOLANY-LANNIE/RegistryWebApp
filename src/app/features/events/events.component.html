@@ -54,11 +54,14 @@
 
               <!-- Status Column -->
               <ng-container matColumnDef="Status">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.Status ? 'Active' : 'Inactive' }} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="badge" [style.background-color]="getBadgeColor(element.Status)">
+                    {{ element.Status ? 'Active' : 'Inactive' }}
+                  </span>
+                </mat-cell>
               </ng-container>
-              
-
+      
                <!-- MoreOptions Column -->
             <ng-container matColumnDef="MoreOptions">
               <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>

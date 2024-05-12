@@ -1,1 +1,20 @@
-<p>event-details works!</p>
+<h2 mat-dialog-title class="event-title">{{data.Title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="event-date">
+    <strong>Date:</strong> {{data.Date}}
+  </div>
+  <br>
+  <div class="event-description">
+    <strong>Description:</strong> {{data.Description}}
+  </div>
+  <br>
+  <div class="event-location">
+    <strong>Location:</strong> {{data.Location}}
+  </div>
+  <div class="event-location">
+    <strong>Expected Number of Guests:</strong> {{data.Capacity}}
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Close</button>
+</mat-dialog-actions>
