@@ -4,6 +4,7 @@ import { Guest } from '../../models/guests.mode';
 import { DatePipe } from '@angular/common';
 import { AttendeesService } from '../../services/attendees/attendees.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
@@ -35,6 +36,7 @@ export class RegistrationFormComponent implements OnInit {
     private service: AttendeesService,
     private router: Router,
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -79,12 +81,17 @@ export class RegistrationFormComponent implements OnInit {
     this.service.addNewAttendee(guest)
     .then(() => {
       this.router.navigate(['/invite/thank-you']);
-      console.log('Guest added successfully');
-
+      this.snackBar.open('Form submitted successfully', 'Close', {
+        duration: 2000, // Duration in milliseconds
+        panelClass: 'snackbar'
+      });
     })
     .catch(error => {
-      console.error('Error adding guest', error);
-      // Optionally, you can handle the error here, such as displaying a message to the user
+      //console.error('Error adding guest', error);
+      this.snackBar.open('Failed to submit form', 'Close', {
+        duration: 2000, // Duration in milliseconds
+        panelClass: 'snackbar'
+      });
     });
   }
 }
