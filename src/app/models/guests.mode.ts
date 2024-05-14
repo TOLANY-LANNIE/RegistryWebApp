@@ -6,7 +6,7 @@ export interface Guest {
     Email: string; // Email address of the doctor
     TransfersRequired: string;
     AccomodationRequired:string;
-    FlightDate:Date;
+    FlightDate:any;
     FlightDetails: string;
     Dietary: string;
     Allergies: string; 

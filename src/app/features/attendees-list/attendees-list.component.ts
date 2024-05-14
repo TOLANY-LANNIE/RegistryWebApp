@@ -10,6 +10,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.service';
 import { SendInviteComponent } from '../../modals/send-invite/send-invite.component';
+import { AttendeeDetailsComponent } from '../../modals/attendee-details/attendee-details.component';
 
 @Component({
   selector: 'app-attendees-list',
@@ -109,6 +110,18 @@ export class AttendeesListComponent implements AfterViewInit{
   
   delete(guest:any){
 
+  }
+
+  viewDetails(event:any){
+    //console.log(event);
+    const dialogRef = this.dialog.open(AttendeeDetailsComponent, {
+      data:event,
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }
 

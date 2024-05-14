@@ -67,12 +67,12 @@
             <mat-form-field appearance="outline">
                 <mat-label>Dietary Preferences</mat-label>
                 <mat-select formControlName="dietaryPreference" [(ngModel)]="dietaryPreference" >
-                  <mat-option value="vegetarian">Vegetarian</mat-option>
-                  <mat-option value="vegan">Vegan</mat-option>
-                  <mat-option value="pescatarian">Pescatarian</mat-option>
-                  <mat-option value="gluten-free">Gluten-Free</mat-option>
-                  <mat-option value="dairy-free">Dairy-Free</mat-option>
-                  <mat-option value="nut-free">Nut-Free</mat-option>
+                  <mat-option value="Vegetarian">Vegetarian</mat-option>
+                  <mat-option value="Vegan">Vegan</mat-option>
+                  <mat-option value="Pescatarian">Pescatarian</mat-option>
+                  <mat-option value="Gluten-free">Gluten-Free</mat-option>
+                  <mat-option value="Dairy-free">Dairy-Free</mat-option>
+                  <mat-option value="Nut-free">Nut-Free</mat-option>
                 </mat-select>
                 <mat-icon matSuffix color="primary"></mat-icon>
                 <mat-error *ngIf="attendeeForm.get('dietaryPreference')?.hasError('required') && attendeeForm.get('dietaryPreference')?.touched">

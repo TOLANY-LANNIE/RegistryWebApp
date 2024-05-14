@@ -62,7 +62,7 @@ export class RegistrationFormComponent implements OnInit {
       return
     } 
     // Getting data from the addEventFormGroup
-    const formattedDate = this.datePipe.transform(this.attendeeForm.value.date, 'dd/MM/yyyy'); // Format date
+    const formattedDate = this.datePipe.transform(this.attendeeForm.value.flightDate, 'dd/MM/yyyy'); // Format date
     const guest:Guest = {
       PracticeNumber:this.attendeeForm.value.practiseNumber,
       Name:this.attendeeForm.value.name,
@@ -71,7 +71,7 @@ export class RegistrationFormComponent implements OnInit {
       Email:this.attendeeForm.value.email,
       Dietary: this.attendeeForm.value.dietaryPreference,
       Allergies: this.attendeeForm.value.allergies,
-      FlightDate:this.attendeeForm.value.flightDate,
+      FlightDate:formattedDate,
       FlightDetails: this.attendeeForm.value.flightDetails,
       TransfersRequired:this.attendeeForm.value.transfer,
       AccomodationRequired: this.attendeeForm.value.accommodation,

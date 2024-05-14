@@ -66,7 +66,7 @@
            <ng-container matColumnDef="MoreOptions">
               <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <button mat-icon-button title="Details">
+                <button mat-icon-button (click)="viewDetails(element)"  title="Details">
                   <mat-icon color="primary">info</mat-icon>
                 </button> 
                 <button mat-icon-button title="Edit">
