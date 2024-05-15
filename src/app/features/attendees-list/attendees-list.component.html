@@ -23,7 +23,7 @@
                       </mat-form-field>
                   </div>
                 </div>
-                <button mat-flat-button color="primary" class="btn" (click)=" openInviteModal()">
+                <button mat-flat-button color="primary" class="btn" (click)="openInviteModal()" [disabled]="!event.Status">
                   <mat-icon>mail</mat-icon>
                   Invite Guest
                 </button>
@@ -69,9 +69,6 @@
                 <button mat-icon-button (click)="viewDetails(element)"  title="Details">
                   <mat-icon color="primary">info</mat-icon>
                 </button> 
-                <button mat-icon-button title="Edit">
-                  <mat-icon color="primary">edit</mat-icon>
-                </button>
                 <button mat-icon-button title="Delete">
                   <mat-icon color="warn">delete</mat-icon>
                 </button>

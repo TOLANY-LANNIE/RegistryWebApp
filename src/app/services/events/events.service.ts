@@ -31,7 +31,7 @@ export class EventsService {
     return this.db.doc(`Events/${eventId}`).update(eventData);
   }
 
-  deleteEvent(eventId: string): Promise<void> {
+  delete(eventId: string): Promise<void> {
     return this.db.collection('Events').doc(eventId).delete();
   }
 

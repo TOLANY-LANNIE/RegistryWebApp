@@ -22,7 +22,7 @@ export class DeleteAlertComponent {
   }
 
   onDelete(){
-    this.service.deleteEvent(this.data.id)
+    this.service.delete(this.data.id)
     .then(() => {
       this.snackBar.open('Event deleted successfully', 'Close', { duration: 3000 });
       // Optionally, update your UI or reload data

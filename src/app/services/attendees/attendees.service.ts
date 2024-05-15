@@ -36,4 +36,10 @@ export class AttendeesService {
       });
     });
   }
+  /**
+  * fun* for deleting attendees from the Guests Collection
+  */
+  delete(eventId: string): Promise<void> {
+    return this.db.collection('Attendees').doc(eventId).delete();
+  }
 }

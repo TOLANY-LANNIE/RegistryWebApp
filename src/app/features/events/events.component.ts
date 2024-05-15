@@ -92,11 +92,9 @@ export class EventsComponent implements AfterViewInit {
    /**
    * open the "Delete Alert" dialog
    */
-  openDeleteAlert(enterAnimationDuration: string, exitAnimationDuration: string, event:any){
+  openDeleteAlert(event:any){
     const dialogRef = this.dialog.open(DeleteAlertComponent, {
       data:event,
-      enterAnimationDuration,
-      exitAnimationDuration,
       width: '250px',
     });
     dialogRef.afterClosed().subscribe(result => {
