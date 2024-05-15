@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.service';
 import { SendInviteComponent } from '../../modals/send-invite/send-invite.component';
 import { AttendeeDetailsComponent } from '../../modals/attendee-details/attendee-details.component';
+import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.component';
 
 @Component({
   selector: 'app-attendees-list',
@@ -108,8 +109,14 @@ export class AttendeesListComponent implements AfterViewInit{
 
   }
   
-  delete(guest:any){
-
+  deleteGuest(guest:any){
+    const dialogRef = this.dialog.open(DeleteGuestComponent, {
+      data:guest,
+      width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadDoctors(); // Refresh events data after deleting attendee
+    });
   }
 
   viewDetails(event:any){

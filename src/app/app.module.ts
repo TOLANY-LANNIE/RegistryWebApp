@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
 import { SendInviteComponent } from './modals/send-invite/send-invite.component';
+import {DeleteGuestComponent} from  './modals/delete-guest/delete-guest.component'
 
 import { AppComponent } from './app.component';
 import { AttendeesListComponent } from './features/attendees-list/attendees-list.component';
@@ -74,7 +75,7 @@ import { environment } from '../environment/environment.prod';
    LoginLayoutComponent,
    EventDetailsComponent,
    AttendeeDetailsComponent,
-   
+   DeleteGuestComponent
   ],
   imports:[
     BrowserModule,

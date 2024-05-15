@@ -9,14 +9,7 @@ import { Sort } from '@angular/material/sort';
 import { EditEventComponent } from '../../modals/edit-event/edit-event.component';
 import { DeleteAlertComponent } from '../../modals/delete-alert/delete-alert.component';
 import { Router } from '@angular/router';
-import {
-  MatDialog,
-  MatDialogRef,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogTitle,
-  MatDialogContent,
-} from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
 
 @Component({
