@@ -29,6 +29,7 @@ import { ThankyouComponent } from './features/thankyou/thankyou.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { EventDetailsComponent } from './modals/event-details/event-details.component';
 import { AttendeeDetailsComponent } from './modals/attendee-details/attendee-details.component';
+import { EventCardComponent } from './features/event-card/event-card.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -75,7 +76,8 @@ import { environment } from '../environment/environment.prod';
    LoginLayoutComponent,
    EventDetailsComponent,
    AttendeeDetailsComponent,
-   DeleteGuestComponent
+   DeleteGuestComponent,
+   EventCardComponent
   ],
   imports:[
     BrowserModule,
