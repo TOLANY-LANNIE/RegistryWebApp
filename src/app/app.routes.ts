@@ -5,6 +5,7 @@ import { RegistrationFormComponent } from './features/registration-form/registra
 import { EventsComponent } from './features/events/events.component';
 import { ThankyouComponent } from './features/thankyou/thankyou.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+import { EventsBoardComponent } from './features/events-board/events-board.component';
 const routes: Routes = [
     {
         path: 'invite',
@@ -12,6 +13,7 @@ const routes: Routes = [
         children: [
         {path: 'registration', component: RegistrationFormComponent},
         { path: 'thank-you', component: ThankyouComponent },
+        { path: 'events-board', component: EventsBoardComponent },
         ]
     },
     {path: 'attendees', component:AttendeesListComponent},

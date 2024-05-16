@@ -11,7 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
 import { SendInviteComponent } from './modals/send-invite/send-invite.component';
-import {DeleteGuestComponent} from  './modals/delete-guest/delete-guest.component'
+import {DeleteGuestComponent} from  './modals/delete-guest/delete-guest.component';
+import { EventsBoardComponent } from './features/events-board/events-board.component';
 
 import { AppComponent } from './app.component';
 import { AttendeesListComponent } from './features/attendees-list/attendees-list.component';
@@ -73,11 +74,12 @@ import { environment } from '../environment/environment.prod';
     BreadcrumbsComponent,
     NumberRestricDirective,
     ThankyouComponent,
-   LoginLayoutComponent,
-   EventDetailsComponent,
-   AttendeeDetailsComponent,
-   DeleteGuestComponent,
-   EventCardComponent
+    LoginLayoutComponent,
+    EventDetailsComponent,
+    AttendeeDetailsComponent,
+    DeleteGuestComponent,
+    EventCardComponent,
+    EventsBoardComponent
   ],
   imports:[
     BrowserModule,

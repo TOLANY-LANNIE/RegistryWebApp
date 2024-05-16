@@ -1,0 +1,10 @@
+<mat-toolbar class="mat-elevation-z3" color="primary">
+    <div class="navbar-brand">
+        <h2>Events Registry App</h2>
+    </div>
+    <span class="header-spacer"></span>
+  </mat-toolbar>
+<div class="container responsive-grid">
+    <app-event-card *ngFor="let card of events" [card]="card"></app-event-card>
+</div>
+  

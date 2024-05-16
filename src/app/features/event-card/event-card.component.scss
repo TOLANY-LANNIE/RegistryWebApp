@@ -1,9 +1,16 @@
 .card {
-    width: 240px; /* Adjust the card width as needed */
-    border-radius: 8px;
+    width: 280px; /* Adjust the card width as needed */
     margin-bottom: 16px;
   }
   
+  .title-container {
+    margin-bottom: 8px; /* Add space below the title */
+    overflow: hidden; /* Hide overflow content */
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
+    max-width: 200px; /* Set maximum width to limit the displayed text */
+  }
+
   .image-container {
     width: 100%; /* Ensure the container takes the full width of the card */
     overflow: hidden; /* Hide any overflow content */
@@ -11,15 +18,19 @@
   
   .mat-card-image {
     width: 100%; /* Make the image fill the entire width of its container */
-    height: auto; /* Maintain aspect ratio */
+    height: 158px; /* Maintain aspect ratio */
+    object-fit: cover;
   }
   
   .location-container {
     display: flex; /* Use Flexbox */
     align-items: center; /* Align items vertically in the center */
+    padding-bottom: 8px;
   }
   
   .location-container mat-icon {
     margin-right: 8px; /* Add some space between the icon and the text */
+    flex-shrink: 0;
   }
+  
 

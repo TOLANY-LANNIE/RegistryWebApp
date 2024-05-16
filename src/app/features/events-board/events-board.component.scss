@@ -1,0 +1,15 @@
+.container{
+    padding: 24px;
+    align-items: center;
+}
+
+.header-spacer {
+    flex: 1 1 auto;
+  }
+.responsive-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+    gap: 24px;
+}
+
+  
