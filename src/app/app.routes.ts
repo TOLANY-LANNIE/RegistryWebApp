@@ -18,7 +18,7 @@ const routes: Routes = [
     },
     {path: 'attendees', component:AttendeesListComponent},
     {path: 'events', component:EventsComponent},
-    {path:'', redirectTo:'/events', pathMatch:'full'}
+    {path:'', redirectTo:'/invite/events-board', pathMatch:'full'}
 ];
 
 @NgModule({
