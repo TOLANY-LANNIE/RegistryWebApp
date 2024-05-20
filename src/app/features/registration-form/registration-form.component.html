@@ -54,15 +54,20 @@
   
             <div class="input-container">
               <mat-form-field appearance="outline">
-                  <mat-label>Contant Number</mat-label>
-                  <input matInput 
-                         placeholder="Contact"
-                         formControlName="contact"
-                         [(ngModel)]="contact"
-                         type="tel">
-                  <mat-icon matSuffix color="primary">phone</mat-icon> 
-                  <mat-error *ngIf="attendeeForm.get('contact')?.invalid && attendeeForm.get('contact')?.touched">Contact Number is required</mat-error>
-                </mat-form-field>   
+                <mat-label>Contact Number</mat-label>
+                <input matInput
+                       placeholder="012-345-6789"
+                       formControlName="contact"
+                       type="tel"
+                       appPhoneNumberFormatter
+                       restrictNumbers>
+                <mat-icon matSuffix color="primary">phone</mat-icon>
+                <mat-error *ngIf="contact?.invalid && contact?.touched">
+                  <ng-container *ngIf="contact?.errors?.required">Contact Number is required</ng-container>
+                  <ng-container *ngIf="contact?.errors?.pattern">Invalid contact number format. Use 060-582-2615</ng-container>
+                </mat-error>
+              </mat-form-field>
+              
     
                 <mat-form-field appearance="outline">
                   <mat-label>Email</mat-label>

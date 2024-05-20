@@ -10,9 +10,6 @@ import { GlobalInterceptor } from './interceptors/http.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
-import { SendInviteComponent } from './modals/send-invite/send-invite.component';
-import {DeleteGuestComponent} from  './modals/delete-guest/delete-guest.component';
-import { EventsBoardComponent } from './features/events-board/events-board.component';
 
 import { AppComponent } from './app.component';
 import { AttendeesListComponent } from './features/attendees-list/attendees-list.component';
@@ -31,6 +28,10 @@ import { LoginLayoutComponent } from './layout/login-layout/login-layout.compone
 import { EventDetailsComponent } from './modals/event-details/event-details.component';
 import { AttendeeDetailsComponent } from './modals/attendee-details/attendee-details.component';
 import { EventCardComponent } from './features/event-card/event-card.component';
+import { SendInviteComponent } from './modals/send-invite/send-invite.component';
+import {DeleteGuestComponent} from  './modals/delete-guest/delete-guest.component';
+import { EventsBoardComponent } from './features/events-board/events-board.component';
+import { PhoneNumberFormatterDirective } from './utils/phoneNumber-directive';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -79,7 +80,8 @@ import { environment } from '../environment/environment.prod';
     AttendeeDetailsComponent,
     DeleteGuestComponent,
     EventCardComponent,
-    EventsBoardComponent
+    EventsBoardComponent,
+    PhoneNumberFormatterDirective
   ],
   imports:[
     BrowserModule,

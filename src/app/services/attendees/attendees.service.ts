@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, } from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Guest } from '../../models/guests.mode';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AttendeesService {
 
-  constructor(private db:AngularFirestore) { }
+  constructor(private db: AngularFirestore) { }
 
   getAllAttendees() {
-    return new Promise<any>((resolve)=> {
+    return new Promise<any>((resolve) => {
       this.db.collection('Attendees').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
-    })
+    });
   }
-  addNewAttendee(guest:Guest): Promise<void> {
+
+  addNewAttendee(guest: Guest): Promise<void> {
     return this.db.collection('Attendees').add(guest).then(() => {
-      console.log('Doctor added successfully');
+      console.log('Guest added successfully');
     }).catch(error => {
-      console.error('Error adding doctor:', error);
+      console.error('Error adding guest:', error);
       throw error;
     });
   }
@@ -36,10 +36,27 @@ export class AttendeesService {
       });
     });
   }
-  /**
-  * fun* for deleting attendees from the Guests Collection
-  */
+
   delete(eventId: string): Promise<void> {
     return this.db.collection('Attendees').doc(eventId).delete();
+  }
+
+  checkGuestExists(practiceNumber: string, contact: string, email: string, eventId: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.db.collection('Attendees', ref => ref
+        .where('PracticeNumber', '==', practiceNumber)
+        .where('Contact', '==', contact)
+        .where('Email', '==', email)
+        .where('Event', '==', eventId)
+      ).get().subscribe(snapshot => {
+        if (snapshot.empty) {
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      }, error => {
+        reject(error);
+      });
+    });
   }
 }
