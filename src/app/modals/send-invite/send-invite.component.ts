@@ -58,7 +58,7 @@ export class SendInviteComponent {
       emailjs.send("service_lp2dh2j","template_7b3s4v1",{
         to_name: this.addEventFormGroup.value.name,
         event: this.data.Title,
-        form_url: this.emailService.generateRegistrationLink(this.data.id),
+        form_url: "http://localhost:4200/invite/events-board",
         from_name: "Registry App",
         reply_to: "thulani.mpofu2021@gmail.com",
         send_to: this.addEventFormGroup.value.email,
