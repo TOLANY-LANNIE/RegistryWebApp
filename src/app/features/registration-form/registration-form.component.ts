@@ -53,39 +53,53 @@ flightDetails: any;
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.attendeeForm.invalid) {
       return;
-    } 
-    const formattedDate = this.datePipe.transform(this.attendeeForm.value.flightDate, 'dd/MM/yyyy'); // Format date
-    const guest = {
-      PracticeNumber: this.attendeeForm.value.practiseNumber,
-      Name: this.attendeeForm.value.name,
-      Surname: this.attendeeForm.value.surname,
-      Contact: this.attendeeForm.value.contact,
-      Email: this.attendeeForm.value.email,
-      Dietary: this.attendeeForm.value.dietaryPreference,
-      Allergies: this.attendeeForm.value.allergies,
-      FlightDate: formattedDate,
-      FlightDetails: this.attendeeForm.value.flightDetails,
-      TransfersRequired: this.attendeeForm.value.transfer,
-      AccomodationRequired: this.attendeeForm.value.accommodation,
-      Event: this.eventId
-    };
+    }
 
-    this.service.addNewAttendee(guest)
-      .then(() => {
-        this.router.navigate(['/invite/thank-you']);
-        this.snackBar.open('Form submitted successfully', 'Close', {
-          duration: 2000,
+    const practiceNumber = this.attendeeForm.value.practiseNumber;
+    const contact = this.attendeeForm.value.contact;
+    const email = this.attendeeForm.value.email;
+
+    try {
+      const guestExists = await this.service.checkGuestExists(practiceNumber, contact, email, this.eventId);
+      if (guestExists) {
+        this.snackBar.open('Guest with the same practice number, contact, or email is already registered for this event.', 'Close', {
+          duration: 3000,
           panelClass: 'snackbar'
         });
-      })
-      .catch(error => {
-        this.snackBar.open('Failed to submit form', 'Close', {
-          duration: 2000,
-          panelClass: 'snackbar'
-        });
+        return;
+      }
+
+      const formattedDate = this.datePipe.transform(this.attendeeForm.value.flightDate, 'dd/MM/yyyy');
+      const guest= {
+        PracticeNumber: practiceNumber,
+        Name: this.attendeeForm.value.name,
+        Surname: this.attendeeForm.value.surname,
+        Contact: contact,
+        Email: email,
+        Dietary: this.attendeeForm.value.dietaryPreference,
+        Allergies: this.attendeeForm.value.allergies,
+        FlightDate: formattedDate,
+        FlightDetails: this.attendeeForm.value.flightDetails,
+        TransfersRequired: this.attendeeForm.value.transfer,
+        AccomodationRequired: this.attendeeForm.value.accommodation,
+        Event: this.eventId
+      };
+
+      await this.service.addNewAttendee(guest);
+      this.router.navigate(['/invite/thank-you']);
+      this.snackBar.open('Form submitted successfully', 'Close', {
+        duration: 2000,
+        panelClass: 'snackbar'
       });
+
+    } catch (error) {
+      this.snackBar.open('Failed to submit form. Please try again later.', 'Close', {
+        duration: 2000,
+        panelClass: 'snackbar'
+      });
+    }
   }
 }
