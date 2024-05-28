@@ -2,6 +2,14 @@
     width: 280px; /* Adjust the card width as needed */
     margin-bottom: 16px;
   }
+
+  .date-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }
   
   .title-container {
     margin-bottom: 8px; /* Add space below the title */
@@ -13,13 +21,15 @@
 
   .image-container {
     width: 100%; /* Ensure the container takes the full width of the card */
-    overflow: hidden; /* Hide any overflow content */
+    height: 160px; /* Set a fixed height for the image */
+    overflow: hidden;
   }
   
-  .mat-card-image {
+  .image-container image {
     width: 100%; /* Make the image fill the entire width of its container */
-    height: 158px; /* Maintain aspect ratio */
-    object-fit: cover;
+    height: 100%; /* Maintain aspect ratio */
+    object-fit: contain;
+    border-radius: 12px;
   }
   
   .location-container {

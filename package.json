@@ -23,10 +23,12 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@emailjs/browser": "^4.3.3",
+    "@types/unsplash-js": "^7.0.0",
     "firebase": "^10.11.1",
     "ngx-logger": "^5.0.12",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "unsplash-js": "^7.0.19",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
