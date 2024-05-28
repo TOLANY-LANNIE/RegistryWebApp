@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     baseurl: 'http://localhost:4200',//'https://registry-demo.netlify.app',
     firebaseConfig: {
         apiKey: "AIzaSyDSTEgAq6Lcl90yCuJprOcGy20TcRKrU_I",
