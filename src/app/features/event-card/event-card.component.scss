@@ -1,5 +1,4 @@
 .card {
-    width: 280px; /* Adjust the card width as needed */
     margin-bottom: 16px;
   }
 
@@ -12,25 +11,26 @@
   }
   
   .title-container {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
     margin-bottom: 8px; /* Add space below the title */
     overflow: hidden; /* Hide overflow content */
     white-space: nowrap; /* Prevent text from wrapping */
     text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
-    max-width: 200px; /* Set maximum width to limit the displayed text */
   }
 
   .image-container {
     width: 100%; /* Ensure the container takes the full width of the card */
     height: 160px; /* Set a fixed height for the image */
     overflow: hidden;
-  }
-  
-  .image-container image {
+}
+
+.image-container img {
     width: 100%; /* Make the image fill the entire width of its container */
-    height: 100%; /* Maintain aspect ratio */
-    object-fit: contain;
-    border-radius: 12px;
-  }
+    height: 100%; /* Make the image fill the entire height of its container */
+    object-fit: cover; /* Ensure the image covers the container without stretching */
+}
   
   .location-container {
     display: flex; /* Use Flexbox */
