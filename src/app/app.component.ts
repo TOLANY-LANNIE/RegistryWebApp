@@ -15,12 +15,7 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        // Check if the route starts with registration
-        this.showHeaderAndSideMenu = !event.url.startsWith('/invite');
-      }
-    });
+  checkInviteUrl(){
+    return window.location.href.indexOf('invite') > -1;
   }
 }

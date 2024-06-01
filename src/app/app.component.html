@@ -1,7 +1,7 @@
 <!--LoaderComponent-->
 <app-loader></app-loader>
 
-<ng-container *ngIf="showHeaderAndSideMenu">
+<ng-container *ngIf="!checkInviteUrl()">
   <!--HeaderComponent-->
  <mat-toolbar class="mat-elevation-z3" color="primary">
   <button mat-icon-button (click)="collapsed.set(!collapsed())">
@@ -24,4 +24,4 @@
 </mat-sidenav-container>
 </ng-container>
 <!-- Only display the router outlet without header and side menu for the login page -->
-<router-outlet *ngIf="!showHeaderAndSideMenu"></router-outlet>
+<router-outlet *ngIf="checkInviteUrl()"></router-outlet>
