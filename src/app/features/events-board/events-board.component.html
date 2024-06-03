@@ -4,7 +4,11 @@
     </div>
     <span class="header-spacer"></span>
   </mat-toolbar>
-<div class="container responsive-grid">
-    <app-event-card *ngFor="let card of events" [card]="card"></app-event-card>
+<div class="container">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of events">
+            <app-event-card [card]="card"></app-event-card>
+        </div>
+    </div>
 </div>
   
