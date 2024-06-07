@@ -90,15 +90,16 @@ flightDetails: any;
 
       await this.service.addNewAttendee(guest);
       this.router.navigate(['/invite/thank-you']);
-      this.snackBar.open('Form submitted successfully', 'Close', {
-        duration: 2000,
-        panelClass: 'snackbar'
+      this.snackBar.open('Form submitted successfully', 'Close',{
+        duration: 5000,
+        panelClass: ['success'],
       });
-
+    
     } catch (error) {
+
       this.snackBar.open('Failed to submit form. Please try again later.', 'Close', {
-        duration: 2000,
-        panelClass: 'snackbar'
+        duration: 5000,
+        panelClass: ['error'],
       });
     }
   }

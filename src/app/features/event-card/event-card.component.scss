@@ -1,50 +1,49 @@
 .card {
-    margin-bottom: 16px;
-  }
+  margin-bottom: 16px;
+}
 
-  .date-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    margin-top: 8px;
-  }
-  
-  .title-container {
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 8px; /* Add space below the title */
-    overflow: hidden; /* Hide overflow content */
-    white-space: nowrap; /* Prevent text from wrapping */
-    text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
-  }
+.date-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
 
-  .image-container {
-    width: 100%; /* Ensure the container takes the full width of the card */
-    height: 160px; /* Set a fixed height for the image */
-    overflow: hidden;
+.title-container {
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px; /* Add space below the title */
+  overflow: hidden; /* Hide overflow content */
+  white-space: nowrap; /* Prevent text from wrapping */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
+}
+
+.image-container {
+  width: 100%; /* Ensure the container takes the full width of the card */
+  height: 160px; /* Set a fixed height for the image */
+  overflow: hidden;
 }
 
 .image-container img {
-    width: 100%; /* Make the image fill the entire width of its container */
-    height: 100%; /* Make the image fill the entire height of its container */
-    object-fit: cover; /* Ensure the image covers the container without stretching */
+  width: 100%; /* Make the image fill the entire width of its container */
+  height: 100%; /* Make the image fill the entire height of its container */
+  object-fit: cover; /* Ensure the image covers the container without stretching */
 }
-  
-  .location-container {
-    display: flex; /* Use Flexbox */
-    align-items: center; /* Align items vertically in the center */
-    padding-bottom: 8px;
-    //white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide overflowing text */
-    text-overflow: ellipsis; /* Display an ellipsis (...) to indicate text overflow */
-    ; 
+
+.location-container {
+  display: flex; /* Use Flexbox */
+  align-items: center; /* Align items vertically in the center */
+  padding-bottom: 8px;
+  //white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Display an ellipsis (...) to indicate text overflow */
+  ; 
 }
-  
-  .location-container mat-icon {
-    margin-right: 8px; /* Add some space between the icon and the text */
-    flex-shrink: 0;
-  }
-  
+
+.location-container mat-icon {
+  margin-right: 8px; /* Add some space between the icon and the text */
+  flex-shrink: 0;
+}
 
