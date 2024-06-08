@@ -89,8 +89,8 @@ export class AttendeesListComponent implements AfterViewInit{
    * @param event 
    */
   applyFilter(event: Event) {
-   /*  const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase(); */
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase(); 
   }
 
   openInviteModal() {
