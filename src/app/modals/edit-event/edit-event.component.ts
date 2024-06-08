@@ -78,13 +78,16 @@ export class EditEventComponent {
     this.service.updateEvent(this.data.id, event)
       .then(() => {
         this.snackBar.open('Event updated successfully', 'Close', {
-          duration: 2000, // Duration in milliseconds
+          duration: 5000,
+          panelClass: ['success'],
         });
       })
       .catch(error => {
-        this.snackBar.open('Error updating event', 'Close', {
-          duration: 2000, // Duration in milliseconds
+        this.snackBar.open('Error updating event', 'Close',  {
+          duration: 5000,
+          panelClass: ['error'],
         });
+        
         //console.error('Error updating event:', error);
         // Optionally, you can handle the error here, such as displaying a message to the user
       });

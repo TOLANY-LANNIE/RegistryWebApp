@@ -25,12 +25,19 @@ export class DeleteGuestComponent {
   onDelete(){
     this.service.delete(this.data.id)
     .then(() => {
-      this.snackBar.open('Attendee deleted successfully', 'Close', { duration: 3000 });
+     
+      this.snackBar.open('Attendee deleted successfully', 'Close', {
+        duration: 5000,
+        panelClass: ['success'],
+      });
       // Optionally, update your UI or reload data
     })
     .catch(error => {
-      console.error('Error deleting event:', error);
-      this.snackBar.open('Error deleting Attendee. Please try again later.', 'Close', { duration: 3000 });
+      //console.error('Error deleting event:', error);
+      this.snackBar.open('Error deleting Attendee. Please try again later.', 'Close', {
+        duration: 5000,
+        panelClass: ['error'],
+      });
       // Handle error, show error message, etc.
     });
   }

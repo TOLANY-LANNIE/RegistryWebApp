@@ -44,8 +44,8 @@ export class SendInviteComponent {
         email: ['', [Validators.required, Validators.email]],
       });
 
-      console.log(this.data)
-      console.log(this.emailService.generateRegistrationLink(this.data.id))
+      //console.log(this.data)
+      //console.log(this.emailService.generateRegistrationLink(this.data.id))
     }
   
 
@@ -65,8 +65,8 @@ export class SendInviteComponent {
         });
 
         this.snackBar.open('Invitation Sent to '+ this.addEventFormGroup.value.name, 'Close', {
-          duration: 2000,
-          panelClass: 'snackbar'
+          duration: 5000,
+          panelClass: ['success'],
         });
     }
 }
