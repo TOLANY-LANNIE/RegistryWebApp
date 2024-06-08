@@ -75,15 +75,16 @@ export class AddEventComponent {
       console.log(this.addEventFormGroup.value.status)    
       try {
         this.service.addNewEvent(event);
-        this.snackBar.open('Event added successfully', 'Close', {
-          duration: 2000, // Duration in milliseconds
-          panelClass: 'snackbar'
+        this.snackBar.open('Event added successfully', 'Close',{
+          duration: 5000,
+          panelClass: ['success'],
         });
       } catch (error) {
-        console.error('Error adding event:', error);
-        this.snackBar.open('Error adding event', 'Close', {
-          duration: 2000, // Duration in milliseconds
-          panelClass:'red-snackbar'
+        //console.error('Error adding event:', error);
+        
+        this.snackBar.open('Error adding event', 'Close',{
+          duration: 5000,
+          panelClass: ['error'],
         });
       }
     }

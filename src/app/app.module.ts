@@ -57,7 +57,7 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
-import { environment } from '../environment/environment.prod';
+import { environment } from '../environment/environment';
 
 
 @NgModule({

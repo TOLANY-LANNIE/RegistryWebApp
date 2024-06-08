@@ -1,4 +1,4 @@
-[[headers]]
-  for = "/invite/registration?eventId=*"
-    [headers.Access-Control-Allow-Origin]
-    origin = "*"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

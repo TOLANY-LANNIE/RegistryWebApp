@@ -2,3 +2,31 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+/* Success styles */
+.mat-mdc-snack-bar-container.success .mdc-snackbar__label,
+.success .mdc-button .mdc-button__label {
+  color: #10B981 !important;
+}
+
+.mat-mdc-snack-bar-container.success .mdc-snackbar__surface  {
+  background-color: #E9F9F3 !important;
+  text-align: center;
+  width: auto !important;
+  transform: scale(0.8) !important;
+}
+
+/* Error styles */
+.mat-mdc-snack-bar-container.error .mdc-snackbar__label,
+.error .mdc-button .mdc-button__label {
+  color: #FF0000 !important; /* Change to the color you want */
+}
+
+.mat-mdc-snack-bar-container.error .mdc-snackbar__surface  {
+  background-color: #FFCCCC !important; /* Change to the color you want */
+  text-align: center;
+  width: auto !important;
+  transform: scale(0.8) !important;
+}

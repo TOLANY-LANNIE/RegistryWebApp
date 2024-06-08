@@ -24,13 +24,19 @@ export class DeleteAlertComponent {
   onDelete(){
     this.service.delete(this.data.id)
     .then(() => {
-      this.snackBar.open('Event deleted successfully', 'Close', { duration: 3000 });
+      
+      this.snackBar.open('Event deleted successfully', 'Close', {
+        duration: 5000,
+        panelClass: ['success'],
+      });
       // Optionally, update your UI or reload data
     })
     .catch(error => {
-      console.error('Error deleting event:', error);
-      this.snackBar.open('Error deleting event. Please try again later.', 'Close', { duration: 3000 });
-      // Handle error, show error message, etc.
+      //console.error('Error deleting event:', error);
+      this.snackBar.open('Error deleting event. Please try again later.', 'Close', {
+        duration: 5000,
+        panelClass: ['error'],
+      });
     });
   }
 }
