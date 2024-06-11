@@ -5,7 +5,7 @@ import { AttendeesService } from '../../services/attendees/attendees.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { startsWithZeroValidator } from '../../utils/validators';
-import { hasTenDigitsValidator } from '../../utils/validators';
+import {  hasTwelveDigitsValidator } from '../../utils/validators';
 
 @Component({
   selector: 'app-registration-form',
@@ -46,7 +46,7 @@ export class RegistrationFormComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       practiseNumber: ['', Validators.required],
-      contact: ['', [Validators.required, startsWithZeroValidator(), hasTenDigitsValidator()]],
+      contact: ['', [Validators.required, startsWithZeroValidator(),  hasTwelveDigitsValidator()]],
       email: ['', [Validators.required, Validators.email]],
       dietaryPreference: ['', [Validators.required]],
       returnRoute: ['', [Validators.required]],

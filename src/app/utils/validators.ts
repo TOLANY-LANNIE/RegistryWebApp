@@ -7,10 +7,10 @@ export function startsWithZeroValidator(): ValidatorFn {
   };
 }
 
-export function hasTenDigitsValidator(): ValidatorFn {
+export function hasTwelveDigitsValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      const isValid = value && /^\d{10}$/.test(value);
-      return isValid ? null : { hasTenDigits: true };
+      const isValid = value && /^\d{3}-\d{3}-\d{4}$/.test(value);
+      return isValid ? null : { hasTwelveDigits: true };
     };
-}
+  }
