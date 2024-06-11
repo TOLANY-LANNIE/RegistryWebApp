@@ -43,7 +43,12 @@ export class SideMenuComponent {
       icon:'home',
       label:'Events',
       route:'events'
-    }
+    },
+    {
+      icon:'group',
+      label:'Email Groups',
+      route:'Groups'
+    },
   ]);
 
   profilePicSize = computed(()=>this.sidenavCollapsed()?'32':'100')

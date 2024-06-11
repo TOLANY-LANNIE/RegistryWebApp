@@ -1,158 +1,161 @@
-<mat-toolbar class="mat-elevation-z3" color="primary">
-  <div class="navbar-brand">
-      <h2>Events Registry App</h2>
-  </div>
-  <span class="header-spacer"></span>
-</mat-toolbar>
+<!--Blue Theme that covers the top of the screen-->
+<div class="background">
+  <img src="../../../assets/img/Jade_Elephant_Logo.png" alt="Logo" class="logo-top-left">
+</div>
+<!--Main Container-->
 <div class="main">
-  <div class="button-container">
-    <button mat-fab color="primary" aria-label="Back to Events" title="back">
-      <a mat-fab color="primary" aria-label="Back to Events" title="back" routerLink="/invite/events-board">
-        <mat-icon>arrow_back</mat-icon>
-      </a>        
-    </button>
-  </div>
+  <!--Main Content-->
   <div class="container-wrapper">
-      <mat-card class="container" fxLayout="row" fxLayoutAlign="space-between">
+    <mat-card class="container" fxLayout="row" fxLayoutAlign="space-between">
         <div fxFlex="1 1 auto">
-          <h3 class="form-header">Registration Form</h3>
-          <hr class="divider">
+            <!-- Image tag with proper path and alt attribute -->
+            <img src="../../../assets/img/Pfizer_Horizon Logo_Final.jpg" alt="Thank You Image" class="image-fixed-size" />
+        </div> 
+    </mat-card>
+  </div>
+
+  <div class="container-wrapper">
+      <mat-card class="container" fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="1 1 auto">
+          <h1>Sign up for the Conference</h1>
           <form [formGroup]="attendeeForm" (ngSubmit)="onSubmit()">
             
-              <mat-form-field appearance="outline">
-                  <mat-label>Practise Number</mat-label>
-                  <input matInput 
-                         placeholder="eg. 2345554"
-                         formControlName="practiseNumber" 
-                         [(ngModel)]="practiseNumber"
-                         restrictNumbers>
-                         <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('practiseNumber')?.invalid && attendeeForm.get('practiseNumber')?.touched">Practise Number is required</mat-error>
-                </mat-form-field>    
-            <div class="input-container">
-              <mat-form-field appearance="outline">
-                  <mat-label>Name</mat-label>
-                  <input matInput 
-                         placeholder="Name"
-                         formControlName="name" 
-                         [(ngModel)]="name">
-                         <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('name')?.invalid && attendeeForm.get('name')?.touched">Name is required</mat-error>
-                </mat-form-field>   
-  
-                <mat-form-field appearance="outline">
-                  <mat-label>Surname</mat-label>
-                  <input matInput 
-                         placeholder="Surname"
-                         formControlName="surname"
-                         [(ngModel)]="surname">
-                         <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('surname')?.invalid && attendeeForm.get('surname')?.touched">Surname is required</mat-error>
-                </mat-form-field>   
-  
-            </div>
-  
-            <div class="input-container">
-              <mat-form-field appearance="outline">
-                <mat-label>Contact Number</mat-label>
-                <input matInput
-                       placeholder="012-345-6789"
-                       formControlName="contact"
-                       type="tel"
-                       appPhoneNumberFormatter
+            <mat-form-field appearance="outline">
+                <mat-label>Practise Number</mat-label>
+                <input matInput 
+                       placeholder="eg. 2345554"
+                       formControlName="practiseNumber" 
+                       [(ngModel)]="practiseNumber"
                        restrictNumbers>
-                <mat-icon matSuffix color="primary">phone</mat-icon>
-                <mat-error *ngIf="contact?.invalid && contact?.touched">
-                  <ng-container *ngIf="contact?.errors?.required">Contact Number is required</ng-container>
-                  <ng-container *ngIf="contact?.errors?.pattern">Invalid contact number format. Use 060-582-2615</ng-container>
+                       <mat-icon matSuffix></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('practiseNumber')?.invalid && attendeeForm.get('practiseNumber')?.touched">Practise Number is required</mat-error>
+              </mat-form-field>    
+          <div class="input-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput 
+                       placeholder="Name"
+                       formControlName="name" 
+                       [(ngModel)]="name">
+                       <mat-icon matSuffix></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('name')?.invalid && attendeeForm.get('name')?.touched">Name is required</mat-error>
+              </mat-form-field>   
+
+              <mat-form-field appearance="outline">
+                <mat-label>Surname</mat-label>
+                <input matInput 
+                       placeholder="Surname"
+                       formControlName="surname"
+                       [(ngModel)]="surname">
+                       <mat-icon matSuffix color="primary"></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('surname')?.invalid && attendeeForm.get('surname')?.touched">Surname is required</mat-error>
+              </mat-form-field>   
+
+          </div>
+
+          <div class="input-container">
+            <mat-form-field appearance="outline">
+              <mat-label>Contact Number</mat-label>
+              <input matInput
+                     placeholder="012-345-6789"
+                     formControlName="contact"
+                     type="tel"
+                     appPhoneNumberFormatter
+                     restrictNumbers>
+              <mat-icon matSuffix color="primary">phone</mat-icon>
+              <mat-error *ngIf="contact?.invalid && contact?.touched">
+                <ng-container *ngIf="contact?.errors?.required">Contact Number is required</ng-container>
+                <ng-container *ngIf="contact?.errors?.pattern">Invalid contact number format. Use 060-582-2615</ng-container>
+              </mat-error>
+            </mat-form-field>
+            
+  
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput 
+                       placeholder="Email"
+                       formControlName="email"
+                       [(ngModel)]="email">
+                       <mat-icon matSuffix color="primary">alternate_email</mat-icon>
+                <mat-error *ngIf="attendeeForm.get('email')?.hasError('required') && attendeeForm.get('email')?.touched">Email is required</mat-error>
+                <mat-error *ngIf="attendeeForm.get('email')?.hasError('email') && attendeeForm.get('email')?.touched">Invalid email</mat-error>
+              </mat-form-field>
+              
+          </div>
+
+          <div class="input-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Dietary Preferences</mat-label>
+                <mat-select formControlName="dietaryPreference" [(ngModel)]="dietaryPreference" >
+                  <mat-option value="Vegetarian">Vegetarian</mat-option>
+                  <mat-option value="Vegan">Vegan</mat-option>
+                  <mat-option value="Pescatarian">Pescatarian</mat-option>
+                  <mat-option value="Gluten-free">Gluten-Free</mat-option>
+                  <mat-option value="Dairy-free">Dairy-Free</mat-option>
+                  <mat-option value="Nut-free">Nut-Free</mat-option>
+                  <mat-option value="Halal">Halal</mat-option>
+                  <mat-option value="Cioshi">Cioshi</mat-option>
+                </mat-select>
+                <mat-icon matSuffix color="primary"></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('dietaryPreference')?.hasError('required') && attendeeForm.get('dietaryPreference')?.touched">
+                  Dietary preference is required
                 </mat-error>
               </mat-form-field>
               
-    
-                <mat-form-field appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input matInput 
-                         placeholder="Email"
-                         formControlName="email"
-                         [(ngModel)]="email">
-                         <mat-icon matSuffix color="primary">alternate_email</mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('email')?.hasError('required') && attendeeForm.get('email')?.touched">Email is required</mat-error>
-                  <mat-error *ngIf="attendeeForm.get('email')?.hasError('email') && attendeeForm.get('email')?.touched">Invalid email</mat-error>
-                </mat-form-field>
-                
-            </div>
-  
-            <div class="input-container">
               <mat-form-field appearance="outline">
-                  <mat-label>Dietary Preferences</mat-label>
-                  <mat-select formControlName="dietaryPreference" [(ngModel)]="dietaryPreference" >
-                    <mat-option value="Vegetarian">Vegetarian</mat-option>
-                    <mat-option value="Vegan">Vegan</mat-option>
-                    <mat-option value="Pescatarian">Pescatarian</mat-option>
-                    <mat-option value="Gluten-free">Gluten-Free</mat-option>
-                    <mat-option value="Dairy-free">Dairy-Free</mat-option>
-                    <mat-option value="Nut-free">Nut-Free</mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('dietaryPreference')?.hasError('required') && attendeeForm.get('dietaryPreference')?.touched">
-                    Dietary preference is required
-                  </mat-error>
-                </mat-form-field>
-                
-                <mat-form-field appearance="outline">
-                  <mat-label>Allergies</mat-label>
-                  <textarea matInput placeholder="Allergies" formControlName="allergies" [(ngModel)]="allergies"></textarea>
-                  <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('allergies')?.invalid && attendeeForm.get('allergies')?.touched">Allergies are required</mat-error>
-                </mat-form-field>
-            </div>
-  
-            <div class="input-container">
-              <mat-form-field appearance="outline">
-                  <mat-label>Flight Date</mat-label>
-                  <input matInput [matDatepicker]="picker" formControlName="flightDate" 
-                  [(ngModel)]="flightDate">
-                  <mat-hint align="end">MM/DD/YYYY</mat-hint>
-                  <mat-datepicker-toggle matSuffix [for]="picker" color="primary"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                  <mat-error *ngIf="attendeeForm.get('flightDate')?.invalid && attendeeForm.get('flightDate')?.touched">Date is required</mat-error>
-                </mat-form-field>
-              <mat-form-field appearance="outline">
-                  <mat-label>Flight Details</mat-label>
-                  <textarea matInput placeholder="Flight Details" formControlName="flightDetails" [(ngModel)]="flightDetails"></textarea>
-                  <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('flightDetails')?.invalid && attendeeForm.get('flightDetails')?.touched">Flight details are required</mat-error>
+                <mat-label>Allergies</mat-label>
+                <textarea matInput placeholder="Allergies" formControlName="allergies" [(ngModel)]="allergies"></textarea>
+                <mat-icon matSuffix color="primary"></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('allergies')?.invalid && attendeeForm.get('allergies')?.touched">Allergies are required</mat-error>
               </mat-form-field>
-            </div>
-            <div class="input-container">
-              <mat-form-field appearance="outline">
-                  <mat-label>Transfer Required</mat-label>
-                  <mat-select formControlName="transfer" [(ngModel)]="transfer">
-                    <mat-option value="Yes">Yes</mat-option>
-                    <mat-option value="No">No</mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('transfer')?.hasError('required') && attendeeForm.get('transfer')?.touched">
-                    Transfer Request is required
-                  </mat-error>
+          </div>
+
+          <div class="input-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Flight Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="flightDate" 
+                [(ngModel)]="flightDate">
+                <mat-hint align="end">MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker" color="primary"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="attendeeForm.get('flightDate')?.invalid && attendeeForm.get('flightDate')?.touched">Date is required</mat-error>
               </mat-form-field>
-  
-              <mat-form-field appearance="outline">
-                  <mat-label>Accommodation Required</mat-label>
-                  <mat-select formControlName="accommodation" [(ngModel)]="accommodation">
-                    <mat-option value="Yes">Yes</mat-option>
-                    <mat-option value="No">No</mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('accommodation')?.hasError('required') && attendeeForm.get('accommodation')?.touched">
-                    Accommodation request is required
-                  </mat-error>
-              </mat-form-field>
-            </div>
-          </form>
-          <mat-dialog-actions align="end">
-              <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  type="submit" [disabled]="attendeeForm.invalid" (click)="onSubmit()">Submit Form</button>
-            </mat-dialog-actions>
+            <mat-form-field appearance="outline">
+                <mat-label>Flight Details</mat-label>
+                <textarea matInput placeholder="Flight Details" formControlName="flightDetails" [(ngModel)]="flightDetails"></textarea>
+                <mat-icon matSuffix color="primary"></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('flightDetails')?.invalid && attendeeForm.get('flightDetails')?.touched">Flight details are required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Transfer Required</mat-label>
+                <mat-select formControlName="transfer" [(ngModel)]="transfer">
+                  <mat-option value="Yes">Yes</mat-option>
+                  <mat-option value="No">No</mat-option>
+                </mat-select>
+                <mat-icon matSuffix color="primary"></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('transfer')?.hasError('required') && attendeeForm.get('transfer')?.touched">
+                  Transfer Request is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Accommodation Required</mat-label>
+                <mat-select formControlName="accommodation" [(ngModel)]="accommodation">
+                  <mat-option value="Yes">Yes</mat-option>
+                  <mat-option value="No">No</mat-option>
+                </mat-select>
+                <mat-icon matSuffix color="primary"></mat-icon>
+                <mat-error *ngIf="attendeeForm.get('accommodation')?.hasError('required') && attendeeForm.get('accommodation')?.touched">
+                  Accommodation request is required
+                </mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+          <mat-dialog-actions>
+              <button mat-raised-button color="$gradient" [mat-dialog-close]="true" cdkFocusInitial  type="submit" [disabled]="attendeeForm.invalid" (click)="onSubmit()">Submit Form</button>
+          </mat-dialog-actions>
         </div>
       </mat-card>
     </div>
