@@ -4,6 +4,8 @@ import { DatePipe } from '@angular/common';
 import { AttendeesService } from '../../services/attendees/attendees.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { startsWithZeroValidator } from '../../utils/validators';
+import { hasTenDigitsValidator } from '../../utils/validators';
 
 @Component({
   selector: 'app-registration-form',
@@ -14,17 +16,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegistrationFormComponent implements OnInit {
   attendeeForm: FormGroup;
   eventId: string;
-contact: any;
-email: any;
-dietaryPreference: any;
-flightDate: any;
-transfer: any;
-accommodation: any;
-practiseNumber: any;
-name: any;
-surname: any;
-allergies: any;
-flightDetails: any;
+  
+  honorific:string;
+  name: any;
+  surname: any;
+  contact: any;
+  practiseNumber: any;
+  email: any;
+  dietaryPreference: any;
+  returnRoute: any;
+  transfer: any;
+  accommodation: any;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -37,17 +40,16 @@ flightDetails: any;
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.queryParams['eventId'];
-    console.log(this.eventId)
+    //console.log(this.eventId)
     this.attendeeForm = this.fb.group({
-      practiseNumber: ['', Validators.required],
+      honorific: ['', Validators.required],
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      contact: ['', [Validators.required]],
+      practiseNumber: ['', Validators.required],
+      contact: ['', [Validators.required, startsWithZeroValidator(), hasTenDigitsValidator()]],
       email: ['', [Validators.required, Validators.email]],
       dietaryPreference: ['', [Validators.required]],
-      allergies: ['', [Validators.required]],
-      flightDate: ['', [Validators.required]],
-      flightDetails: ['', [Validators.required]],
+      returnRoute: ['', [Validators.required]],
       transfer: ['', [Validators.required]],
       accommodation: ['', [Validators.required]],
     });

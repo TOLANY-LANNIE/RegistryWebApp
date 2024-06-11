@@ -1,7 +1,12 @@
 @import '../../../assets/common.scss';
 
 /* Shared gradient */
-$gradient: linear-gradient(45deg, #d2001a, #7462ff); 
+$gradient: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab); 
+
+
+.spaced-div {
+  margin-bottom: 8px;
+}
 
 /* Toolbar fixed at the top */
 .position-fixed {
@@ -26,6 +31,7 @@ $gradient: linear-gradient(45deg, #d2001a, #7462ff);
   width: 100%;  /* Set width to 100% to fit its container */
   height: auto; /* Fixed height */
   object-fit: cover; /* Ensures image covers the given dimensions */
+  border-radius: 4px;
 }
 
 /* Container styling */
@@ -37,9 +43,15 @@ $gradient: linear-gradient(45deg, #d2001a, #7462ff);
 
 .container {
   display: flex;
-  padding: 24px;
   box-sizing: border-box;
-  width: 60%; /* Ensure the containers inside have the same width */
+  width: 70%; /* Ensure the containers inside have the same width */
+  //margin: auto;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 90%; /* Adjust width to 90% on mobile screens */
+  }
 }
 
 /* Background styling */
@@ -57,9 +69,21 @@ $gradient: linear-gradient(45deg, #d2001a, #7462ff);
 }
 
 /* Form field spacing */
-.container mat-form-field + mat-form-field {
+/* .container mat-form-field + mat-form-field {
   margin-left: 16px;
   padding-bottom: 16px;
+} */
+
+.input-container {
+  display: flex;
+  margin: 16px;
+  gap: 16px; /* Adjust the spacing between the form fields */
+  flex-wrap: wrap; /* Ensures fields wrap on smaller screens */
+}
+
+.mat-form-field {
+  flex: 1;
+  //min-width: 200px; /* Ensure fields have a minimum width */
 }
 
 /* Form header styling */
@@ -117,10 +141,24 @@ mat-icon {
 }
 
 h1 {
-  font-family: 'Poppins', sans-serif; /* Set font family to Poppins */
+  padding: 16px;
+  font-family: 'Roboto', sans-serif; /* Set font family to Poppins */
   text-align: center; /* Center align the text */
   color: #0381D8;
   font-weight: regular;
-  //font-size: 38px;
 }
+
+.mat-dialog-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.stretched-button {
+  width: 100%;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
 
