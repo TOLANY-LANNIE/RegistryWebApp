@@ -1,7 +1,7 @@
 <h2 mat-dialog-title class="event-title">{{data.Title}}</h2>
 <mat-dialog-content class="mat-typography">
   <div class="event-date">
-    <strong>Date:</strong> {{data.Date}}
+    <strong>Date:</strong> {{data.StartDate}} - {{data.EndDate}}
   </div>
   <br>
   <div class="event-description">
@@ -11,6 +11,14 @@
   <div class="event-location">
     <strong>Location:</strong> {{data.Location}}
   </div>
+  <br>
+  <div class="event-location">
+    <strong>Agenda:</strong>
+    <ul>
+      <li *ngFor="let agendaItem of data.Agenda">{{ agendaItem }}</li>
+    </ul>
+  </div>  
+  <br>
   <div class="event-location">
     <strong>Expected Number of Guests:</strong> {{data.Capacity}}
   </div>
