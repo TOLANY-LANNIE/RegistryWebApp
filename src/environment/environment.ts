@@ -2,6 +2,7 @@ import Unsplash from 'unsplash-js';
 
 export const environment = {
   production: false,
+  enableConsoleLogs: true,
   baseurl: 'http://localhost:4200', // Use the local development URL
   unsplask: '3cMmXm4llsil0hTdVw2xv-yAxBadWcLHjR6EatYbQrw', // Unsplash API key
   firebaseConfig: {

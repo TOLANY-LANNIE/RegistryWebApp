@@ -1,6 +1,7 @@
 export const environment = {
     production: true,
     baseurl: 'https://registry-demo.netlify.app',
+    enableConsoleLogs: false,
     unsplash: '3cMmXm4llsil0hTdVw2xv-yAxBadWcLHjR6EatYbQrw',
     firebaseConfig: {
         apiKey: "AIzaSyDSTEgAq6Lcl90yCuJprOcGy20TcRKrU_I",

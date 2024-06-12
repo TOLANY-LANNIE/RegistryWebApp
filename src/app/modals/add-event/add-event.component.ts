@@ -21,7 +21,8 @@ export class AddEventComponent {
 
     //Event Details variables
     title ='';
-    date  = '';
+    startDate  = '';
+    endDate='';
     description ='';
     location ='';
     capacity ='';
@@ -44,7 +45,8 @@ export class AddEventComponent {
       this.addEventFormGroup= this.fb.group({
   
         title: ['', [Validators.required]],
-        date: ['', [Validators.required]],
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
         description: ['', [Validators.required]],
         location: ['', [Validators.required]],
         capacity: ['', [Validators.required]],
@@ -63,10 +65,11 @@ export class AddEventComponent {
         return;
       }
     
-      const formattedDate = this.datePipe.transform(this.addEventFormGroup.value.date, 'dd/MM/yyyy');
+      const startDate = this.datePipe.transform(this.addEventFormGroup.value.startDate, 'dd/MM/yyyy');
+      const endDate = this.datePipe.transform(this.addEventFormGroup.value.endDate, 'dd/MM/yyyy');
       const event: Event = {
         Title: this.addEventFormGroup.value.title,
-        Date: formattedDate,
+        Date: startDate +" - "+endDate,
         Description: this.addEventFormGroup.value.description,
         Location: this.addEventFormGroup.value.location,
         Capacity: this.addEventFormGroup.value.capacity,

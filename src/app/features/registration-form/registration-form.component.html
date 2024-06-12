@@ -162,9 +162,9 @@
               <mat-form-field appearance="outline">
                   <mat-label>Transfer Required</mat-label>
                   <mat-select formControlName="transfer" [(ngModel)]="transfer">
-                    <mat-option value="None">None</mat-option>
-                    <mat-option value="No">Airport to Hotel</mat-option>
-                    <mat-option value="No">Hotel to Airport</mat-option>
+                    <mat-option value="None">None Required</mat-option>
+                    <mat-option value="No">From Airport to Hotel</mat-option>
+                    <mat-option value="No">From Hotel to Airport</mat-option>
                   </mat-select>
                   <mat-icon matSuffix >transform</mat-icon>
                   <mat-error *ngIf="attendeeForm.get('transfer')?.hasError('required') && attendeeForm.get('transfer')?.touched">
@@ -186,7 +186,7 @@
             </div>
           </form>
           <mat-dialog-actions class="mat-dialog-actions">
-            <button mat-raised-button color="primary" type="submit" [disabled]="attendeeForm.invalid" class="stretched-button">
+            <button mat-button color="primary" type="submit" [disabled]="attendeeForm.invalid" class="stretched-button" (click)="onSubmit()">
               Sign Up for the Conference
             </button>
           </mat-dialog-actions>      
