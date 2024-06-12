@@ -47,7 +47,7 @@ export class SideMenuComponent {
     {
       icon:'group',
       label:'Email Groups',
-      route:'Groups'
+      route:'groups'
     },
   ]);
 

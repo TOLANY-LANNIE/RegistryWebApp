@@ -32,6 +32,7 @@ import { SendInviteComponent } from './modals/send-invite/send-invite.component'
 import {DeleteGuestComponent} from  './modals/delete-guest/delete-guest.component';
 import { EventsBoardComponent } from './features/events-board/events-board.component';
 import { PhoneNumberFormatterDirective } from './utils/phoneNumber-directive';
+import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -81,7 +82,8 @@ import { environment } from '../environment/environment';
     DeleteGuestComponent,
     EventCardComponent,
     EventsBoardComponent,
-    PhoneNumberFormatterDirective
+    PhoneNumberFormatterDirective,
+    MailGroupsComponent
   ],
   imports:[
     BrowserModule,

@@ -6,6 +6,7 @@ import { EventsComponent } from './features/events/events.component';
 import { ThankyouComponent } from './features/thankyou/thankyou.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { EventsBoardComponent } from './features/events-board/events-board.component';
+import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
 const routes: Routes = [
     {
         path: 'invite',
@@ -18,6 +19,7 @@ const routes: Routes = [
     },
     {path: 'attendees', component:AttendeesListComponent},
     {path: 'events', component:EventsComponent},
+    {path: 'groups', component:MailGroupsComponent},
     {path:'', redirectTo:'/invite/events-board', pathMatch:'full'}
 ];
 
