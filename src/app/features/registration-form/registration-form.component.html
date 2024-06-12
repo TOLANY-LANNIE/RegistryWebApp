@@ -92,6 +92,8 @@
               <mat-form-field appearance="outline">
                 <mat-label>Contact Number</mat-label>
                 <input matInput
+                      #contactInput 
+                      maxlength="12"
                       placeholder="012-345-6789"
                       formControlName="contact"
                       type="tel"
@@ -117,7 +119,7 @@
                       placeholder="Email"
                       formControlName="email"
                       [(ngModel)]="email">
-                      <mat-icon matSuffix color="primary">alternate_email</mat-icon>
+                      <mat-icon matSuffix>alternate_email</mat-icon>
                 <mat-error *ngIf="attendeeForm.get('email')?.hasError('required') && attendeeForm.get('email')?.touched">Email is required</mat-error>
                 <mat-error *ngIf="attendeeForm.get('email')?.hasError('email') && attendeeForm.get('email')?.touched">Invalid email</mat-error>
               </mat-form-field>
@@ -135,9 +137,9 @@
                     <mat-option value="Dairy-free">Dairy-Free</mat-option>
                     <mat-option value="Nut-free">Nut-Free</mat-option>
                     <mat-option value="Halal">Halal</mat-option>
-                    <mat-option value="Cioshi">Kosher</mat-option>
+                    <mat-option value="Kosher">Kosher</mat-option>
                   </mat-select>
-                  <mat-icon matSuffix color="primary"></mat-icon>
+                  <mat-icon matSuffix> fastfood</mat-icon>
                   <mat-error *ngIf="attendeeForm.get('dietaryPreference')?.hasError('required') && attendeeForm.get('dietaryPreference')?.touched">
                     Dietary preference is required
                   </mat-error>
@@ -149,7 +151,7 @@
                   <mat-option value="Yes">Yes</mat-option>
                   <mat-option value="No">No</mat-option>
                 </mat-select>
-                <mat-icon matSuffix color="primary"></mat-icon>
+                <mat-icon matSuffix>flight</mat-icon>
                 <mat-error *ngIf="attendeeForm.get('returnRoute')?.hasError('required') && attendeeForm.get('returnRoute')?.touched">
                   Answer about the Return Flight is required
                 </mat-error>
@@ -164,7 +166,7 @@
                     <mat-option value="No">Airport to Hotel</mat-option>
                     <mat-option value="No">Hotel to Airport</mat-option>
                   </mat-select>
-                  <mat-icon matSuffix color="primary"></mat-icon>
+                  <mat-icon matSuffix >transform</mat-icon>
                   <mat-error *ngIf="attendeeForm.get('transfer')?.hasError('required') && attendeeForm.get('transfer')?.touched">
                     Transfer Request is required
                   </mat-error>
@@ -176,7 +178,7 @@
                     <mat-option value="Yes">Yes</mat-option>
                     <mat-option value="No">No</mat-option>
                   </mat-select>
-                  <mat-icon matSuffix color="primary"></mat-icon>
+                  <mat-icon matSuffix>hotel</mat-icon>
                   <mat-error *ngIf="attendeeForm.get('accommodation')?.hasError('required') && attendeeForm.get('accommodation')?.touched">
                     Accommodation request is required
                   </mat-error>
