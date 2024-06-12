@@ -46,7 +46,7 @@ export class EventsComponent implements AfterViewInit {
       this.dataSource = new MatTableDataSource(events);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource.data)
+      //console.log(this.dataSource.data)
     } catch (error) {
       console.error('Error fetching events:', error);
       // Handle the error appropriately

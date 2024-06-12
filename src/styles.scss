@@ -30,3 +30,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: auto !important;
   transform: scale(0.8) !important;
 }
+
+.mat-mdc-card-content:last-child {
+  padding-bottom: 0px;
+}
+
+/* .mat-mdc-form-field-bottom-align{
+  content: "";
+  display: inline-block;
+  height: 16px;
+} */

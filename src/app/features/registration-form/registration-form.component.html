@@ -26,7 +26,7 @@
               
               <!--Honorific-->
               <mat-form-field appearance="outline">
-                <mat-label>Honorific</mat-label>
+                <mat-label>Title</mat-label>
                 <mat-select formControlName="honorific" [(ngModel)]="honorific" >
                   <mat-option value="Dr.">Dr.</mat-option>
                   <mat-option value="Mr.">Mr.</mat-option>
@@ -36,7 +36,7 @@
                   <mat-option value="Miss">Ms</mat-option>
                 </mat-select>
                 <mat-icon matSuffix color="primary"></mat-icon>
-                <mat-error *ngIf="attendeeForm.get('dietaryPreference')?.hasError('required') && attendeeForm.get('dietaryPreference')?.touched">
+                <mat-error *ngIf="attendeeForm.get('honorific')?.hasError('required') && attendeeForm.get('honorific')?.touched">
                   Honorific is required
                 </mat-error>
               </mat-form-field>
