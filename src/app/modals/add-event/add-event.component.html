@@ -73,10 +73,10 @@
             </button>
           </div>
         </div>
-        <button mat-button color="primary" (click)="addAgendaItem()">Add Agenda Item</button>
+        <button mat-stroked-button color="primary" (click)="addAgendaItem()">Add Agenda Item</button>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial type="submit" [disabled]="addEventFormGroup.invalid" (click)="onSubmit()">Save</button>
+  <button mat-stroked-button mat-dialog-close (click)="onCancel()">Cancel</button>
+  <button mat-stroked-button color="primary" [mat-dialog-close]="true" cdkFocusInitial type="submit" [disabled]="addEventFormGroup.invalid" (click)="onSubmit()">Save</button>
 </mat-dialog-actions>

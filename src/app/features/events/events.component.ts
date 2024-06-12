@@ -131,6 +131,6 @@ export class EventsComponent implements AfterViewInit {
   }
 
   getBadgeColor(status: boolean): string {
-    return status ? '#00E676' : '#F57C00';
+    return status ? '#10B981' : '#FF885D';
   }
 }
