@@ -13,8 +13,20 @@ h3 {
   
 mat-table {
   width: 100%;
- 
+  border-radius: 8px;
+
 }
+
+mat-card {
+  width: 100%;
+  border-radius: 5px;
+
+}
+
+.content{
+  padding: 16px;
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -22,35 +34,6 @@ mat-table {
   padding-bottom: 10px;
 }
 
-
-.parent-div {
-  display: flex;
-  align-items: center;
-  flex-grow: 0;
-  flex-shrink: 0;
-
-  .search-dive {
-  
-    .search-bar {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: 100%;
-
-      .search-container {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-      }
-    }
-    .btn {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width:100%;
-    }
-  }
-}
   
   
   

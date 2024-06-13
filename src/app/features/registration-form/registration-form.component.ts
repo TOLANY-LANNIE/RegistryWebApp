@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { startsWithZeroValidator } from '../../utils/validators';
 import {  hasTwelveDigitsValidator } from '../../utils/validators';
+import { Guest } from '../../models/guests.mode';
 
 @Component({
   selector: 'app-registration-form',
@@ -74,20 +75,18 @@ export class RegistrationFormComponent implements OnInit {
         return;
       }
 
-      const formattedDate = this.datePipe.transform(this.attendeeForm.value.flightDate, 'dd/MM/yyyy');
-      const guest= {
-        PracticeNumber: practiceNumber,
+      const guest: Guest = {
+        Event: this.eventId,
+        Honorific: this.attendeeForm.value.honorific,
         Name: this.attendeeForm.value.name,
         Surname: this.attendeeForm.value.surname,
-        Contact: contact,
-        Email: email,
-        Dietary: this.attendeeForm.value.dietaryPreference,
-        Allergies: this.attendeeForm.value.allergies,
-        FlightDate: formattedDate,
-        FlightDetails: this.attendeeForm.value.flightDetails,
-        TransfersRequired: this.attendeeForm.value.transfer,
-        AccomodationRequired: this.attendeeForm.value.accommodation,
-        Event: this.eventId
+        PractiseNumber: this.attendeeForm.value.practiseNumber,
+        Contact: this.attendeeForm.value.contact,
+        Email: this.attendeeForm.value.email,
+        DietaryPreference: this.attendeeForm.value.dietaryPreference,
+        ReturnRoute: this.attendeeForm.value.returnRoute,
+        Transfer: this.attendeeForm.value.transfer,
+        Accommodation: this.attendeeForm.value.accommodation
       };
 
       await this.service.addNewAttendee(guest);

@@ -7,8 +7,42 @@
   .badge {
     display: inline-block;
     padding: 4px 8px;
-    border-radius: 20px; /* Make the borders round */
+    border-radius: 4px; /* Make the borders round */
     color: white;
   }
   
+  .header-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  h1 {
+    margin: 0; /* Remove default margin */
+  }
+  
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+  }
+  
+
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px; /* Space between elements */
+  }
+  
+  .search-bar {
+    flex: 1; /* Takes up remaining space */
+    max-width: 300px; /* Max width of the search bar */
+  }
+  
+  .right-controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
   

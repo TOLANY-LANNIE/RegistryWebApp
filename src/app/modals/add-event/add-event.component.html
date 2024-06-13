@@ -2,59 +2,81 @@
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="addEventFormGroup" (ngSubmit)="onSubmit()">
         <div class="form-container">
-          <br>
             <mat-form-field appearance="outline">
                 <mat-label>Event Title</mat-label>
                 <input matInput 
                        placeholder="eg. Doctor's Conference"
-                       formControlName="title" 
-                       [(ngModel)]="title">
+                       formControlName="title">
                 <mat-error *ngIf="addEventFormGroup.get('title')?.invalid && addEventFormGroup.get('title')?.touched">Title is required</mat-error>
-              </mat-form-field>              
-              
-              <mat-form-field appearance="outline">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="date">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="addEventFormGroup.get('date')?.invalid && addEventFormGroup.get('date')?.touched">Date is required</mat-error>
-              </mat-form-field>
+            </mat-form-field>              
 
-              <mat-form-field appearance="outline">
-                <mat-label>Description</mat-label>
-                <textarea matInput placeholder="eg. Doctor's Conference" formControlName="description"></textarea>
-                <mat-error *ngIf="addEventFormGroup.get('description')?.invalid && addEventFormGroup.get('description')?.touched">Description is required</mat-error>
-              </mat-form-field>
+            <mat-form-field class="date-range-form-field" appearance="outline">
+              <mat-label>Choose Start and End Date</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" formControlName="startDate">
+                <input matEndDate placeholder="End date" formControlName="endDate">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+              <mat-error *ngIf="addEventFormGroup.get('startDate')?.invalid && addEventFormGroup.get('startDate')?.touched">
+                Start Date is required
+              </mat-error>
+              <mat-error *ngIf="addEventFormGroup.get('endDate')?.invalid && addEventFormGroup.get('endDate')?.touched">
+                End Date is required
+              </mat-error>
+            </mat-form-field>
 
-              <mat-form-field appearance="outline">
-                <mat-label>Location</mat-label>
-                <input matInput placeholder="eg. Doctor's Conference" formControlName="location">
-                <mat-error *ngIf="addEventFormGroup.get('location')?.invalid && addEventFormGroup.get('location')?.touched">Location is required</mat-error>
-              </mat-form-field>
-              
-              <mat-form-field appearance="outline">
-                <mat-label>Capacity</mat-label>
-                <input matInput placeholder="eg. 200" formControlName="capacity" restrictNumbers>
-                <mat-hint align="end">Only numbers are allowed</mat-hint>
-                <mat-error *ngIf="addEventFormGroup.get('capacity')?.hasError('required') && addEventFormGroup.get('capacity')?.touched">Capacity is required</mat-error>
-                <mat-error *ngIf="addEventFormGroup.get('capacity')?.hasError('pattern') && addEventFormGroup.get('capacity')?.touched">Only numbers are allowed</mat-error>
-              </mat-form-field>
-              
-              <mat-form-field appearance="outline">
-                <mat-label>Active Status</mat-label>
-                <mat-select formControlName="status">
-                  <mat-option [value]="true">Active</mat-option>
-                  <mat-option [value]="false">Inactive</mat-option>
-                </mat-select>
-                <mat-error *ngIf="addEventFormGroup.get('status')?.hasError('required') && addEventFormGroup.get('status')?.touched">
-                  Active Status is required
-                </mat-error>
-              </mat-form-field>              
+            <mat-form-field appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput placeholder="eg. Doctor's Conference" formControlName="description"></textarea>
+              <mat-error *ngIf="addEventFormGroup.get('description')?.invalid && addEventFormGroup.get('description')?.touched">Description is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Location</mat-label>
+              <input matInput placeholder="eg. Doctor's Conference" formControlName="location">
+              <mat-error *ngIf="addEventFormGroup.get('location')?.invalid && addEventFormGroup.get('location')?.touched">Location is required</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Capacity</mat-label>
+              <input matInput placeholder="eg. 200" formControlName="capacity" restrictNumbers>
+              <mat-hint align="end">Only numbers are allowed</mat-hint>
+              <mat-error *ngIf="addEventFormGroup.get('capacity')?.hasError('required') && addEventFormGroup.get('capacity')?.touched">Capacity is required</mat-error>
+              <mat-error *ngIf="addEventFormGroup.get('capacity')?.hasError('pattern') && addEventFormGroup.get('capacity')?.touched">Only numbers are allowed</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Active Status</mat-label>
+              <mat-select formControlName="status">
+                <mat-option [value]="true">Active</mat-option>
+                <mat-option [value]="false">Inactive</mat-option>
+              </mat-select>
+              <mat-error *ngIf="addEventFormGroup.get('status')?.hasError('required') && addEventFormGroup.get('status')?.touched">
+                Active Status is required
+              </mat-error>
+            </mat-form-field>              
+        </div>
+
+        <!-- Agenda Section -->
+        <h3>Agenda</h3>
+        <div formArrayName="agenda" class="agenda-container">
+          <div *ngFor="let agendaCtrl of agenda.controls; let i = index" [formGroupName]="i" class="agenda-item">
+            <mat-form-field class="agenda-field" appearance="outline">
+              <mat-label>Agenda Item</mat-label>
+              <input matInput placeholder="Agenda item" formControlName="item">
+              <mat-error *ngIf="agendaCtrl.get('item')?.invalid && agendaCtrl.get('item')?.touched">Agenda item is required</mat-error>
+            </mat-form-field>
+            <button type="button" mat-icon-button color="warn" (click)="removeAgendaItem(i)" aria-label="Remove agenda item">
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
           </div>
+        </div>
+        <button mat-stroked-button color="primary" (click)="addAgendaItem()">Add Agenda Item</button>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  type="submit" [disabled]="addEventFormGroup.invalid" (click)="onSubmit()">Save</button>
+  <button mat-stroked-button mat-dialog-close (click)="onCancel()">Cancel</button>
+  <button mat-stroked-button color="primary" [mat-dialog-close]="true" cdkFocusInitial type="submit" [disabled]="addEventFormGroup.invalid" (click)="onSubmit()">Save</button>
 </mat-dialog-actions>

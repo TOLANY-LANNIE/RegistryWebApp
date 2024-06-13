@@ -4,21 +4,23 @@ h2 {
   color: white !important;
   font-weight: bold;
   font-style: oblique;
-
 }
 
 .mat-dialog-container {
   border-radius: 16px; /* Adjust the value as needed */
 }
+
 .form-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjust spacing between form fields */
 }
 
 .dialog-title {
   color: #fff;
   background-color: #303F9F;
 }
+
 button {
   margin-right: 8px;
 }
@@ -29,22 +31,44 @@ button {
   --mdc-snackbar-supporting-text-color: white;
 }
 
-.green-snackbar {
-  --mdc-snackbar-container-color:#008B00;
+/* .green-snackbar {
+  --mdc-snackbar-container-color: #008B00;
   --mat-snack-bar-button-color: white;
   --mdc-snackbar-supporting-text-color: white;
+}*/
+
+/*::ng-deep .snackbar {
+  max-width: 90% !important;
+  margin-left: auto !important; 
+  margin-right: auto !important; 
+  margin-bottom: 1rem !important; 
+  padding: 10px !important; 
+  background-color: green;
+  color: white; */
+
+ /*  .mat-button-wrapper {
+    color: black !important;
+  }
+} */
+
+/* Agenda styles */
+.agenda-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjust spacing between agenda items */
+  width: 100%;
 }
 
-::ng-deep .snackbar {
-  max-width: 90% !important;
-  margin-left: auto !important; // center align from left
-  margin-right: auto !important; // center align from right
-  margin-bottom: 1rem !important; 
-  padding: 10px !important; // spacing between the text and boundary
-  background-color: green;
-  color: white;
+.agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Adjust spacing between the agenda field and the remove button */
+}
 
-  .mat-button-wrapper {
-      color: black !important; // action text color
-  }
+.agenda-field {
+  flex: 1; /* Ensure the agenda field fills available space */
+}
+
+mat-dialog-actions {
+  padding-top: 16px; /* Adjust padding for actions */
 }

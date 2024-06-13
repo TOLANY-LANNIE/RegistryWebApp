@@ -68,11 +68,13 @@ export class EditEventComponent {
     // Getting data from the editEventFormGroup
     const event: Event = {
       Title: this.editEventFormGroup.value.title,
-      Date: formattedDate,
+      StartDate: formattedDate,
+      EndDate:formattedDate,
       Description: this.editEventFormGroup.value.description,
       Location: this.editEventFormGroup.value.location,
       Capacity: this.editEventFormGroup.value.capacity,
-      Status: JSON.parse(this.editEventFormGroup.value.status)
+      Status: JSON.parse(this.editEventFormGroup.value.status),
+      Agenda: this.data.Agenda
     };
   
     this.service.updateEvent(this.data.id, event)
