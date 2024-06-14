@@ -59,4 +59,23 @@ export class AttendeesService {
       });
     });
   }
+
+  
+  getAttendeesCountByEvent(eventId: string): Promise<number> {
+    if (!eventId) {
+      return Promise.reject('Invalid event ID'); // Check for invalid ID
+    }
+    return new Promise<number>((resolve, reject) => {
+      this.db.collection('Attendees', ref => ref.where('Event', '==', eventId)).valueChanges().subscribe({
+        next: (attendees) => {
+          resolve(attendees.length); // Return the count of attendees
+        },
+        error: (error) => {
+          reject(error);
+        }
+      });
+    });
+  }
+  
+  
 }
