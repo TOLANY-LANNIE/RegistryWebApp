@@ -1,5 +1,20 @@
-<div class="container" fxLayout="row" fxLayoutAlign="space-between">
+<div class="content" fxLayout="row" fxLayoutAlign="space-between">
   <div fxFlex="1 1 auto">
+
+    <!--Breadcrumbs-->
+    <div class="dashboard-title">
+      <nav aria-label="breadcrumb">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">
+            <a [routerLink]="['/events']">Events</a>
+          </span>
+          <span class="breadcrumb-divider">/</span>
+          <span class="breadcrumb-item active">
+            Attendees
+          </span>
+        </div>
+      </nav>
+    </div>
 
     <!--Header and Button Container-->
     <div class="header-button-container">
@@ -60,12 +75,19 @@
        <ng-container matColumnDef="MoreOptions">
           <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="viewDetails(element)"  title="Details">
-              <mat-icon color="primary">info</mat-icon>
-            </button> 
-            <button mat-icon-button title="Delete" (click)="deleteGuest(element)">
-              <mat-icon color="warn">delete</mat-icon>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
             </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="viewDetails(element)"  title="Details">
+                <mat-icon color="primary">info</mat-icon>
+                <span>Details</span>
+              </button> 
+              <button mat-menu-item title="Delete" (click)="deleteGuest(element)">
+                <mat-icon color="warn">delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
           </mat-cell> 
           
         </ng-container>

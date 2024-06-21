@@ -50,6 +50,7 @@ export class EventsComponent implements AfterViewInit, OnInit {
         }
       });
       this.dataSource = new MatTableDataSource(events);
+      
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       await this.loadAttendeeCounts(); // Load attendee counts after events
@@ -76,6 +77,7 @@ export class EventsComponent implements AfterViewInit, OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    console.log(this.dataSource.data)
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
