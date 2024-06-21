@@ -15,37 +15,33 @@
       </div>
       <br>
       <!--Actions Card-->
-      <mat-card class="mat-elevation-z0">
-        <mat-card-content >
-          <div class="flex-container">
-            <!--Searchbar-->
-            <mat-form-field appearance="outline" class="search-bar">
-              <mat-label>Search</mat-label>
-              <input (keyup)="applyFilter($event)" matInput>
-              <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-      
-            <div class="right-controls">
-              <!--Filter by Status-->
-              <mat-form-field appearance="outline">
-                <mat-label>Active Status</mat-label>
-                <mat-select>
-                  <mat-option [value]="true">Active</mat-option>
-                  <mat-option [value]="false">Inactive</mat-option>
-                </mat-select>
-              </mat-form-field> 
-      
-              <!--DatePicker-->
-              <mat-form-field appearance="outline">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <div class="flex-container">
+        <!--Searchbar-->
+        <mat-form-field appearance="outline" class="search-bar">
+          <mat-label>Search</mat-label>
+          <input (keyup)="applyFilter($event)" matInput>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+  
+        <div class="right-controls">
+          <!--Filter by Status-->
+          <mat-form-field appearance="outline">
+            <mat-label>Active Status</mat-label>
+            <mat-select>
+              <mat-option [value]="true">Active</mat-option>
+              <mat-option [value]="false">Inactive</mat-option>
+            </mat-select>
+          </mat-form-field> 
+  
+          <!--DatePicker-->
+          <mat-form-field appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
       
       <br>
       <mat-card class="mat-elevation-z0">
