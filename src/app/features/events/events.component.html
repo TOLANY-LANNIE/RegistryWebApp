@@ -1,136 +1,141 @@
 <div class="content" fxLayout="row" fxLayoutAlign="space-between">
-    <div fxFlex="1 1 auto">
-     <!--Header and Button Container-->
-      <div class="header-button-container">
-        <!--Page Title-->
-        <h1>
-          Events
-        </h1>
-
-        <!--Create Event Button-->
-        <button mat-stroked-button color="primary" class="btn" (click)="openAddEventModal()">
-          <mat-icon>add</mat-icon>
-          Create Event
-        </button>
-      </div>
-      <br>
-      <!--Actions Card-->
-      <mat-card class="mat-elevation-z0">
-        <mat-card-content >
-          <div class="flex-container">
-            <!--Searchbar-->
-            <mat-form-field appearance="outline" class="search-bar">
-              <mat-label>Search</mat-label>
-              <input (keyup)="applyFilter($event)" matInput>
-              <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-      
-            <div class="right-controls">
-              <!--Filter by Status-->
-              <mat-form-field appearance="outline">
-                <mat-label>Active Status</mat-label>
-                <mat-select>
-                  <mat-option [value]="true">Active</mat-option>
-                  <mat-option [value]="false">Inactive</mat-option>
-                </mat-select>
-              </mat-form-field> 
-      
-              <!--DatePicker-->
-              <mat-form-field appearance="outline">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      
-      <br>
-      <mat-card class="mat-elevation-z0">
-        <!--Table-->
-          <mat-table [dataSource]="dataSource" matSort>
-            <!-- Title Column -->
-            <ng-container matColumnDef="Title">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="clickable-cell" (click)="navigateToAttendees(element)"> {{ element.Title }} </mat-cell>
-            </ng-container>
-            
-            
-          
-            <!-- Date Column -->
-            <ng-container matColumnDef="Start Date">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.StartDate }}</mat-cell>
-            </ng-container>
-
-             <!-- Date Column -->
-             <ng-container matColumnDef="End Date">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.EndDate }} </mat-cell>
-            </ng-container>
-          
-              <!-- Capacity Column -->
-              <ng-container matColumnDef="Capacity">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.Capacity }} </mat-cell>
-              </ng-container>
-
-            <!--Guests Count Column -->
-            <ng-container matColumnDef="Guests">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Guests </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{ getAttendeeCount(element.id) }} </mat-cell>
-            </ng-container>
-          
-            <!-- Status Column -->
-            <ng-container matColumnDef="Status">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="badge" [style.background-color]="getBadgeColor(element.Status)">
-                  {{ element.Status ? 'Active' : 'Inactive' }}
-                </span>
-              </mat-cell>
-            </ng-container>
-    
-             <!-- MoreOptions Column -->
-          <ng-container matColumnDef="MoreOptions">
-            <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
-            <mat-cell *matCellDef="let element"> 
-              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="viewDetails(element)" title="Details">
-                  <mat-icon color="primary">info</mat-icon>
-                  <span>Event Details</span>
-                </button>
-  
-                <button mat-menu-item (click)=" openEditDialog(element)" title="Edit">
-                  <mat-icon color="primary">edit</mat-icon>
-                  <span>Edit Event</span>
-                </button>
-                <button mat-menu-item (click)="openDeleteAlert(element)" title="Delete">
-                  <mat-icon color="warn">delete</mat-icon>
-                  <span>Delete Event</span>
-                </button> 
-              </mat-menu>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="noRecord">
-            <td mat-footer-cell *matFooterCellDef>No records found.</td>
-          </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
-            <ng-template [ngIf]="dataSource.data.length === 0">
-              <tr mat-footer-row *matFooterRowDef="['noRecord']"></tr>
-            </ng-template>
-          </mat-table>
-          <!--Paginator-->
-          <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
-      </mat-card>
-      
+  <div fxFlex="1 1 auto">
+   
+    <!--Breadcrumbs-->
+    <div class="dashboard-title">
+      <nav aria-label="breadcrumb">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">
+            <a [routerLink]="['/events']">Events</a>
+          </span>
+        </div>
+      </nav>
     </div>
+    <!--Header and Button Container-->
+    <div class="header-button-container">
+      <!--Page Title-->
+      <h1>Events</h1>
+
+      <!--Create Event Button-->
+      <button mat-stroked-button color="primary" class="btn" (click)="openAddEventModal()">
+        <mat-icon>add</mat-icon>
+        Create Event
+      </button>
+    </div>
+    <br>
+
+    <!--Actions Card-->
+    <div class="flex-container">
+      <!--Searchbar-->
+      <mat-form-field appearance="outline" class="search-bar">
+        <mat-label>Search</mat-label>
+        <input (keyup)="applyFilter($event)" matInput>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <div class="right-controls">
+       <!-- Filter by Status -->
+        <mat-form-field appearance="outline">
+          <mat-label>Active Status</mat-label>
+          <mat-select (selectionChange)="applyStatusFilter($event.value)">
+            <mat-option [value]="null">All</mat-option>
+            <mat-option [value]="true">Active</mat-option>
+            <mat-option [value]="false">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Filter by Date -->
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" (dateChange)="applyDateFilter($event.value)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <br>
+    <mat-card class="mat-elevation-z0">
+      <!--Table-->
+      <mat-table [dataSource]="dataSource" matSort>
+        <!-- Title Column -->
+        <ng-container matColumnDef="Title">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="clickable-cell" (click)="navigateToAttendees(element)"> {{ element.Title }} </mat-cell>
+        </ng-container>
+        
+        <!-- Date Column -->
+        <ng-container matColumnDef="Start Date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.StartDate }}</mat-cell>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="End Date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.EndDate }} </mat-cell>
+        </ng-container>
+      
+        <!-- Capacity Column -->
+        <ng-container matColumnDef="Capacity">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.Capacity }} </mat-cell>
+        </ng-container>
+
+        <!--Guests Count Column -->
+        <ng-container matColumnDef="Guests">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Guests </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ getAttendeeCount(element.id) }} </mat-cell>
+        </ng-container>
+      
+        <!-- Status Column -->
+        <ng-container matColumnDef="Status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="badge" [style.background-color]="getBadgeColor(element.Status)">
+              {{ element.Status ? 'Active' : 'Inactive' }}
+            </span>
+          </mat-cell>
+        </ng-container>
+    
+        <!-- MoreOptions Column -->
+        <ng-container matColumnDef="MoreOptions">
+          <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="viewDetails(element)" title="Details">
+                <mat-icon color="primary">info</mat-icon>
+                <span>Event Details</span>
+              </button>
+
+              <button mat-menu-item (click)=" openEditDialog(element)" title="Edit">
+                <mat-icon color="primary">edit</mat-icon>
+                <span>Edit Event</span>
+              </button>
+              <button mat-menu-item (click)="openDeleteAlert(element)" title="Delete">
+                <mat-icon color="warn">delete</mat-icon>
+                <span>Delete Event</span>
+              </button> 
+            </mat-menu>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="noRecord">
+          <td mat-footer-cell *matFooterCellDef>No records found.</td>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+        <ng-template [ngIf]="dataSource.data.length === 0">
+          <tr mat-footer-row *matFooterRowDef="['noRecord']"></tr>
+        </ng-template>
+      </mat-table>
+      <!--Paginator-->
+      <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+    </mat-card>
+    
   </div>
+</div>

@@ -1,97 +1,111 @@
-<div class="container" fxLayout="row" fxLayoutAlign="space-between">
+<div class="content" fxLayout="row" fxLayoutAlign="space-between">
   <div fxFlex="1 1 auto">
-    <div class="button-container">
-      <button mat-fab color="primary" aria-label="Back to Events" title="back">
-        <a mat-fab color="primary" aria-label="Back to Events" title="back" routerLink="/events">
-          <mat-icon>arrow_back</mat-icon>
-        </a>        
+
+    <!--Breadcrumbs-->
+    <div class="dashboard-title">
+      <nav aria-label="breadcrumb">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">
+            <a [routerLink]="['/events']">Events</a>
+          </span>
+          <span class="breadcrumb-divider">/</span>
+          <span class="breadcrumb-item active">
+            Attendees
+          </span>
+        </div>
+      </nav>
+    </div>
+
+    <!--Header and Button Container-->
+    <div class="header-button-container">
+      <!--Page Title-->
+      <h1>
+        {{event.Title}} Attendees
+      </h1>
+
+      <!--Create Event Button-->
+      <button mat-stroked-button color="primary" class="btn" (click)="openInviteModal()">
+        <mat-icon>add</mat-icon>
+        Invite Guests
       </button>
     </div>
-    <mat-card>
-      <mat-card-content>
-        <div class="card-header">
-          <h2>{{event.Title}} Attendees</h2>
-          <div class="parent-div">
-              <div class="search-dive">
-                <div class="search-bar">
-                  <div class="search-container">
-                    <span class="search-icon">
-                    </span>
-                      <mat-form-field appearance="outline">
-                        <input (keyup)="applyFilter($event)" matInput placeholder="Search">
-                        <mat-icon matSuffix>search</mat-icon>
-                      </mat-form-field>
-                  </div>
-                </div>
-                <button mat-flat-button color="primary" class="btn" (click)="openInviteModal()" [disabled]="!event.Status">
-                  <mat-icon>mail</mat-icon>
-                  Invite Guest
-                </button>
-              </div>
-            </div>
-        </div>
-        <div class="mat-elevation-z8">
-          <mat-table [dataSource]="dataSource" matSort matSort>
-            <!-- Name Column -->
-            <ng-container matColumnDef="Name">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.Name }} </mat-cell>
-            </ng-container>
+    <br>
+    <div class="flex-container">
+      <!--Searchbar-->
+      <mat-form-field appearance="outline" class="search-bar">
+        <mat-label>Search</mat-label>
+        <input (keyup)="applyFilter($event)" matInput>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <br>
+    <mat-card class="mat-elevation-z0">
+      <mat-table [dataSource]="dataSource" matSort matSort>
+        <!-- Name Column -->
+        <ng-container matColumnDef="Name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.Name }} </mat-cell>
+        </ng-container>
+      
+        <!-- Surname Column -->
+        <ng-container matColumnDef="Surname">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Surname </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.Surname }} </mat-cell>
+        </ng-container>
+      
+        <!-- Practice Number Column -->
+        <ng-container matColumnDef="PracticeNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Practice Number </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.PractiseNumber }} </mat-cell>
+        </ng-container>
+      
+        <!-- Contact Column -->
+        <ng-container matColumnDef="Contact">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Contact </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.Contact }} </mat-cell>
+        </ng-container>
+
+         <!-- Email Column -->
+         <ng-container matColumnDef="Email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.Email }} </mat-cell>
+        </ng-container>
+
+        <!-- MoreOptions Column -->
+       <ng-container matColumnDef="MoreOptions">
+          <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="viewDetails(element)"  title="Details">
+                <mat-icon color="primary">info</mat-icon>
+                <span>Details</span>
+              </button> 
+              <button mat-menu-item title="Delete" (click)="deleteGuest(element)">
+                <mat-icon color="warn">delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </mat-cell> 
           
-            <!-- Surname Column -->
-            <ng-container matColumnDef="Surname">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Surname </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.Surname }} </mat-cell>
-            </ng-container>
-          
-            <!-- Practice Number Column -->
-            <ng-container matColumnDef="PracticeNumber">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Practice Number </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.PracticeNumber }} </mat-cell>
-            </ng-container>
-          
-            <!-- Contact Column -->
-            <ng-container matColumnDef="Contact">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Contact </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.Contact }} </mat-cell>
-            </ng-container>
+        </ng-container>
 
-             <!-- Email Column -->
-             <ng-container matColumnDef="Email">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.Email }} </mat-cell>
-            </ng-container>
+        <ng-container matColumnDef="noRecord">
+          <td mat-footer-cell *matFooterCellDef>No records found.</td>
+        </ng-container>
 
-            <!-- MoreOptions Column -->
-           <ng-container matColumnDef="MoreOptions">
-              <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <button mat-icon-button (click)="viewDetails(element)"  title="Details">
-                  <mat-icon color="primary">info</mat-icon>
-                </button> 
-                <button mat-icon-button title="Delete" (click)="deleteGuest(element)">
-                  <mat-icon color="warn">delete</mat-icon>
-                </button>
-              </mat-cell> 
-              
-            </ng-container>
-
-            <ng-container matColumnDef="noRecord">
-              <td mat-footer-cell *matFooterCellDef>No records found.</td>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
-            <ng-template [ngIf]="dataSource.data.length === 0">
-              <tr mat-footer-row *matFooterRowDef="['noRecord']"></tr>
-            </ng-template>
-          </mat-table>
-          <ng-template #noAttendees>
-            <div class="no-attendees-message">No Attendees</div>
-          </ng-template>
-          <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>        
-        </div>
-      </mat-card-content>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+        <ng-template [ngIf]="dataSource.data.length === 0">
+          <tr mat-footer-row *matFooterRowDef="['noRecord']"></tr>
+        </ng-template>
+      </mat-table>
+      <ng-template #noAttendees>
+        <div class="no-attendees-message">No Attendees</div>
+      </ng-template>
+      <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>        
     </mat-card>
   </div>
 </div>

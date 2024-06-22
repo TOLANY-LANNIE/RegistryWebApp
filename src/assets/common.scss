@@ -24,7 +24,7 @@ mat-card {
 }
 
 .content{
-  padding: 16px;
+  padding: 10px;
 }
 
 .card-header {
@@ -34,7 +34,36 @@ mat-card {
   padding-bottom: 10px;
 }
 
-  
-  
-  
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.breadcrumb-item {
+  display: inline-block;
+  color: grey;
+  margin: 0;
+}
+
+.breadcrumb-divider {
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+
     
