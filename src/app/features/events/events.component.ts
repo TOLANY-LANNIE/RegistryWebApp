@@ -5,7 +5,6 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-
 import { EventsService } from '../../services/events/events.service';
 import { AttendeesService } from '../../services/attendees/attendees.service';
 import { AddEventComponent } from '../../modals/add-event/add-event.component';
@@ -33,7 +32,7 @@ export class EventsComponent implements AfterViewInit, OnInit {
     private service: EventsService,
     private attendeesService: AttendeesService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getEvents(); // Load events after view initialization
@@ -50,7 +49,6 @@ export class EventsComponent implements AfterViewInit, OnInit {
         }
       });
       this.dataSource = new MatTableDataSource(events);
-      
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       await this.loadAttendeeCounts(); // Load attendee counts after events
@@ -77,8 +75,30 @@ export class EventsComponent implements AfterViewInit, OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(this.dataSource.data)
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyStatusFilter(activeStatus: boolean | null) {
+    this.dataSource.filterPredicate = (data, filter) => {
+      if (activeStatus === null) {
+        return true; // Show all when no filter is selected
+      } else {
+        return data.Status === activeStatus;
+      }
+    };
+    this.dataSource.filter = 'trigger'; // Trigger the filter
+  }
+
+  applyDateFilter(date: Date | null) {
+    this.dataSource.filterPredicate = (data, filter) => {
+      if (!date) {
+        return true; // Show all when no date filter is selected
+      } else {
+        // Assuming StartDate is in Date format, adjust comparison logic if needed
+        return new Date(data.StartDate).toDateString() === date.toDateString();
+      }
+    };
+    this.dataSource.filter = 'trigger'; // Trigger the filter
   }
 
   announceSortChange(sortState: Sort) {
@@ -136,7 +156,6 @@ export class EventsComponent implements AfterViewInit, OnInit {
   }
 
   navigateToAttendees(event: any) {
-    console.log(event)
     const serializedData = JSON.stringify(event);
     this.router.navigate(['/attendees'], { queryParams: { data: serializedData } });
   }

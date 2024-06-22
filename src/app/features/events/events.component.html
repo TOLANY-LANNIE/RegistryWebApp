@@ -34,19 +34,20 @@
       </mat-form-field>
 
       <div class="right-controls">
-        <!--Filter by Status-->
+       <!-- Filter by Status -->
         <mat-form-field appearance="outline">
           <mat-label>Active Status</mat-label>
-          <mat-select>
+          <mat-select (selectionChange)="applyStatusFilter($event.value)">
+            <mat-option [value]="null">All</mat-option>
             <mat-option [value]="true">Active</mat-option>
             <mat-option [value]="false">Inactive</mat-option>
           </mat-select>
-        </mat-form-field> 
+        </mat-form-field>
 
-        <!--DatePicker-->
+        <!-- Filter by Date -->
         <mat-form-field appearance="outline">
           <mat-label>Choose a date</mat-label>
-          <input matInput [matDatepicker]="picker">
+          <input matInput [matDatepicker]="picker" (dateChange)="applyDateFilter($event.value)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
