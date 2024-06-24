@@ -36,7 +36,7 @@
   display: flex; /* Use Flexbox */
   align-items: center; /* Align items vertically in the center */
   padding-bottom: 8px;
-  //white-space: nowrap; /* Prevent text from wrapping */
+  white-space: nowrap; /* Prevent text from wrapping */
   overflow: hidden; /* Hide overflowing text */
   text-overflow: ellipsis; /* Display an ellipsis (...) to indicate text overflow */
   ; 
