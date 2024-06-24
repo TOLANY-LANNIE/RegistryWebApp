@@ -36,18 +36,18 @@
       <div class="right-controls">
        <!-- Filter by Status -->
         <mat-form-field appearance="outline">
-          <mat-label>Active Status</mat-label>
+          <mat-label>Search by Status</mat-label>
           <mat-select (selectionChange)="applyStatusFilter($event.value)">
             <mat-option [value]="null">All</mat-option>
-            <mat-option [value]="true">Active</mat-option>
-            <mat-option [value]="false">Inactive</mat-option>
+            <mat-option [value]="true">Open</mat-option>
+            <mat-option [value]="false">Closed</mat-option>
           </mat-select>
         </mat-form-field>
 
         <!-- Filter by Date -->
         <mat-form-field appearance="outline">
-          <mat-label>Choose a date</mat-label>
-          <input matInput [matDatepicker]="picker" (dateChange)="applyDateFilter($event.value)">
+          <mat-label>Search By Date</mat-label>
+          <input matInput [matDatepicker]="picker" (dateChange)="applyDateFilter($event.value)" placeholder="MM/DD/YYYY">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -93,7 +93,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
           <mat-cell *matCellDef="let element">
             <span class="badge" [style.background-color]="getBadgeColor(element.Status)">
-              {{ element.Status ? 'Active' : 'Inactive' }}
+              {{ element.Status ? 'Open' : 'Closed' }}
             </span>
           </mat-cell>
         </ng-container>
