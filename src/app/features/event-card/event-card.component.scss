@@ -14,7 +14,7 @@
   width: 100%;
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 8px; /* Add space below the title */
+  margin-bottom: 4px; /* Add space below the title */
   overflow: hidden; /* Hide overflow content */
   white-space: nowrap; /* Prevent text from wrapping */
   text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
@@ -47,3 +47,6 @@
   flex-shrink: 0;
 }
 
+.example-margin {
+  margin: 0 10px;
+}

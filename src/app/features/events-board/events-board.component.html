@@ -1,14 +1,5 @@
-<mat-toolbar class="mat-elevation-z3" color="primary">
-    <div class="navbar-brand">
-        <h2>Events Registry App</h2>
-    </div>
-    <span class="header-spacer"></span>
-  </mat-toolbar>
-<div class="container">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of events">
-            <app-event-card [card]="card"></app-event-card>
-        </div>
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of events">
+        <app-event-card [card]="card"></app-event-card>
     </div>
 </div>
-  

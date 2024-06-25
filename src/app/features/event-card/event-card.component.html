@@ -3,17 +3,21 @@
     <img mat-card-image [src]="photo?.urls?.small" alt="Event Image">
   </div>
   <mat-card-content>
-    <div class="date-container">{{ card.StartDate}} - {{ card.EndDate }}</div>
+
     <div class="title-container">
       <h3><strong>{{ card.Title }}</strong></h3>
-    </div>    
+    </div>
     <div class="location-container">
-      <mat-icon color="primary">location_on</mat-icon>
-      {{ card.Location }}
+      <mat-icon color="primary">calendar_today</mat-icon>
+      {{ card.StartDate}} - {{ card.EndDate }}</div>
+
+    <div class="location-container">
+      <mat-icon color="primary">people</mat-icon>
+      {{ card.Capacity }} Expected Guest
     </div>    
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="viewDetails(card)">INFO</button>
-    <button mat-button color="primary" (click)="navigateToForm(card)">SIGN UP</button>
-  </mat-card-actions>
+  <br>
+  <mat-card-footer>
+    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+  </mat-card-footer>
 </mat-card>

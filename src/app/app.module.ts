@@ -55,6 +55,7 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort'
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
@@ -116,6 +117,7 @@ import { environment } from '../environment/environment';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatProgressBarModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,

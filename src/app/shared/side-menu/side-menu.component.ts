@@ -40,7 +40,12 @@ export class SideMenuComponent {
   */
   menuItems = signal<MenuItem[]>([
     {
-      icon:'home',
+      icon:'dashboard',
+      label:'Dashboard',
+      route:'events-board'
+    },
+    {
+      icon:'calendar_today',
       label:'Events',
       route:'events'
     },
