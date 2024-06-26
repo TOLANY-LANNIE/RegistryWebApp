@@ -11,6 +11,7 @@ import { UnsplashService } from '../../services/unsplash/unsplash.service';
 })
 export class EventCardComponent implements OnInit {
   @Input() card: any;
+  @Input() attendeeCount: number; // New input to receive attendee count
   photo: any = null;
 
   constructor(

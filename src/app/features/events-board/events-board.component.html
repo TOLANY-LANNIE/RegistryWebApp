@@ -1,5 +1,18 @@
-<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of events">
-        <app-event-card [card]="card"></app-event-card>
+<div class="content" fxLayout="row" fxLayoutAlign="space-between">
+    <div fxFlex="1 1 auto">
+        <!--Header and Button Container-->
+        <div class="header-button-container">
+            <!--Page Title-->
+            <h1>Today's Events</h1>
+        </div>
+        <br>
+        <!--Events Card Gird-->
+        <!-- Events Card Grid -->
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of events">
+            <app-event-card [card]="card" [attendeeCount]="getAttendeeCount(card.id)"></app-event-card>
+            </div>
+        </div>
+  
     </div>
 </div>

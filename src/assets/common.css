@@ -12,6 +12,16 @@ h3 {
 
 mat-table {
   width: 100%;
+  border-radius: 8px;
+}
+
+mat-card {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.content {
+  padding: 10px;
 }
 
 .card-header {
@@ -21,26 +31,33 @@ mat-table {
   padding-bottom: 10px;
 }
 
-.parent-div {
+.dashboard-title {
   display: flex;
   align-items: center;
-  flex-grow: 0;
-  flex-shrink: 0;
+  padding: 1rem 0;
 }
-.parent-div .search-dive .search-bar {
-  position: relative;
+
+.breadcrumb {
   display: flex;
   align-items: center;
-  width: 100%;
+  font-size: 1rem;
 }
-.parent-div .search-dive .search-bar .search-container {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+
+.breadcrumb-item {
+  display: inline-block;
+  color: grey;
+  margin: 0;
 }
-.parent-div .search-dive .btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
+
+.breadcrumb-divider {
+  margin: 0 0.5rem;
 }
+
+.breadcrumb-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=common.css.map */

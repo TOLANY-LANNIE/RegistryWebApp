@@ -13,11 +13,16 @@
 
     <div class="location-container">
       <mat-icon color="primary">people</mat-icon>
-      {{ card.Capacity }} Expected Guest
-    </div>    
+      {{ card.Capacity }} Expected Guests
+    </div> 
+
+    <div class="location-container">
+      <mat-icon color="primary">people</mat-icon>
+      {{attendeeCount}} Guests confirmed
+    </div>      
   </mat-card-content>
   <br>
   <mat-card-footer>
-    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+    <mat-progress-bar mode="determinate" value="0"></mat-progress-bar>
   </mat-card-footer>
 </mat-card>

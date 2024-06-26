@@ -73,13 +73,10 @@ export class AddEventComponent implements OnInit {
     if (this.addEventFormGroup.invalid) {
       return;
     }
-
-    const startDate = this.datePipe.transform(this.addEventFormGroup.value.startDate, 'dd/MM/yyyy');
-    const endDate = this.datePipe.transform(this.addEventFormGroup.value.endDate, 'dd/MM/yyyy');
     const event:Event = {
       Title: this.addEventFormGroup.value.title,
-      StartDate: `${startDate}`,
-      EndDate: `${endDate}`,
+      StartDate: this.addEventFormGroup.value.startDate.toISOString(),
+      EndDate: this.addEventFormGroup.value.endDate.toISOString(),
       Description: this.addEventFormGroup.value.description,
       Location: this.addEventFormGroup.value.location,
       Capacity: this.addEventFormGroup.value.capacity,
