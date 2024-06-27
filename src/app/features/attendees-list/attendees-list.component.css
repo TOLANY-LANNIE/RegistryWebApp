@@ -122,4 +122,20 @@ h1 {
 
 .mat-column-MoreOptions {
   flex: 0 0 10%;
+}
+
+.mat-column-Test {
+  flex: 0 0 6%;
+}
+
+.mat-column-Title {
+  flex: 0 0 6%;
+}
+
+.mat-column-Name {
+  flex: 0 0 10%;
+}
+
+.mat-column-Surname {
+  flex: 0 0 10%;
 }/*# sourceMappingURL=attendees-list.component.css.map */

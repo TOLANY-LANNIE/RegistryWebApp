@@ -60,6 +60,9 @@ export class EventsComponent implements AfterViewInit, OnInit {
         }
       });
       this.dataSource = new MatTableDataSource<any>(events); // Initialize dataSource with type `any`
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       await this.loadAttendeeCounts(); // Load attendee counts after events
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -174,7 +177,7 @@ export class EventsComponent implements AfterViewInit, OnInit {
   }
 
   navigateToAttendees(event: any) {
-    const serializedData = JSON.stringify(event);
+    const serializedData = JSON.stringify(event.id);
     this.router.navigate(['/attendees'], { queryParams: { data: serializedData } });
   }
 
