@@ -3,11 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
 import { UnsplashService } from '../../services/unsplash/unsplash.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
-  styleUrls: ['./event-card.component.scss']
+  styleUrls: ['./event-card.component.scss'],
+  providers: [DatePipe] 
 })
 export class EventCardComponent implements OnInit {
   @Input() card: any;
@@ -17,7 +19,8 @@ export class EventCardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private unsplashService: UnsplashService
+    private unsplashService: UnsplashService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -52,4 +55,20 @@ export class EventCardComponent implements OnInit {
       this.photo = null; // Handle error case
     });
   }
+
+  formatDate(date: string): string {
+    // Convert date to 'MM/dd/yyyy'
+    return this.datePipe.transform(date, 'MM/dd/yyyy') ?? '';
+  }
+
+  /**
+   * Get percentage of confirmed Attendees
+   */
+  getProgressPercentage(attendeeCount: number, capacity: number): number {
+    if (capacity === 0) {
+      return 0; // Prevent division by zero
+    }
+    return (attendeeCount / capacity) * 100;
+  }
+  
 }

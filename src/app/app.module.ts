@@ -56,6 +56,9 @@ import { MatSortModule } from '@angular/material/sort'
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { TooltipModule } from 'primeng/tooltip';
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
@@ -84,7 +87,8 @@ import { environment } from '../environment/environment';
     EventCardComponent,
     EventsBoardComponent,
     PhoneNumberFormatterDirective,
-    MailGroupsComponent
+    MailGroupsComponent,
+    
   ],
   imports:[
     BrowserModule,
@@ -118,6 +122,9 @@ import { environment } from '../environment/environment';
     MatNativeDateModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatTooltipModule,
+
+    TooltipModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
