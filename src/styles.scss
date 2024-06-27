@@ -46,3 +46,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .hide { 
   display: none;
 }
+
+.p-breadcrumb {
+  background: transparent;
+  border: 1px solid transparent !important;
+  border-radius: 0px;
+  padding:0px;
+}

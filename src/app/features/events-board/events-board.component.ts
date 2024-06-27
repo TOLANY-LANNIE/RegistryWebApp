@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../../services/events/events.service';
 import { AttendeesService } from '../../services/attendees/attendees.service'; // Import the attendees service
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-events-board',
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
 export class EventsBoardComponent implements OnInit {
   events: any[] = []; // To store events pulled from Firestore
   attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts
-
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
   constructor(
     private service: EventsService,
     private attendeesService: AttendeesService, // Inject attendees service
@@ -20,6 +22,7 @@ export class EventsBoardComponent implements OnInit {
 
   ngOnInit() {
     this.getEvents(); // Load events after view initialization
+    this.home = { icon: 'pi pi-home', routerLink: '/events' };
   }
 
   async getEvents() {

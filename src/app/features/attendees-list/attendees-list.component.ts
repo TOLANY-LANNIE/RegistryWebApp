@@ -27,7 +27,7 @@ import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.com
 })
 export class AttendeesListComponent implements AfterViewInit{
 
-  displayedColumns = ['Test','Title','Name', 'Surname', 'PracticeNumber','Contact','Email','MoreOptions'];
+  displayedColumns = ['Test','Honorific','Name', 'Surname', 'PracticeNumber','Contact','Email','MoreOptions'];
   dataSource: MatTableDataSource<any>;
   searchString = '';
   @ViewChild(MatSort) sort: MatSort;
