@@ -6,6 +6,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { MenuItem } from 'primeng/api';
 import { EventsService } from '../../services/events/events.service';
 import { AttendeesService } from '../../services/attendees/attendees.service';
 import { AddEventComponent } from '../../modals/add-event/add-event.component';
@@ -25,6 +26,8 @@ export class EventsComponent implements AfterViewInit, OnInit {
   searchString = '';
   panelOpenState = false;
   attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -40,6 +43,10 @@ export class EventsComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.getEvents(); // Load events after view initialization
+    this.items = [
+      { label: 'Events' }, 
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
   }
 
   /**

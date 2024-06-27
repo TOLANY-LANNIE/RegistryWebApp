@@ -12,7 +12,7 @@ import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.servi
 import { SendInviteComponent } from '../../modals/send-invite/send-invite.component';
 import { AttendeeDetailsComponent } from '../../modals/attendee-details/attendee-details.component';
 import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.component';
-
+import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-attendees-list',
   templateUrl: './attendees-list.component.html',
@@ -34,6 +34,8 @@ export class AttendeesListComponent implements AfterViewInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   attendees: Guest[]=[];
   event:any;
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
 
   constructor(
     private dialog: MatDialog,
@@ -57,6 +59,12 @@ export class AttendeesListComponent implements AfterViewInit{
 
     this.loadDoctors();
     //this.getAttendeesForEvent(this.event.id);
+
+    this.items = [
+      { label: 'Events', routerLink: '/events' },
+      { label: 'Attendees', routerLink: '/attendees' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
   }
 
   async loadDoctors(): Promise<void> {

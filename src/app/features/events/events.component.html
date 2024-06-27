@@ -3,13 +3,10 @@
    
     <!--Breadcrumbs-->
     <div class="dashboard-title">
-      <nav aria-label="breadcrumb">
-        <div class="breadcrumb">
-          <span class="breadcrumb-item">
-            <a [routerLink]="['/events']">Events</a>
-          </span>
-        </div>
-      </nav>
+      <p-breadcrumb 
+      class="max-w-full" 
+      [model]="items" 
+      [home]="home" />
     </div>
     <!--Header and Button Container-->
     <div class="header-button-container">
