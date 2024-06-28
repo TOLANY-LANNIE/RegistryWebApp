@@ -21,7 +21,6 @@ import { AddEventComponent } from './modals/add-event/add-event.component';
 import { EditAttendeeComponent } from './modals/edit-attendee/edit-attendee.component';
 import { EditEventComponent } from './modals/edit-event/edit-event.component';
 import { DeleteAlertComponent } from './modals/delete-alert/delete-alert.component';
-import { BreadcrumbsComponent } from './features/breadcrumbs/breadcrumbs.component';
 import { NumberRestricDirective } from './utils/utils';
 import { ThankyouComponent } from './features/thankyou/thankyou.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
@@ -55,6 +54,14 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort'
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { TooltipModule } from 'primeng/tooltip';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuModule } from 'primeng/menu';
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
@@ -73,7 +80,6 @@ import { environment } from '../environment/environment';
     SendInviteComponent,
     EditEventComponent,
     DeleteAlertComponent,
-    BreadcrumbsComponent,
     NumberRestricDirective,
     ThankyouComponent,
     LoginLayoutComponent,
@@ -83,7 +89,8 @@ import { environment } from '../environment/environment';
     EventCardComponent,
     EventsBoardComponent,
     PhoneNumberFormatterDirective,
-    MailGroupsComponent
+    MailGroupsComponent,
+    
   ],
   imports:[
     BrowserModule,
@@ -116,7 +123,15 @@ import { environment } from '../environment/environment';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatProgressBarModule,
+    MatTooltipModule,
 
+    TooltipModule,
+    AvatarModule,
+    AvatarGroupModule,
+    BreadcrumbModule,
+    MenuModule,
+    
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
   ],

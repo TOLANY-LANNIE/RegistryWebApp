@@ -62,20 +62,25 @@ mat-card {
   text-decoration: underline;
 }
 
-.mat-dialog-container {
-  border-radius: 16px; /* Adjust the value as needed */
+.event-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.form-container {
-  display: flex;
-  flex-direction: column;
+.event-card .event-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
-
-.dialog-title {
-  color: #fff;
-  background-color: #303F9F;
+.event-card .event-date,
+.event-card .event-location {
+  font-size: 16px;
+  margin-bottom: 4px;
 }
-
-button {
-  margin-right: 8px;
-}/*# sourceMappingURL=edit-attendee.component.css.map */
+.event-card .event-description {
+  font-size: 16px;
+  margin-bottom: 12px;
+}/*# sourceMappingURL=event-details.component.css.map */

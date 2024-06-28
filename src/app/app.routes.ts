@@ -14,13 +14,13 @@ const routes: Routes = [
         children: [
         {path: 'registration', component: RegistrationFormComponent},
         { path: 'thank-you', component: ThankyouComponent },
-        { path: 'events-board', component: EventsBoardComponent },
         ]
     },
     {path: 'attendees', component:AttendeesListComponent},
     {path: 'events', component:EventsComponent},
     {path: 'groups', component:MailGroupsComponent},
-    {path:'', redirectTo:'/invite/events-board', pathMatch:'full'}
+    { path: 'events-board', component: EventsBoardComponent },
+    {path:'', redirectTo:'events-board', pathMatch:'full'}
 ];
 
 @NgModule({

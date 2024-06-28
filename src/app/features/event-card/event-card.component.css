@@ -29,7 +29,8 @@
 .image-container img {
   width: 100%; /* Make the image fill the entire width of its container */
   height: 100%; /* Make the image fill the entire height of its container */
-  object-fit: cover; /* Ensure the image covers the container without stretching */
+  -o-object-fit: cover;
+     object-fit: cover; /* Ensure the image covers the container without stretching */
 }
 
 .location-container {
@@ -39,7 +40,6 @@
   white-space: nowrap; /* Prevent text from wrapping */
   overflow: hidden; /* Hide overflowing text */
   text-overflow: ellipsis; /* Display an ellipsis (...) to indicate text overflow */
-  ; 
 }
 
 .location-container mat-icon {
@@ -49,4 +49,4 @@
 
 .example-margin {
   margin: 0 10px;
-}
+}/*# sourceMappingURL=event-card.component.css.map */

@@ -7,4 +7,12 @@
 
 .thank-you-message {
   text-align: center;
+}
+
+.thank-you-image {
+  width: 100%; /* Set the image width to 100% of its container */
+  max-width: 400px; /* Set a maximum width to avoid excessive enlargement */
+  height: auto; /* Allow the height to adjust proportionally based on the width */
+  display: block; /* Ensure the image is displayed as a block element */
+  margin: 0 auto; /* Center the image horizontally within its container */
 }/*# sourceMappingURL=thankyou.component.css.map */

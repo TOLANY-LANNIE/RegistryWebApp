@@ -26,6 +26,8 @@
     "@types/unsplash-js": "^7.0.0",
     "firebase": "^10.11.1",
     "ngx-logger": "^5.0.12",
+    "primeicons": "^7.0.0",
+    "primeng": "^17.18.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "unsplash-js": "^7.0.19",

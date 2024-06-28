@@ -12,6 +12,16 @@ h3 {
 
 mat-table {
   width: 100%;
+  border-radius: 8px;
+}
+
+mat-card {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.content {
+  padding: 10px;
 }
 
 .card-header {
@@ -21,54 +31,183 @@ mat-table {
   padding-bottom: 10px;
 }
 
-.parent-div {
+.dashboard-title {
   display: flex;
   align-items: center;
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-.parent-div .search-dive .search-bar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-.parent-div .search-dive .search-bar .search-container {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-.parent-div .search-dive .btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
+  padding: 1rem 0;
 }
 
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.breadcrumb-item {
+  display: inline-block;
+  color: grey;
+  margin: 0;
+}
+
+.breadcrumb-divider {
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+/* Shared gradient */
+.spaced-div {
+  margin-bottom: 8px;
+}
+
+/* Toolbar fixed at the top */
+.position-fixed {
+  padding-bottom: 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  background: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab);
+  color: #fff;
+}
+
+/* Main content padding adjusted for toolbar */
+.main {
+  padding-top: 64px; /* Adjust this based on the actual height of your toolbar */
+}
+
+/* Image size */
+.image-fixed-size {
+  width: 100%; /* Set width to 100% to fit its container */
+  height: auto; /* Fixed height */
+  -o-object-fit: cover;
+     object-fit: cover; /* Ensures image covers the given dimensions */
+  border-radius: 4px;
+}
+
+/* Container styling */
 .container-wrapper {
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 100%; /* Ensure the container wrappers take up the full width */
 }
 
 .container {
   display: flex;
-  padding: 24px;
   box-sizing: border-box;
+  width: 70%; /* Ensure the containers inside have the same width */
 }
 
-.container mat-form-field + mat-form-field {
+@media (max-width: 600px) {
+  .container {
+    width: 90%; /* Adjust width to 90% on mobile screens */
+  }
+}
+/* Background styling */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 40%, 0% 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 40%, 0% 100%);
+  background: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab);
+  background-size: 300% 300%;
+  animation: gradientAnimation 10s ease infinite;
+  z-index: -1; /* Ensure it's behind the content */
+}
+
+/* Form field spacing */
+/* .container mat-form-field + mat-form-field {
   margin-left: 16px;
   padding-bottom: 16px;
+} */
+.input-container {
+  display: flex;
+  margin: 16px;
+  gap: 16px; /* Adjust the spacing between the form fields */
+  flex-wrap: wrap; /* Ensures fields wrap on smaller screens */
 }
 
+.mat-form-field {
+  flex: 1;
+}
+
+/* Form header styling */
 .form-header {
   text-align: center;
   margin-bottom: 20px; /* Adjust margin as needed */
 }
 
+/* Center align the form inside the container */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Divider styling */
 .divider {
-  border-top: 1px solid #ccc; /* Gray border */
+  border-top: 0.5px solid #ccc; /* Gray border */
   margin: 20px 0; /* Adjust margin as needed */
   width: 100%; /* Full width */
+}
+
+mat-icon {
+  background: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* Logo styling */
+.logo-top-left {
+  position: absolute;
+  top: 20px; /* Adjust this to your preferred top spacing */
+  left: 20px; /* Adjust this to your preferred left spacing */
+  width: 100px; /* Set the width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  z-index: 1; /* Ensure it's above the background */
+}
+
+h1 {
+  padding: 16px;
+  font-family: "Roboto", sans-serif; /* Set font family to Poppins */
+  text-align: center; /* Center align the text */
+  color: #0381D8;
+  font-weight: regular;
+}
+
+.mat-dialog-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.stretched-button {
+  width: 100%;
+  margin-left: 16px;
+  margin-right: 16px;
 }/*# sourceMappingURL=registration-form.component.css.map */

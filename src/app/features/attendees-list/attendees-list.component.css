@@ -12,6 +12,16 @@ h3 {
 
 mat-table {
   width: 100%;
+  border-radius: 8px;
+}
+
+mat-card {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.content {
+  padding: 10px;
 }
 
 .card-header {
@@ -21,42 +31,111 @@ mat-table {
   padding-bottom: 10px;
 }
 
-.parent-div {
+.dashboard-title {
   display: flex;
   align-items: center;
-  flex-grow: 0;
-  flex-shrink: 0;
+  padding: 1rem 0;
 }
-.parent-div .search-dive .search-bar {
-  position: relative;
+
+.breadcrumb {
   display: flex;
   align-items: center;
-  width: 100%;
+  font-size: 1rem;
 }
-.parent-div .search-dive .search-bar .search-container {
-  display: flex;
-  align-items: center;
+
+.breadcrumb-item {
+  display: inline-block;
+  color: grey;
+  margin: 0;
+}
+
+.breadcrumb-divider {
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+:host ::ng-deep .mat-mdc-form-field-bottom-align {
+  display: inline-block;
+  height: 0px;
+}
+
+:host ::ng-deep .mat-form-field {
+  font-size: 12px;
+}
+
+.clickable-cell {
   cursor: pointer;
 }
-.parent-div .search-dive .btn {
-  position: relative;
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px; /* Make the borders round */
+  color: white;
+}
+
+.header-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0; /* Remove default margin */
+}
+
+.btn {
   display: flex;
   align-items: center;
-  width: 100%;
+  gap: 8px; /* Space between icon and text */
 }
 
-.no-attendees-message {
-  text-align: left;
-  padding: 20px;
-  font-size: 1.2em;
-  color: red; /* Adjust the color as needed */
-  background-color: lightgray;
-}
-
-.button-container {
+.flex-container {
   display: flex;
-  width: 120px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  align-content: start;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px; /* Space between elements */
+}
+
+.search-bar {
+  flex: 1; /* Takes up remaining space */
+  max-width: 300px; /* Max width of the search bar */
+}
+
+.right-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.mat-column-Email {
+  flex: 0 0 30%;
+}
+
+.mat-column-MoreOptions {
+  flex: 0 0 10%;
+}
+
+.mat-column-Test {
+  flex: 0 0 6%;
+}
+
+.mat-column-Honorific {
+  flex: 0 0 6%;
+}
+
+.mat-column-Name {
+  flex: 0 0 10%;
+}
+
+.mat-column-Surname {
+  flex: 0 0 10%;
 }/*# sourceMappingURL=attendees-list.component.css.map */

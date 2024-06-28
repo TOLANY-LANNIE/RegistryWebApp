@@ -12,7 +12,7 @@ import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.servi
 import { SendInviteComponent } from '../../modals/send-invite/send-invite.component';
 import { AttendeeDetailsComponent } from '../../modals/attendee-details/attendee-details.component';
 import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.component';
-
+import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-attendees-list',
   templateUrl: './attendees-list.component.html',
@@ -27,13 +27,15 @@ import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.com
 })
 export class AttendeesListComponent implements AfterViewInit{
 
-  displayedColumns = ['Name', 'Surname', 'PracticeNumber','Contact','Email','MoreOptions'];
+  displayedColumns = ['Test','Honorific','Name', 'Surname', 'PracticeNumber','Contact','Email','MoreOptions'];
   dataSource: MatTableDataSource<any>;
   searchString = '';
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   attendees: Guest[]=[];
   event:any;
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
 
   constructor(
     private dialog: MatDialog,
@@ -45,26 +47,29 @@ export class AttendeesListComponent implements AfterViewInit{
   }
 
   ngAfterViewInit() {
-  
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
   ngOnInit(){
     this.route.queryParams.subscribe(params => {
       const serializedData = params['data'];
       this.event = JSON.parse(serializedData);
-      console.log(this.event);
+      //console.log(this.event);
     });
 
-    const breadcrumbs = [
-      { label: this.event.Title, url: '/Events/'+this.event.Title},
-    ];
-    this.breadcrumbService.setBreadcrumbs(breadcrumbs);
     this.loadDoctors();
     //this.getAttendeesForEvent(this.event.id);
+
+    this.items = [
+      { label: 'Events', routerLink: '/events' },
+      { label: 'Attendees', routerLink: '/attendees' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
   }
 
   async loadDoctors(): Promise<void> {
     try {
-      this.attendees = await this.service.getAllAttendeesByEvent(this.event.id);
+      this.attendees = await this.service.getAllAttendeesByEvent(this.event);
       console.log(this.attendees)
       this.dataSource = new MatTableDataSource(this.attendees);
       this.dataSource.paginator = this.paginator;

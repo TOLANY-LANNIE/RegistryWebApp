@@ -3,13 +3,10 @@
    
     <!--Breadcrumbs-->
     <div class="dashboard-title">
-      <nav aria-label="breadcrumb">
-        <div class="breadcrumb">
-          <span class="breadcrumb-item">
-            <a [routerLink]="['/events']">Events</a>
-          </span>
-        </div>
-      </nav>
+      <p-breadcrumb 
+      class="max-w-full" 
+      [model]="items" 
+      [home]="home" />
     </div>
     <!--Header and Button Container-->
     <div class="header-button-container">
@@ -57,7 +54,7 @@
     <br>
     <mat-card class="mat-elevation-z0">
       <!--Table-->
-      <mat-table [dataSource]="dataSource" matSort>
+      <mat-table  *ngIf="dataSource" [dataSource]="dataSource" matSort>
         <!-- Title Column -->
         <ng-container matColumnDef="Title">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
@@ -67,24 +64,24 @@
         <!-- Date Column -->
         <ng-container matColumnDef="Start Date">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element.StartDate }}</mat-cell>
+          <mat-cell *matCellDef="let element"> {{ formatDate(element.StartDate) }}</mat-cell>
         </ng-container>
 
         <!-- Date Column -->
         <ng-container matColumnDef="End Date">
           <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element.EndDate }} </mat-cell>
+          <mat-cell *matCellDef="let element">{{ formatDate(element.EndDate) }} </mat-cell>
         </ng-container>
       
         <!-- Capacity Column -->
         <ng-container matColumnDef="Capacity">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="text-start"> Expected Guest</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{ element.Capacity }} </mat-cell>
         </ng-container>
 
         <!--Guests Count Column -->
         <ng-container matColumnDef="Guests">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Guests </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="text-start"> Confirmed Guests</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ getAttendeeCount(element.id) }} </mat-cell>
         </ng-container>
       

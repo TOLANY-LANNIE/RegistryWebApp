@@ -62,20 +62,16 @@ mat-card {
   text-decoration: underline;
 }
 
-.mat-dialog-container {
-  border-radius: 16px; /* Adjust the value as needed */
+.container {
+  padding: 16px;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
+.header-spacer {
+  flex: 1 1 auto;
 }
 
-.dialog-title {
-  color: #fff;
-  background-color: #303F9F;
-}
-
-button {
-  margin-right: 8px;
-}/*# sourceMappingURL=edit-attendee.component.css.map */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}/*# sourceMappingURL=events-board.component.css.map */
