@@ -1,98 +1,103 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Event } from '../../models/event.model';
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
-  styleUrl: './edit-event.component.scss',
-  providers: [DatePipe] 
+  styleUrls: ['./edit-event.component.scss'],
+  providers: [DatePipe]
 })
-export class EditEventComponent {
-
-  /**
-    * Component FormGroup
-   */
+export class EditEventComponent implements OnInit {
   editEventFormGroup!: FormGroup;
-
-  //Event Details variables
-  title ='';
-  date  = '';
-  description ='';
-  location ='';
-  capacity ='';
-  status:boolean;
+  originalData: any; // To store the original data
 
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditEventComponent>,
-    public dialog: MatDialog,
-    private service:EventsService,
+    private service: EventsService,
     private snackBar: MatSnackBar,
     private datePipe: DatePipe,
-  ){  }
+  ) {}
 
   ngOnInit(): void {
-    this.editEventFormGroup= this.fb.group({
-
-      title: ['', [Validators.required]],
-      date: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      location: ['', [Validators.required]],
-      capacity: ['', [Validators.required]],
-      status:['', [Validators.required]],
+    // Initialize the form group
+    this.editEventFormGroup = this.fb.group({
+      title: [this.data.Title, [Validators.required]],
+      startDate: [this.data.StartDate, [Validators.required]],
+      endDate: [this.data.EndDate, [Validators.required]],
+      description: [this.data.Description, [Validators.required]],
+      location: [this.data.Location, [Validators.required]],
+      capacity: [this.data.Capacity, [Validators.required, Validators.pattern('^[0-9]*$')]],
+      status: [this.data.Status, [Validators.required]]
     });
-    this.editEventFormGroup.setValue({
-      date: this.data.Date,
-      status: this.data.Status
-    })
+
+    // Make a copy of the original data for comparison
+    this.originalData = { ...this.data };
+
+    // Ensure form changes are tracked
+    this.editEventFormGroup.valueChanges.subscribe(() => {
+      // Optionally, perform other actions on value change
+    });
   }
 
+  // Method to determine if the form has been changed
+  isChanged(): boolean {
+    // We are comparing the initial data to the form values to see if there are any changes.
+    const formValues = this.editEventFormGroup.value;
+    const originalValues = {
+      title: this.originalData.Title,
+      startDate: this.originalData.StartDate,
+      endDate: this.originalData.EndDate,
+      description: this.originalData.Description,
+      location: this.originalData.Location,
+      capacity: this.originalData.Capacity,
+      status: this.originalData.Status,
+    };
 
-  onCancel(){
+    return JSON.stringify(formValues) !== JSON.stringify(originalValues);
+  }
 
+  onCancel() {
+    this.dialogRef.close();
   }
 
   onSubmit(): void {
-    // Check if the editEventFormGroup is invalid, if it is, return early
-    if (this.editEventFormGroup.invalid) {
+    if (this.editEventFormGroup.invalid || !this.isChanged()) {
       return;
     }
-  
-    // Getting data from the editEventFormGroup
-    const formattedDate = this.datePipe.transform(this.editEventFormGroup.value.date, 'dd/MM/yyyy'); // Format date
-    // Getting data from the editEventFormGroup
+
+    const formValues = this.editEventFormGroup.value;
     const event: Event = {
-      Title: this.editEventFormGroup.value.title,
-      StartDate: formattedDate,
-      EndDate:formattedDate,
-      Description: this.editEventFormGroup.value.description,
-      Location: this.editEventFormGroup.value.location,
-      Capacity: this.editEventFormGroup.value.capacity,
-      Status: JSON.parse(this.editEventFormGroup.value.status),
-      Agenda: this.data.Agenda
+      Title: formValues.title,
+      StartDate: formValues.startDate,
+      EndDate: formValues.endDate,
+      Description: formValues.description,
+      Location: formValues.location,
+      Capacity: formValues.capacity,
+      Status: formValues.status,
+      Agenda: this.data.Agenda // Assuming Agenda is part of data
     };
-  
+
     this.service.updateEvent(this.data.id, event)
       .then(() => {
         this.snackBar.open('Event updated successfully', 'Close', {
           duration: 5000,
           panelClass: ['success'],
         });
+        this.dialogRef.close();
       })
       .catch(error => {
-        this.snackBar.open('Error updating event', 'Close',  {
+        this.snackBar.open('Error updating event', 'Close', {
           duration: 5000,
           panelClass: ['error'],
         });
-        
-        //console.error('Error updating event:', error);
-        // Optionally, you can handle the error here, such as displaying a message to the user
+        console.error('Error updating event:', error);
       });
   }
-  
 }

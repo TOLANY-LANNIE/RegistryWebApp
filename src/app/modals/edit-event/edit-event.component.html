@@ -1,4 +1,9 @@
-<h2 mat-dialog-title class='dialog-title'>Edit Event</h2>
+<h2 mat-dialog-title class="dialog-title">
+  <span class="icon-title-container">
+    <mat-icon class="icon">edit</mat-icon> 
+    Edit Event
+  </span>
+</h2>
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="editEventFormGroup" (ngSubmit)="onSubmit()">
         <div class="form-container">
@@ -12,15 +17,24 @@
               <mat-error *ngIf="editEventFormGroup.get('title')?.invalid && editEventFormGroup.get('title')?.touched">Title is required</mat-error>
             </mat-form-field>
 
-              <mat-form-field appearance="outline">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="date" 
-                [(ngModel)]="data.Date">
-                <mat-hint align="end">MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="editEventFormGroup.get('date')?.invalid && editEventFormGroup.get('date')?.touched">Date is required</mat-error>
-              </mat-form-field>
+            <!--Start and End Dates-->
+            <mat-form-field class="date-range-form-field" appearance="outline">
+              <mat-label>Choose Start and End Date</mat-label>
+              <mat-date-range-input 
+                [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date" formControlName="startDate" [(ngModel)]="data.StartDate">
+                  <input matEndDate placeholder="End date" formControlName="endDate" [(ngModel)]="data.EndDate">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+              <mat-error *ngIf="editEventFormGroup.get('startDate')?.invalid && editEventFormGroup.get('startDate')?.touched">
+                Start Date is required
+              </mat-error>
+              <mat-error *ngIf="editEventFormGroup.get('endDate')?.invalid && editEventFormGroup.get('endDate')?.touched">
+                End Date is required
+              </mat-error>
+            </mat-form-field>
 
               <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
@@ -44,16 +58,21 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Active Status</mat-label>
-                <mat-select  formControlName="status"[(ngModel)]="data.Status">
-                  <mat-option value=true>Active</mat-option>
-                  <mat-option value=false>Inactive</mat-option>
+                <mat-select 
+                  formControlName="status" 
+                  [(ngModel)]="data.Status">
+                  <mat-option [value]="true">Active</mat-option>
+                  <mat-option [value]="false">Inactive</mat-option>
                 </mat-select>
-                <mat-error *ngIf="editEventFormGroup.get('status')?.hasError('required') && editEventFormGroup.get('status')?.touched">Active Status is required</mat-error>
+                <mat-error *ngIf="editEventFormGroup.get('status')?.hasError('required') && editEventFormGroup.get('status')?.touched">
+                  Active Status is required
+                </mat-error>
               </mat-form-field>
+              
           </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  type="submit" [disabled]="editEventFormGroup.invalid" (click)="onSubmit()">Save</button>
+  <button mat-stroked-button mat-dialog-close (click)="onCancel()">Cancel</button>
+  <button mat-stroked-button color="primary" [mat-dialog-close]="true" cdkFocusInitial  type="submit" [disabled]="!isChanged()||editEventFormGroup.invalid" (click)="onSubmit()">Save</button>
 </mat-dialog-actions>
