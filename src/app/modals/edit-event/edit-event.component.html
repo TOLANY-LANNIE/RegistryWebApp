@@ -69,6 +69,24 @@
                 </mat-error>
               </mat-form-field>
               
+              <!-- Agenda Section -->
+              <h3>Agenda</h3>
+              <div formArrayName="agenda" class="agenda-container">
+                <div *ngFor="let agendaCtrl of agenda.controls; let i = index" [formGroupName]="i" class="agenda-item">
+                  <mat-form-field class="agenda-field" appearance="outline">
+                    <mat-label>Agenda Item</mat-label>
+                    <input matInput placeholder="Agenda item" formControlName="item">
+                    <mat-error *ngIf="agendaCtrl.get('item')?.invalid && agendaCtrl.get('item')?.touched">
+                      Agenda item is required
+                    </mat-error>
+                  </mat-form-field>
+                  <button type="button" mat-icon-button color="warn" (click)="removeAgendaItem(i)" aria-label="Remove agenda item">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                  </button>
+                </div>
+</div>
+<button mat-stroked-button color="primary" (click)="addAgendaItem()">Add Agenda Item</button>
+
           </div>
     </form>
 </mat-dialog-content>

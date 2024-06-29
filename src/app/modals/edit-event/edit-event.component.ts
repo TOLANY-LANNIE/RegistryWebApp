@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -26,7 +26,7 @@ export class EditEventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form group
+    // Initialize the form group with form controls including agenda
     this.editEventFormGroup = this.fb.group({
       title: [this.data.Title, [Validators.required]],
       startDate: [this.data.StartDate, [Validators.required]],
@@ -34,11 +34,19 @@ export class EditEventComponent implements OnInit {
       description: [this.data.Description, [Validators.required]],
       location: [this.data.Location, [Validators.required]],
       capacity: [this.data.Capacity, [Validators.required, Validators.pattern('^[0-9]*$')]],
-      status: [this.data.Status, [Validators.required]]
+      status: [this.data.Status, [Validators.required]],
+      agenda: this.fb.array([]) // Initialize agenda as a FormArray
     });
 
     // Make a copy of the original data for comparison
     this.originalData = { ...this.data };
+
+    // Populate the agenda form array with the initial data
+    if (this.data.Agenda && Array.isArray(this.data.Agenda)) {
+      this.data.Agenda.forEach((item: string) => {
+        this.addAgendaItem(item);
+      });
+    }
 
     // Ensure form changes are tracked
     this.editEventFormGroup.valueChanges.subscribe(() => {
@@ -46,9 +54,25 @@ export class EditEventComponent implements OnInit {
     });
   }
 
+  // Getter for the agenda form array
+  get agenda(): FormArray {
+    return this.editEventFormGroup.get('agenda') as FormArray;
+  }
+
+  // Method to add a new agenda item
+  addAgendaItem(item: string = ''): void {
+    this.agenda.push(this.fb.group({
+      item: [item, Validators.required]
+    }));
+  }
+
+  // Method to remove an agenda item by index
+  removeAgendaItem(index: number): void {
+    this.agenda.removeAt(index);
+  }
+
   // Method to determine if the form has been changed
   isChanged(): boolean {
-    // We are comparing the initial data to the form values to see if there are any changes.
     const formValues = this.editEventFormGroup.value;
     const originalValues = {
       title: this.originalData.Title,
@@ -58,12 +82,32 @@ export class EditEventComponent implements OnInit {
       location: this.originalData.Location,
       capacity: this.originalData.Capacity,
       status: this.originalData.Status,
+      agenda: this.originalData.Agenda // Include agenda in comparison
     };
 
-    return JSON.stringify(formValues) !== JSON.stringify(originalValues);
+    // Check if the main form values have changed
+    if (
+      formValues.title !== originalValues.title ||
+      formValues.startDate !== originalValues.startDate ||
+      formValues.endDate !== originalValues.endDate ||
+      formValues.description !== originalValues.description ||
+      formValues.location !== originalValues.location ||
+      formValues.capacity !== originalValues.capacity ||
+      formValues.status !== originalValues.status
+    ) {
+      return true;
+    }
+
+    // Check if the agenda items have changed
+    const currentAgendaItems = formValues.agenda.map((a: { item: string }) => a.item);
+    if (JSON.stringify(currentAgendaItems) !== JSON.stringify(originalValues.agenda)) {
+      return true;
+    }
+
+    return false;
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
@@ -81,7 +125,7 @@ export class EditEventComponent implements OnInit {
       Location: formValues.location,
       Capacity: formValues.capacity,
       Status: formValues.status,
-      Agenda: this.data.Agenda // Assuming Agenda is part of data
+      Agenda: formValues.agenda.map((a: { item: string }) => a.item) // Map agenda to simple array
     };
 
     this.service.updateEvent(this.data.id, event)

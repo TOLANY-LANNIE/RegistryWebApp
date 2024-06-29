@@ -1,5 +1,15 @@
 @import '../../../assets/common.scss';
 
+h3{
+  font-weight: normal !important;
+  font-style: normal !important;
+}
+h2 {
+  color: white !important;
+  font-weight: bold;
+  font-style: oblique;
+}
+
 .mat-dialog-container {
   border-radius: 16px; /* Adjust the value as needed */
 }
@@ -26,4 +36,22 @@
 }
 button {
   margin-right: 8px;
+}
+
+/* Agenda styles */
+.agenda-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjust spacing between agenda items */
+  width: 100%;
+}
+
+.agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Adjust spacing between the agenda field and the remove button */
+}
+
+.agenda-field {
+  flex: 1; /* Ensure the agenda field fills available space */
 }
