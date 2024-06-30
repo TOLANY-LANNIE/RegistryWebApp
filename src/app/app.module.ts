@@ -57,6 +57,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatChipsModule} from '@angular/material/chips';
 
 import { TooltipModule } from 'primeng/tooltip';
 import { AvatarModule } from 'primeng/avatar';
@@ -128,6 +129,7 @@ import { environment } from '../environment/environment';
     MatSelectModule,
     MatProgressBarModule,
     MatTooltipModule,
+    MatChipsModule,
 
     TooltipModule,
     AvatarModule,

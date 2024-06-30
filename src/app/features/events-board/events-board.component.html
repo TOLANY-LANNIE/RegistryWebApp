@@ -10,7 +10,19 @@
         <!--Header and Button Container-->
         <div class="header-button-container">
             <!--Page Title-->
-            <h1>Today's Events</h1>
+            <h1>Upcoming's Events</h1>
+        </div>
+        <div class="card-chips">
+          <mat-chip-listbox
+            class="mat-mdc-chip-set"
+            aria-label="Events selection"
+            [(ngModel)]="selectedChip"
+            (ngModelChange)="filterEvents()"
+          >
+            <mat-chip-option [value]="filterOption" *ngFor="let filterOption of filterOptions">
+              {{ filterOption }}
+            </mat-chip-option>
+          </mat-chip-listbox>
         </div>
         <br>
         <!--Events Card Gird-->
