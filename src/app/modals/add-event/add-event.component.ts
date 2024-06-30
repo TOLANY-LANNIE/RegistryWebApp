@@ -14,12 +14,10 @@ import { ToastService } from '../../services/toast.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AddEventComponent implements OnInit {
-  /**
-   * Component FormGroup
-   */
   addEventFormGroup!: FormGroup;
   @Input() min: any;
-  todayDate:Date = new Date(); //today's date
+  todayDate: Date = new Date(); // Today's date
+
   // Event Details variables
   title = '';
   startDate = '';
@@ -35,21 +33,27 @@ export class AddEventComponent implements OnInit {
     public dialogRef: MatDialogRef<AddEventComponent>,
     public dialog: MatDialog,
     private service: EventsService,
-    private toastService:ToastService
+    private toastService: ToastService
   ) {
-    this.todayDate.setDate(this.todayDate.getDate() + 0);
+    // Ensure the date is set to midnight to avoid time zone issues
+    this.todayDate.setHours(0, 0, 0, 0);
   }
 
   ngOnInit(): void {
     this.addEventFormGroup = this.fb.group({
       title: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
+      startDate: ['', [Validators.required, this.startDateValidator.bind(this)]],
+      endDate: ['', [Validators.required, this.endDateValidator.bind(this)]],
       description: ['', [Validators.required]],
       location: ['', [Validators.required]],
       capacity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       status: ['', [Validators.required]],
       agenda: this.fb.array([]) // Initialize agenda FormArray
+    });
+
+    // Update endDate validator when startDate changes
+    this.addEventFormGroup.get('startDate')?.valueChanges.subscribe(() => {
+      this.addEventFormGroup.get('endDate')?.updateValueAndValidity();
     });
   }
 
@@ -71,14 +75,27 @@ export class AddEventComponent implements OnInit {
     this.agenda.removeAt(index);
   }
 
+  startDateValidator(control: any) {
+    if (!control.value) return null;
+    const startDate = new Date(control.value);
+    return startDate < this.todayDate ? { pastDate: true } : null;
+  }
+
+  endDateValidator(control: any) {
+    if (!control.value) return null;
+    const endDate = new Date(control.value);
+    const startDate = new Date(this.addEventFormGroup.get('startDate')?.value);
+    return endDate < this.todayDate ? { pastDate: true } : endDate < startDate ? { invalidEndDate: true } : null;
+  }
+
   onSubmit(): void {
     if (this.addEventFormGroup.invalid) {
       return;
     }
-    const event:Event = {
+    const event: Event = {
       Title: this.addEventFormGroup.value.title,
-      StartDate: this.addEventFormGroup.value.startDate.toISOString(),
-      EndDate: this.addEventFormGroup.value.endDate.toISOString(),
+      StartDate: new Date(this.addEventFormGroup.value.startDate).toISOString(),
+      EndDate: new Date(this.addEventFormGroup.value.endDate).toISOString(),
       Description: this.addEventFormGroup.value.description,
       Location: this.addEventFormGroup.value.location,
       Capacity: this.addEventFormGroup.value.capacity,
@@ -90,14 +107,13 @@ export class AddEventComponent implements OnInit {
       this.service.addNewEvent(event);
       this.showSuccessMessage();
     } catch (error) {
-     this.showErrorMessage();
+      this.showErrorMessage();
     }
   }
 
   onCancel(): void {
-    // Handle the cancel action here
+    this.dialogRef.close();
   }
-
 
   /**
    * Event added successfully message 

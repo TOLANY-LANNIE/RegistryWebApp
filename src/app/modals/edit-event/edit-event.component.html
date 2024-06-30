@@ -20,21 +20,34 @@
             <!--Start and End Dates-->
             <mat-form-field class="date-range-form-field" appearance="outline">
               <mat-label>Choose Start and End Date</mat-label>
-              <mat-date-range-input 
-                [rangePicker]="picker">
-                  <input matStartDate min="{{todayDate}}" placeholder="Start date" formControlName="startDate" [(ngModel)]="data.StartDate">
-                  <input matEndDate  min="{{todayDate}}" placeholder="End date" formControlName="endDate" [(ngModel)]="data.EndDate">
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" formControlName="startDate" [(ngModel)]="data.startDate" [min]="todayDate">
+                <input matEndDate placeholder="End date" formControlName="endDate" [(ngModel)]="data.endDate" [min]="todayDate">
               </mat-date-range-input>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
               <mat-date-range-picker #picker></mat-date-range-picker>
               <mat-error *ngIf="editEventFormGroup.get('startDate')?.invalid && editEventFormGroup.get('startDate')?.touched">
-                Start Date is required
+                <ng-container *ngIf="editEventFormGroup.get('startDate')?.hasError('required')">
+                  Start Date is required
+                </ng-container>
+                <ng-container *ngIf="editEventFormGroup.get('startDate')?.hasError('pastDate')">
+                  Start Date cannot be past today's date
+                </ng-container>
               </mat-error>
               <mat-error *ngIf="editEventFormGroup.get('endDate')?.invalid && editEventFormGroup.get('endDate')?.touched">
-                End Date is required
+                <ng-container *ngIf="editEventFormGroup.get('endDate')?.hasError('required')">
+                  End Date is required
+                </ng-container>
+                <ng-container *ngIf="editEventFormGroup.get('endDate')?.hasError('pastDate')">
+                  End Date cannot be past today's date
+                </ng-container>
+                <ng-container *ngIf="editEventFormGroup.get('endDate')?.hasError('invalidEndDate')">
+                  End Date cannot be before the Start Date
+                </ng-container>
               </mat-error>
             </mat-form-field>
+            
 
               <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
