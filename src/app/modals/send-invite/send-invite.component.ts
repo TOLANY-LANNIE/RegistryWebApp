@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from '../../services/toast.service';
 import emailjs from '@emailjs/browser';
 import { EmailService } from '../../services/email-service/email-service.service';
 import { environment } from '../../../environment/environment';
@@ -32,7 +32,7 @@ export class SendInviteComponent {
       public dialogRef: MatDialogRef<SendInviteComponent>,
       public dialog: MatDialog,
       private service:EventsService,
-      private snackBar: MatSnackBar,
+      private toastService: ToastService,
       private emailService: EmailService
     ){
 
@@ -64,9 +64,19 @@ export class SendInviteComponent {
         send_to: this.addEventFormGroup.value.email,
         });
 
-        this.snackBar.open('Invitation Sent to '+ this.addEventFormGroup.value.name, 'Close', {
-          duration: 5000,
-          panelClass: ['success'],
-        });
+        this.showSuccessMessage(this.addEventFormGroup.value.name);
     }
+
+    showSuccessMessage(string: string) {
+      this.toastService.showSuccess('Success', 'Invitation Sent to '+ string);
+    }
+  
+    /**
+     * Failed to added the events to the Db 
+     */
+    showErrorMessage() {
+      this.toastService.showError('Error', 'An error occurred during the operation.');
+    }
+  
+    
 }

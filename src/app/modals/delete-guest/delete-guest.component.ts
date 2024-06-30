@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AttendeesService } from '../../services/attendees/attendees.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-delete-guest',
@@ -15,7 +15,7 @@ export class DeleteGuestComponent {
     public dialogRef: MatDialogRef<DeleteGuestComponent>,
     public dialog: MatDialog,
     private service:AttendeesService,
-    private snackBar: MatSnackBar,
+    private toastService: ToastService
   ){  }
 
   ngOnInit(): void {
@@ -25,20 +25,25 @@ export class DeleteGuestComponent {
   onDelete(){
     this.service.delete(this.data.id)
     .then(() => {
-     
-      this.snackBar.open('Attendee deleted successfully', 'Close', {
-        duration: 5000,
-        panelClass: ['success'],
-      });
-      // Optionally, update your UI or reload data
+      this.showSuccessMessage();
+      this.dialogRef.close();
     })
     .catch(error => {
-      //console.error('Error deleting event:', error);
-      this.snackBar.open('Error deleting Attendee. Please try again later.', 'Close', {
-        duration: 5000,
-        panelClass: ['error'],
-      });
-      // Handle error, show error message, etc.
+     this.showErrorMessage();
+     this.dialogRef.close();  
     });
   }
+
+  showSuccessMessage() {
+    this.toastService.showSuccess('Success', 'Deleted successfully');
+  }
+
+  /**
+   * Failed to added the events to the Db 
+   */
+  showErrorMessage() {
+    this.toastService.showError('Error', 'An error occurred during the operation.');
+  }
+
+  
 }

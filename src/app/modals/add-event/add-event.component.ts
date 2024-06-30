@@ -2,9 +2,9 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Event } from '../../models/event.model';
 import { DatePipe } from '@angular/common';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-add-event',
@@ -34,8 +34,7 @@ export class AddEventComponent implements OnInit {
     public dialogRef: MatDialogRef<AddEventComponent>,
     public dialog: MatDialog,
     private service: EventsService,
-    private snackBar: MatSnackBar,
-    private datePipe: DatePipe,
+    private toastService:ToastService
   ) {}
 
   ngOnInit(): void {
@@ -86,19 +85,28 @@ export class AddEventComponent implements OnInit {
 
     try {
       this.service.addNewEvent(event);
-      this.snackBar.open('Event added successfully', 'Close', {
-        duration: 5000,
-        panelClass: ['success'],
-      });
+      this.showSuccessMessage();
     } catch (error) {
-      this.snackBar.open('Error adding event', 'Close', {
-        duration: 5000,
-        panelClass: ['error'],
-      });
+     this.showErrorMessage();
     }
   }
 
   onCancel(): void {
     // Handle the cancel action here
+  }
+
+
+  /**
+   * Event added successfully message 
+   */
+  showSuccessMessage() {
+    this.toastService.showSuccess('Success', 'Event added successfully');
+  }
+
+  /**
+   * Failed to added the events to the Db 
+   */
+  showErrorMessage() {
+    this.toastService.showError('Error', 'An error occurred during the operation.');
   }
 }

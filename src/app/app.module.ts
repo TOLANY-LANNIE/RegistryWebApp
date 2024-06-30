@@ -32,6 +32,7 @@ import {DeleteGuestComponent} from  './modals/delete-guest/delete-guest.componen
 import { EventsBoardComponent } from './features/events-board/events-board.component';
 import { PhoneNumberFormatterDirective } from './utils/phoneNumber-directive';
 import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
+import { ToastService } from './services/toast.service';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -62,6 +63,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuModule } from 'primeng/menu';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
@@ -131,6 +134,7 @@ import { environment } from '../environment/environment';
     AvatarGroupModule,
     BreadcrumbModule,
     MenuModule,
+    ToastModule,
     
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -142,6 +146,8 @@ import { environment } from '../environment/environment';
       multi: true,
    }, 
    provideAnimationsAsync(),
+   ToastService,
+   MessageService
   ],
   bootstrap:[AppComponent]
 })
