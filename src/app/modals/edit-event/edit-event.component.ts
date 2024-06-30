@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
@@ -15,15 +15,18 @@ import { DatePipe } from '@angular/common';
 export class EditEventComponent implements OnInit {
   editEventFormGroup!: FormGroup;
   originalData: any; // To store the original data
-
+  @Input() min: any;
+  todayDate:Date = new Date(); //today's date
+  
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditEventComponent>,
     private service: EventsService,
    private toastService: ToastService,
-
-  ) {}
+  ) {
+    this.todayDate.setDate(this.todayDate.getDate() + 0);
+  }
 
   ngOnInit(): void {
     // Initialize the form group with form controls including agenda
@@ -119,8 +122,8 @@ export class EditEventComponent implements OnInit {
     const formValues = this.editEventFormGroup.value;
     const event: Event = {
       Title: formValues.title,
-      StartDate: formValues.startDate,
-      EndDate: formValues.endDate,
+      StartDate: formValues.startDate.toISOString(),
+      EndDate: formValues.endDate.toISOString(),
       Description: formValues.description,
       Location: formValues.location,
       Capacity: formValues.capacity,

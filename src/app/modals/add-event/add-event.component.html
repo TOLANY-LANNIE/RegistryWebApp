@@ -18,8 +18,8 @@
             <mat-form-field class="date-range-form-field" appearance="outline">
               <mat-label>Choose Start and End Date</mat-label>
               <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date" formControlName="startDate">
-                <input matEndDate placeholder="End date" formControlName="endDate">
+                <input matStartDate placeholder="Start date" formControlName="startDate" min="{{todayDate}}">
+                <input matEndDate placeholder="End date" formControlName="endDate" min="{{todayDate}}">
               </mat-date-range-input>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>

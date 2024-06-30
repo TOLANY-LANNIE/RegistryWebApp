@@ -70,7 +70,7 @@ export class AttendeesListComponent implements AfterViewInit{
   async loadDoctors(): Promise<void> {
     try {
       this.attendees = await this.service.getAllAttendeesByEvent(this.event);
-      console.log(this.attendees)
+      //console.log(this.attendees)
       this.dataSource = new MatTableDataSource(this.attendees);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -106,7 +106,7 @@ export class AttendeesListComponent implements AfterViewInit{
       width: '500px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+     // console.log(`Dialog result: ${result}`);
     });
   }
 

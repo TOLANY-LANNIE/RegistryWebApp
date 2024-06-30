@@ -22,8 +22,8 @@
               <mat-label>Choose Start and End Date</mat-label>
               <mat-date-range-input 
                 [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date" formControlName="startDate" [(ngModel)]="data.StartDate">
-                  <input matEndDate placeholder="End date" formControlName="endDate" [(ngModel)]="data.EndDate">
+                  <input matStartDate min="{{todayDate}}" placeholder="Start date" formControlName="startDate" [(ngModel)]="data.StartDate">
+                  <input matEndDate  min="{{todayDate}}" placeholder="End date" formControlName="endDate" [(ngModel)]="data.EndDate">
               </mat-date-range-input>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>

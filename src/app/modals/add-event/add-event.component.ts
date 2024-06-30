@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
@@ -18,7 +18,8 @@ export class AddEventComponent implements OnInit {
    * Component FormGroup
    */
   addEventFormGroup!: FormGroup;
-
+  @Input() min: any;
+  todayDate:Date = new Date(); //today's date
   // Event Details variables
   title = '';
   startDate = '';
@@ -35,7 +36,9 @@ export class AddEventComponent implements OnInit {
     public dialog: MatDialog,
     private service: EventsService,
     private toastService:ToastService
-  ) {}
+  ) {
+    this.todayDate.setDate(this.todayDate.getDate() + 0);
+  }
 
   ngOnInit(): void {
     this.addEventFormGroup = this.fb.group({
