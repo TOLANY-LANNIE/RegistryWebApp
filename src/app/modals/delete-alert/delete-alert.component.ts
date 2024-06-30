@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from '../../services/toast.service';
+
 @Component({
   selector: 'app-delete-alert',
   templateUrl: './delete-alert.component.html',
@@ -14,7 +15,7 @@ export class DeleteAlertComponent {
     public dialogRef: MatDialogRef<DeleteAlertComponent>,
     public dialog: MatDialog,
     private service:EventsService,
-    private snackBar: MatSnackBar,
+    private toastService: ToastService
   ){  }
 
   ngOnInit(): void {
@@ -24,19 +25,28 @@ export class DeleteAlertComponent {
   onDelete(){
     this.service.delete(this.data.id)
     .then(() => {
-      
-      this.snackBar.open('Event deleted successfully', 'Close', {
-        duration: 5000,
-        panelClass: ['success'],
-      });
-      // Optionally, update your UI or reload data
+      this.showSuccessMessage();
+      this.dialogRef.close();
     })
     .catch(error => {
-      //console.error('Error deleting event:', error);
-      this.snackBar.open('Error deleting event. Please try again later.', 'Close', {
-        duration: 5000,
-        panelClass: ['error'],
-      });
+      this.showErrorMessage();
+      this.dialogRef.close();
     });
   }
+
+  /**
+   * Deleted successfully message 
+   */
+  showSuccessMessage() {
+    this.toastService.showSuccess('Success', 'Deleted successfully');
+  }
+
+  /**
+   * Failed to added the events to the Db 
+   */
+  showErrorMessage() {
+    this.toastService.showError('Error', 'An error occurred during the operation.');
+  }
+
+  
 }

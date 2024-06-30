@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Event } from '../../models/event.model';
 import { DatePipe } from '@angular/common';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-add-event',
@@ -14,10 +14,9 @@ import { DatePipe } from '@angular/common';
   encapsulation: ViewEncapsulation.None,
 })
 export class AddEventComponent implements OnInit {
-  /**
-   * Component FormGroup
-   */
   addEventFormGroup!: FormGroup;
+  @Input() min: any;
+  todayDate: Date = new Date(); // Today's date
 
   // Event Details variables
   title = '';
@@ -34,20 +33,27 @@ export class AddEventComponent implements OnInit {
     public dialogRef: MatDialogRef<AddEventComponent>,
     public dialog: MatDialog,
     private service: EventsService,
-    private snackBar: MatSnackBar,
-    private datePipe: DatePipe,
-  ) {}
+    private toastService: ToastService
+  ) {
+    // Ensure the date is set to midnight to avoid time zone issues
+    this.todayDate.setHours(0, 0, 0, 0);
+  }
 
   ngOnInit(): void {
     this.addEventFormGroup = this.fb.group({
       title: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
+      startDate: ['', [Validators.required, this.startDateValidator.bind(this)]],
+      endDate: ['', [Validators.required, this.endDateValidator.bind(this)]],
       description: ['', [Validators.required]],
       location: ['', [Validators.required]],
       capacity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       status: ['', [Validators.required]],
       agenda: this.fb.array([]) // Initialize agenda FormArray
+    });
+
+    // Update endDate validator when startDate changes
+    this.addEventFormGroup.get('startDate')?.valueChanges.subscribe(() => {
+      this.addEventFormGroup.get('endDate')?.updateValueAndValidity();
     });
   }
 
@@ -69,14 +75,27 @@ export class AddEventComponent implements OnInit {
     this.agenda.removeAt(index);
   }
 
+  startDateValidator(control: any) {
+    if (!control.value) return null;
+    const startDate = new Date(control.value);
+    return startDate < this.todayDate ? { pastDate: true } : null;
+  }
+
+  endDateValidator(control: any) {
+    if (!control.value) return null;
+    const endDate = new Date(control.value);
+    const startDate = new Date(this.addEventFormGroup.get('startDate')?.value);
+    return endDate < this.todayDate ? { pastDate: true } : endDate < startDate ? { invalidEndDate: true } : null;
+  }
+
   onSubmit(): void {
     if (this.addEventFormGroup.invalid) {
       return;
     }
-    const event:Event = {
+    const event: Event = {
       Title: this.addEventFormGroup.value.title,
-      StartDate: this.addEventFormGroup.value.startDate.toISOString(),
-      EndDate: this.addEventFormGroup.value.endDate.toISOString(),
+      StartDate: new Date(this.addEventFormGroup.value.startDate).toISOString(),
+      EndDate: new Date(this.addEventFormGroup.value.endDate).toISOString(),
       Description: this.addEventFormGroup.value.description,
       Location: this.addEventFormGroup.value.location,
       Capacity: this.addEventFormGroup.value.capacity,
@@ -86,19 +105,27 @@ export class AddEventComponent implements OnInit {
 
     try {
       this.service.addNewEvent(event);
-      this.snackBar.open('Event added successfully', 'Close', {
-        duration: 5000,
-        panelClass: ['success'],
-      });
+      this.showSuccessMessage();
     } catch (error) {
-      this.snackBar.open('Error adding event', 'Close', {
-        duration: 5000,
-        panelClass: ['error'],
-      });
+      this.showErrorMessage();
     }
   }
 
   onCancel(): void {
-    // Handle the cancel action here
+    this.dialogRef.close();
+  }
+
+  /**
+   * Event added successfully message 
+   */
+  showSuccessMessage() {
+    this.toastService.showSuccess('Success', 'Event added successfully');
+  }
+
+  /**
+   * Failed to added the events to the Db 
+   */
+  showErrorMessage() {
+    this.toastService.showError('Error', 'An error occurred during the operation.');
   }
 }

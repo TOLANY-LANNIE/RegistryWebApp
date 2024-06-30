@@ -54,7 +54,7 @@
     <br>
     <mat-card class="mat-elevation-z0">
       <!--Table-->
-      <mat-table  *ngIf="dataSource" [dataSource]="dataSource" matSort>
+      <mat-table [dataSource]="dataSource" matSort>
         <!-- Title Column -->
         <ng-container matColumnDef="Title">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>

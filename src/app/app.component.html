@@ -1,7 +1,10 @@
 <!--LoaderComponent-->
 <app-loader></app-loader>
 
-<ng-container *ngIf="!checkInviteUrl()">
+<!--Toast Message-->
+<p-toast position="bottom-center"/>
+
+  <ng-container *ngIf="!checkInviteUrl()">
   <!--HeaderComponent-->
  <mat-toolbar class="mat-elevation-z3" color="primary">
   <button mat-icon-button (click)="collapsed.set(!collapsed())">
