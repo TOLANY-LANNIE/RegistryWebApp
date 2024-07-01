@@ -109,6 +109,7 @@ export class AttendeesListComponent implements AfterViewInit{
      // console.log(`Dialog result: ${result}`);
     });
   }
+  
 
   edit(guest:any){
 
@@ -134,6 +135,14 @@ export class AttendeesListComponent implements AfterViewInit{
     });
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+  /**
+   * Create the Attendees Initials
+   */
+  getInitials(name: string, surname: string): string {
+    const firstNameInitial = name ? name.charAt(0).toUpperCase() : '';
+    const lastNameInitial = surname ? surname.charAt(0).toUpperCase() : '';
+    return `${firstNameInitial}${lastNameInitial}`;
   }
 }
 
