@@ -7,7 +7,8 @@ import { ThankyouComponent } from './features/thankyou/thankyou.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { EventsBoardComponent } from './features/events-board/events-board.component';
 import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
-const routes: Routes = [
+
+export const routes: Routes = [
     {
         path: 'invite',
         component: LoginLayoutComponent,

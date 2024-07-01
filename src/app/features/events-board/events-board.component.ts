@@ -14,9 +14,9 @@ import { DatePipe } from '@angular/common';
 export class EventsBoardComponent implements OnInit {
   events: any[] = []; // To store events pulled from Firestore
   attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts
-  filterOptions: string[] = ['All Events', "Today's Event", "This Week's Events", "This Month's Events", 'Open Events', 'Closed Events'];
+  filterOptions: string[] = ['All Events', "Today's Event", "This Week's Events", "This Month's Events"];
   selectedChip: string = 'All Events';
-  filteredEvents: Event[] = [];
+  filteredEvents: any[] = [];
   today: Date = new Date();
   weekStart: Date = new Date();
   weekEnd: Date = new Date();
@@ -52,7 +52,7 @@ export class EventsBoardComponent implements OnInit {
 
       // Filter events where event.Status is "Yes"
       this.events = events.filter((event: { Status: boolean; }) => event.Status === true);
-
+       this.filterEvents();
       // Fetch attendee counts
       await this.loadAttendeeCounts();
     } catch (error) {
@@ -107,18 +107,11 @@ export class EventsBoardComponent implements OnInit {
           return eventDate >= this.monthStart && eventDate <= this.monthEnd;
         });
         break;
-
-      case 'Open Events':
-        this.filteredEvents = this.events.filter(event => event.Status);
-        break;
-
-      case 'Closed Events':
-        this.filteredEvents = this.events.filter(event => !event.Status);
-        break;
-
-      default:
+  
+      case "All Events":
         this.filteredEvents = this.events;
         break;
     }
+    console.log(this.filterEvents)
   }
 }

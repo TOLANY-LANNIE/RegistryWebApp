@@ -1,9 +1,10 @@
 
-import { AppRoutingModule } from './app.routes';
+import { AppRoutingModule,routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserModule} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule} from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { RouterModule, provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions} from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GlobalInterceptor } from './interceptors/http.interceptor';
@@ -33,7 +34,6 @@ import { EventsBoardComponent } from './features/events-board/events-board.compo
 import { PhoneNumberFormatterDirective } from './utils/phoneNumber-directive';
 import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
 import { ToastService } from './services/toast.service';
-
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatSidenavModule} from '@angular/material/sidenav';
@@ -142,12 +142,19 @@ import { environment } from '../environment/environment';
     AngularFirestoreModule,
   ],
   providers:[
+    provideRouter(
+      routes,
+      withViewTransitions(),
+      withComponentInputBinding(),
+      withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
+    ),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: GlobalInterceptor,
       multi: true,
    }, 
    provideAnimationsAsync(),
+   provideAnimations(),
    ToastService,
    MessageService
   ],
