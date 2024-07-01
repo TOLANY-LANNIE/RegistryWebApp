@@ -15,25 +15,25 @@ import { DatePipe } from '@angular/common';
 export class EditEventComponent implements OnInit {
   editEventFormGroup!: FormGroup;
   originalData: any; // To store the original data
-  todayDate: Date = new Date(); // Today's date
-
+  @Input() min: any;
+  todayDate:Date = new Date(); //today's date
+  
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditEventComponent>,
     private service: EventsService,
-    private toastService: ToastService,
+   private toastService: ToastService,
   ) {
-    // Ensure the date is set to midnight to avoid time zone issues
-    this.todayDate.setHours(0, 0, 0, 0);
+    this.todayDate.setDate(this.todayDate.getDate() + 0);
   }
 
   ngOnInit(): void {
     // Initialize the form group with form controls including agenda
     this.editEventFormGroup = this.fb.group({
       title: [this.data.Title, [Validators.required]],
-      startDate: [this.data.StartDate, [Validators.required, this.startDateValidator.bind(this)]],
-      endDate: [this.data.EndDate, [Validators.required, this.endDateValidator.bind(this)]],
+      startDate: [this.data.StartDate, [Validators.required]],
+      endDate: [this.data.EndDate, [Validators.required]],
       description: [this.data.Description, [Validators.required]],
       location: [this.data.Location, [Validators.required]],
       capacity: [this.data.Capacity, [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -51,9 +51,9 @@ export class EditEventComponent implements OnInit {
       });
     }
 
-    // Update endDate validator when startDate changes
-    this.editEventFormGroup.get('startDate')?.valueChanges.subscribe(() => {
-      this.editEventFormGroup.get('endDate')?.updateValueAndValidity();
+    // Ensure form changes are tracked
+    this.editEventFormGroup.valueChanges.subscribe(() => {
+      // Optionally, perform other actions on value change
     });
   }
 
@@ -72,21 +72,6 @@ export class EditEventComponent implements OnInit {
   // Method to remove an agenda item by index
   removeAgendaItem(index: number): void {
     this.agenda.removeAt(index);
-  }
-
-  // Validator for start date
-  startDateValidator(control: any) {
-    if (!control.value) return null;
-    const startDate = new Date(control.value);
-    return startDate < this.todayDate ? { pastDate: true } : null;
-  }
-
-  // Validator for end date
-  endDateValidator(control: any) {
-    if (!control.value) return null;
-    const endDate = new Date(control.value);
-    const startDate = new Date(this.editEventFormGroup.get('startDate')?.value);
-    return endDate < this.todayDate ? { pastDate: true } : endDate < startDate ? { invalidEndDate: true } : null;
   }
 
   // Method to determine if the form has been changed
@@ -137,8 +122,8 @@ export class EditEventComponent implements OnInit {
     const formValues = this.editEventFormGroup.value;
     const event: Event = {
       Title: formValues.title,
-      StartDate: new Date(formValues.startDate).toISOString(),
-      EndDate: new Date(formValues.endDate).toISOString(),
+      StartDate: formValues.startDate.toISOString(),
+      EndDate: formValues.endDate.toISOString(),
       Description: formValues.description,
       Location: formValues.location,
       Capacity: formValues.capacity,
@@ -148,12 +133,12 @@ export class EditEventComponent implements OnInit {
 
     this.service.updateEvent(this.data.id, event)
       .then(() => {
-        this.showSuccessMessage();
+      this.showSuccessMessage();
         this.dialogRef.close();
       })
       .catch(error => {
         this.showErrorMessage();
-        // console.error('Error updating event:', error);
+       // console.error('Error updating event:', error);
       });
   }
 
@@ -161,7 +146,12 @@ export class EditEventComponent implements OnInit {
     this.toastService.showSuccess('Success', 'Updated successfully');
   }
 
+  /**
+   * Failed to added the events to the Db 
+   */
   showErrorMessage() {
     this.toastService.showError('Error', 'An error occurred during the operation.');
   }
+
+  
 }
