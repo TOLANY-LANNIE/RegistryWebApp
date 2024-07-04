@@ -1,6 +1,22 @@
 <mat-card class="card">
   <div class="image-container">
     <img mat-card-image [src]="photo?.urls?.small" alt="Event Image">
+    <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="viewDetails(card)"  pTooltip="Event Details" 
+      tooltipPosition="bottom">
+        <mat-icon color="primary">info_outline</mat-icon>
+        <span>View Details</span>
+      </button>
+
+      <button mat-menu-item (click)="navigateToAttendees(card)"  pTooltip="Guests List" 
+      tooltipPosition="bottom">
+        <mat-icon color="primary">people_outline</mat-icon>
+        <span>View Guests</span>
+      </button>
+    </mat-menu>
   </div>
   <mat-card-content>
 
@@ -8,16 +24,16 @@
       <h3><strong>{{ card.Title }}</strong></h3>
     </div>
     <div class="location-container">
-      <mat-icon color="primary">calendar_today</mat-icon>
+      <mat-icon color="primary">access_time</mat-icon>
       {{ formatDate(card.StartDate)}} - {{ formatDate(card.EndDate) }}</div>
 
     <div class="location-container">
-      <mat-icon color="primary">people</mat-icon>
+      <mat-icon color="primary">people_outline</mat-icon>
       {{ card.Capacity }} Expected Guests
     </div> 
 
     <div class="location-container">
-      <mat-icon color="primary">people</mat-icon>
+      <mat-icon color="primary">check_circle_outline</mat-icon>
       {{attendeeCount}} Guests confirmed
     </div>      
   </mat-card-content>

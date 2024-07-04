@@ -45,7 +45,7 @@ export class SendInviteComponent {
       });
 
       //console.log(this.data)
-      //console.log(this.emailService.generateRegistrationLink(this.data.id))
+      console.log(this.emailService.generateRegistrationLink(this.data.id))
     }
   
 
