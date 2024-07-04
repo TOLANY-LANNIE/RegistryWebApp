@@ -1,6 +1,16 @@
 <mat-card class="card">
   <div class="image-container">
     <img mat-card-image [src]="photo?.urls?.small" alt="Event Image">
+    <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="viewDetails(card)" title="Details">
+        <mat-icon color="primary">info_outline</mat-icon>
+        <span>View Details</span>
+      </button>
+
+    </mat-menu>
   </div>
   <mat-card-content>
 

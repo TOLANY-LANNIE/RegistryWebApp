@@ -99,12 +99,12 @@
         <ng-container matColumnDef="MoreOptions">
           <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="viewDetails(element)" title="Details">
-                <mat-icon color="primary">info</mat-icon>
+                <mat-icon color="primary">info_outline</mat-icon>
                 <span>Event Details</span>
               </button>
 
@@ -113,7 +113,7 @@
                 <span>Edit Event</span>
               </button>
               <button mat-menu-item (click)="openDeleteAlert(element)" title="Delete">
-                <mat-icon color="warn">delete</mat-icon>
+                <mat-icon color="warn">delete_outline</mat-icon>
                 <span>Delete Event</span>
               </button> 
             </mat-menu>
