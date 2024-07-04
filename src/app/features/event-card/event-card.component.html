@@ -5,11 +5,17 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="viewDetails(card)" title="Details">
+      <button mat-menu-item (click)="viewDetails(card)"  pTooltip="Event Details" 
+      tooltipPosition="bottom">
         <mat-icon color="primary">info_outline</mat-icon>
         <span>View Details</span>
       </button>
 
+      <button mat-menu-item (click)="navigateToAttendees(card)"  pTooltip="Guests List" 
+      tooltipPosition="bottom">
+        <mat-icon color="primary">people_outline</mat-icon>
+        <span>View Guests</span>
+      </button>
     </mat-menu>
   </div>
   <mat-card-content>

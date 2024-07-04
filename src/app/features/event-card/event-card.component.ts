@@ -71,4 +71,12 @@ export class EventCardComponent implements OnInit {
     return (attendeeCount / capacity) * 100;
   }
   
+  /**
+   *  Navigate to attendee component
+   * @param event 
+   */
+  navigateToAttendees(event: any) {
+    const serializedData = JSON.stringify(event.id);
+    this.router.navigate(['/attendees'], { queryParams: { data: serializedData } });
+  }
 }
