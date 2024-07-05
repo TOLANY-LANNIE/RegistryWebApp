@@ -7,6 +7,18 @@
             [model]="items" 
             [home]="home" />
         </div>
+        <p-splitter [style]="{ height: '900px' }" styleClass="mb-5">
+            <ng-template pTemplate>
+                <div class="col flex align-items-center justify-content-center">
+                    Panel 1
+                </div>
+            </ng-template>
+            <ng-template pTemplate>
+                <div class="col flex align-items-center justify-content-center">
+                    Panel 2
+                </div>
+            </ng-template>
+        </p-splitter>
     </div>
 </div>
     

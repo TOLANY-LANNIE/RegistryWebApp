@@ -66,6 +66,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuModule } from 'primeng/menu';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { SplitterModule } from 'primeng/splitter';
 
 
 import { AngularFireModule } from "@angular/fire/compat";
@@ -138,6 +139,7 @@ import { environment } from '../environment/environment';
     BreadcrumbModule,
     MenuModule,
     ToastModule,
+    SplitterModule,
     
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
