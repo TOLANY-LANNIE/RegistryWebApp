@@ -1,5 +1,6 @@
 .card {
   margin-bottom: 16px;
+  border-radius: 4px;
 }
 
 .date-container {
@@ -41,6 +42,7 @@
 }
 
 .image-container img {
+  border-radius: 4px;
   width: 100%; /* Make the image fill the entire width of its container */
   height: 100%; /* Make the image fill the entire height of its container */
   object-fit: cover; /* Ensure the image covers the container without stretching */

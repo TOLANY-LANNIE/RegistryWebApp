@@ -22,7 +22,7 @@ import { EventDetailsComponent } from '../../modals/event-details/event-details.
 })
 export class EventsComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['Title', 'Start Date', 'End Date', 'Capacity', 'Guests', 'Status', 'MoreOptions'];
-  dataSource: MatTableDataSource<any>; // Initialize with type `any`
+  dataSource: MatTableDataSource<any>= new MatTableDataSource<any>();// Initialize with type `any`
   searchString = '';
   panelOpenState = false;
   attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts

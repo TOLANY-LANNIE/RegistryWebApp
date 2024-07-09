@@ -28,7 +28,7 @@ import { MenuItem } from 'primeng/api';
 export class AttendeesListComponent implements AfterViewInit{
 
   displayedColumns = ['Test','Honorific','Name', 'Surname', 'PracticeNumber','Contact','Email','MoreOptions'];
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any>= new MatTableDataSource<any>();
   searchString = '';
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
