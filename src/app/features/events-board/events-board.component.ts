@@ -22,9 +22,11 @@ export class EventsBoardComponent implements OnInit {
   weekEnd: Date = new Date();
   monthStart: Date = new Date();
   monthEnd: Date = new Date();
+  sortAscending: boolean = true; // Variable to store sort order
 
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+
   constructor(
     private service: EventsService,
     private attendeesService: AttendeesService, // Inject attendees service
@@ -52,7 +54,7 @@ export class EventsBoardComponent implements OnInit {
 
       // Filter events where event.Status is "Yes"
       this.events = events.filter((event: { Status: boolean; }) => event.Status === true);
-       this.filterEvents();
+      this.filterEvents();
       // Fetch attendee counts
       await this.loadAttendeeCounts();
     } catch (error) {
@@ -112,6 +114,14 @@ export class EventsBoardComponent implements OnInit {
         this.filteredEvents = this.events;
         break;
     }
-    console.log(this.filterEvents)
+    this.sortEvents(); // Ensure events are sorted after filtering
+  }
+
+  sortEvents(): void {
+    this.filteredEvents.sort((a, b) => {
+      const dateA = new Date(a.StartDate).getTime();
+      const dateB = new Date(b.StartDate).getTime();
+      return this.sortAscending ? dateA - dateB : dateB - dateA;
+    });
   }
 }

@@ -1,35 +1,41 @@
 <div class="content" fxLayout="row" fxLayoutAlign="space-between">
-    <div fxFlex="1 1 auto">
+  <div fxFlex="1 1 auto">
 
-        <!--Breadcrumbs-->
-        <div class="dashboard-title">
-            <p-breadcrumb 
-            class="max-w-full"  
-            [home]="home" />
-        </div>
-        <!--Header and Button Container-->
-        <div class="header-button-container">
-            <!--Page Title-->
-            <h1>Upcoming's Events</h1>
-        </div>
-        <div>
-          <mat-chip-listbox
-            aria-label="Events selection"
-            [(ngModel)]="selectedChip"
-            (ngModelChange)="filterEvents()">
-            <mat-chip-option [value]="filterOption" *ngFor="let filterOption of filterOptions">
-              {{ filterOption }}
-            </mat-chip-option>
-          </mat-chip-listbox>
-        </div>
-        <br>
-        <!--Events Card Gird-->
-        <!-- Events Card Grid -->
-        <div fxLayout="row wrap" fxLayoutGap="16px grid">
-            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of filteredEvents">
-            <app-event-card [card]="card" [attendeeCount]="getAttendeeCount(card.id)"  [style.view-transition-name]="card.id"></app-event-card>
-            </div>
-        </div>
-  
+    <!--Breadcrumbs-->
+    <div class="dashboard-title">
+      <p-breadcrumb class="max-w-full" [home]="home"></p-breadcrumb>
     </div>
+
+    <!--Header and Button Container-->
+    <div class="header-button-container">
+      <!--Page Title-->
+      <h1>Upcoming Events</h1>
+
+      <!--Sort Option Selector-->
+      <mat-form-field appearance="outline">
+        <mat-label>Sort</mat-label>
+        <mat-select [(value)]="sortAscending" (selectionChange)="sortEvents()">
+          <mat-option [value]="true">Ascending Order</mat-option>
+          <mat-option [value]="false">Descending Order</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-chip-listbox aria-label="Events selection" [(ngModel)]="selectedChip" (ngModelChange)="filterEvents()">
+        <mat-chip-option [value]="filterOption" *ngFor="let filterOption of filterOptions">
+          {{ filterOption }}
+        </mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+
+    <br>
+
+    <!--Events Card Grid-->
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of filteredEvents">
+        <app-event-card [card]="card" [attendeeCount]="getAttendeeCount(card.id)" [style.view-transition-name]="card.id"></app-event-card>
+      </div>
+    </div>
+  </div>
 </div>
