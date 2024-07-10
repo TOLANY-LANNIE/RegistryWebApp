@@ -7,6 +7,41 @@
             [model]="items" 
             [home]="home" />
         </div>
+
+        <!--Header and Button Container-->
+    <div class="header-button-container">
+        <!--Page Title-->
+        <h1>
+         Emailing Groups
+        </h1>
+      </div>
+      <br>
+      <div class="flex-container">
+        <!--Searchbar-->
+        <mat-form-field appearance="outline" class="search-bar">
+          <mat-label>Search</mat-label>
+          <input (keyup)="applyFilter($event)" matInput>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+      <br>
+
+        <div fxLayout="row" fxLayoutAlign="stretch" fxFlexFill fxLayoutGap="8px">
+            <mat-card class="mat-elevation-z0" fxFlex="25">
+              <!--Mail Group List-->
+              <div class="mail-groups-list">
+                Test
+              </div>
+            </mat-card>
+          
+            <mat-card class="mat-elevation-z0" fxFlex="75">
+              <!--Recipients List-->
+              <div class="recipients-list">
+                Test
+              </div>
+            </mat-card>
+          </div>
+          
     </div>
 </div>
     

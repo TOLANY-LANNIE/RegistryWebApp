@@ -1,1 +1,15 @@
 @import '../../../assets/common.scss';
+
+.cards-container {
+    display: flex;
+    gap: 10px; /* Space between cards */
+  }
+  
+  .card-small {
+    flex: 0 0 25%; /* 25% width */
+  }
+  
+  .card-large {
+    flex: 0 0 75%; /* 75% width */
+  }
+  

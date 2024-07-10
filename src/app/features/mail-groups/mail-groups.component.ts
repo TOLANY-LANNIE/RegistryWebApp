@@ -18,4 +18,6 @@ export class MailGroupsComponent {
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
   }
+
+  applyFilter(event:Event){}
 }

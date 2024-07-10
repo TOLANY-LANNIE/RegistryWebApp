@@ -1,5 +1,6 @@
 .card {
   margin-bottom: 16px;
+  border-radius: 4px;
 }
 
 .date-container {
@@ -18,7 +19,9 @@
   overflow: hidden; /* Hide overflow content */
   white-space: nowrap; /* Prevent text from wrapping */
   text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
+  position: relative; /* Position relative to create an anchor for absolute positioning */
 }
+
 
 .image-container {
   width: 100%; /* Ensure the container takes the full width of the card */
@@ -37,10 +40,11 @@
   cursor: pointer;
   border-radius: 3px;
   font-size: 16px;
-  /* Add any other styles you need */
 }
 
 .image-container img {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   width: 100%; /* Make the image fill the entire width of its container */
   height: 100%; /* Make the image fill the entire height of its container */
   object-fit: cover; /* Ensure the image covers the container without stretching */
