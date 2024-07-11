@@ -26,18 +26,54 @@
       </div>
       <br>
 
-        <div fxLayout="row" fxLayoutAlign="stretch" fxFlexFill fxLayoutGap="8px">
-            <mat-card class="mat-elevation-z0" fxFlex="25">
-              <!--Mail Group List-->
+        <div fxLayout="row" fxLayoutAlign="stretch" fxLayoutGap="8px">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="25">
+              <!--Mail Group List Header-->
               <div class="mail-groups-list">
-                Test
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <h3>Groups List</h3>
+                  <button mat-stroked-button color="primary" class="btn">
+                    <mat-icon>add</mat-icon>
+                    Add
+                  </button>
+                </div>
+               <mat-divider></mat-divider>
+
+              <!--Mail Group List-->
+               <mat-list>
+                <mat-list-item 
+                  *ngFor="let group of groups" 
+                  class="group-item" 
+                  [ngClass]="{'selected-group-item': isSelected(group)}"
+                  (click)="selectGroup(group)">
+                  <mat-icon matListItemIcon>
+                    <ng-container *ngIf="isSelected(group); else outlineIcon">
+                      <span class="material-icons">
+                        <mat-icon color="primary">group_work</mat-icon>
+                      </span>
+                    </ng-container>
+                    <ng-template #outlineIcon>
+                      <span class="material-icons-outlined">group_work</span>
+                    </ng-template>
+                  </mat-icon>
+                  <span matListItemTitle  [ngClass]="{'selected-title': isSelected(group)}">{{ group.Name }}</span>
+                  <mat-divider></mat-divider>
+                </mat-list-item>
+              </mat-list>              
               </div>
             </mat-card>
           
-            <mat-card class="mat-elevation-z0" fxFlex="75">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="75">
               <!--Recipients List-->
               <div class="recipients-list">
-                Test
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <h3>Recipients List</h3>
+                  <button mat-stroked-button color="primary" class="btn">
+                    <mat-icon>add</mat-icon>
+                    Add
+                  </button>
+                </div>
+                <mat-divider></mat-divider>
               </div>
             </mat-card>
           </div>
