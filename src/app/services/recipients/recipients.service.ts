@@ -21,7 +21,7 @@ export class RecipientsService {
     });
   }
 
-  getByGroupID(groupID: string): Promise<any> {
+  getRecipient(groupID: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       // Adding some logging to understand where it might fail
       //console.log(`Fetching recipients for group ID: ${groupID}`);

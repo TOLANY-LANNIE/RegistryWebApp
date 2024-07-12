@@ -1,6 +1,12 @@
 @import '../../../assets/common.scss';
 
-
+:host ::ng-deep .mat-mdc-form-field-bottom-align {
+  display: inline-block;
+  height: 0px;
+}
+:host ::ng-deep .mat-form-field{
+  font-size: 12px;
+}
 
   .padded-card {
     padding: 8px; /* Adjust the padding as needed */
@@ -17,7 +23,7 @@
 
   .selected-group-item {
     border-left-color: #3F51B5 !important;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #f1f5f9
     
   }
   

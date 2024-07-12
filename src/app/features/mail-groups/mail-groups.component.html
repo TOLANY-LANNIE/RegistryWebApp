@@ -125,14 +125,14 @@
                       </button>
                     </mat-menu>
                   </mat-cell> 
-                  
                 </ng-container>
+                  <!-- Row shown when there is no matching data that will be provided to the wrapper table. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">No data</td>
+                  </tr>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
               </mat-table>
-              <ng-template #noAttendees>
-                <div class="no-attendees-message">No Attendees</div>
-              </ng-template>
               <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>        
               </div>
             </mat-card>
