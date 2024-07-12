@@ -1,5 +1,22 @@
 @import '../../../assets/common.scss';
 
+.dialog-title {
+  color: #fff;
+  background-color: #303F9F;
+  display: flex; /* Flex container to align items */
+  align-items: center; /* Align items vertically */
+  padding: 10px; /* Add padding if needed */
+}
+
+.icon-title-container {
+  display: flex; /* Flex container to align icon and text */
+  align-items: center; /* Center align items vertically */
+}
+
+.icon-title-container .icon {
+  margin-right: 8px; /* Spacing between icon and text */
+}
+
 .event-card {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -12,6 +29,7 @@
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 8px;
+      background-color: #E8EAF6 ;
     }
   
     .event-date,

@@ -1,7 +1,15 @@
-<h2 mat-dialog-title class="event-title">Dr {{data.Name}} {{data.Surname}} </h2>
+<h2 mat-dialog-title class="dialog-title">
+  <span class="icon-title-container">
+    <mat-icon class="icon">person</mat-icon> 
+    Attendee's Details
+  </span>
+</h2>
 <mat-dialog-content class="mat-typography">
   <div class="event-date">
-    <strong>Practice Number:</strong> {{data.PracticeNumber}}
+    <strong>Name:</strong> {{data.Honorific}} {{data.Name}} {{data.Surname}}
+  </div>
+  <div class="event-date">
+    <strong>Practice Number:</strong> {{data.PractiseNumber}}
   </div>
   <br>
   <div class="event-description">
@@ -12,21 +20,18 @@
     <strong>Email:</strong> {{data.Email}}
   </div>
   <br>
-  <div class="event-description">
-    <strong>Flight Details:</strong> {{data.FlightDate}} <br> {{data.FlightDetails}}
+  <div class="event-location">
+    <strong>Dietary Preference</strong> {{data.DietaryPreference}}
   </div>
   <br>
   <div class="event-location">
-    <strong>Requires Transfer:</strong> {{data.TransfersRequired}}
+    <strong>Requires Transfer:</strong> {{data.Transfer}}
   </div>
   <br>
   <div class="event-location">
-    <strong>Requires Accommodation:</strong> {{data.AccomodationRequired}}
+    <strong>Requires Accomodation:</strong> {{data.Accommodation}}
   </div>
   <br>
-  <div class="event-location">
-    <strong>Dietary Details</strong> {{data.Dietary}} <br> {{data.Allergies}}
-  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Close</button>

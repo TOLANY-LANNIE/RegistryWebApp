@@ -39,6 +39,11 @@ export class MailGroupsComponent implements AfterViewInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  get filteredGroups() {
+    return this.groups.filter(group =>
+      group.Name.toLowerCase().includes(this.searchString.toLowerCase())
+    );
+  }
   ngOnInit() {
     this.getMailGroups();
     this.items = [
@@ -66,7 +71,8 @@ export class MailGroupsComponent implements AfterViewInit{
 
   async getRecipients(group:any) {
     try {
-      this.recipients = await this.recipientsService.getByGroupID(group.id);
+      this.recipients = await this.recipientsService.getRecipient(group.id);
+      console.log(this.recipients)
       this.dataSource = new MatTableDataSource(this.recipients);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
