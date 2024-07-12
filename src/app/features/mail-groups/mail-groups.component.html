@@ -20,7 +20,7 @@
         <!--Searchbar-->
         <mat-form-field appearance="outline" class="search-bar">
           <mat-label>Search</mat-label>
-          <input (keyup)="applyFilter($event)" matInput>
+          <input (keyup)="applyFilter($event)"  [(ngModel)]="searchString" matInput>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>

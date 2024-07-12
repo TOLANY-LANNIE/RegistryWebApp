@@ -39,6 +39,11 @@ export class MailGroupsComponent implements AfterViewInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  get filteredGroups() {
+    return this.groups.filter(group =>
+      group.Name.toLowerCase().includes(this.searchString.toLowerCase())
+    );
+  }
   ngOnInit() {
     this.getMailGroups();
     this.items = [
