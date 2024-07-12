@@ -1,5 +1,12 @@
-<h2 mat-dialog-title class="event-title">{{data.Title}}</h2>
+<h2 mat-dialog-title class="dialog-title">
+  <span class="icon-title-container">
+    <mat-icon class="icon">info_outline</mat-icon> 
+    Events's Details
+  </span>
+</h2>
 <mat-dialog-content class="mat-typography">
+   <h2><strong>{{data.Title}}</strong> </h2> 
+  <br>
   <div class="event-date">
     <strong>Date:</strong> {{formatDate(data.StartDate)}} - {{formatDate(data.EndDate)}}
   </div>
