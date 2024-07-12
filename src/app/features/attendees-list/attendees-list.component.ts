@@ -74,7 +74,7 @@ export class AttendeesListComponent implements AfterViewInit{
       this.dataSource = new MatTableDataSource(this.attendees);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource.data)
+      //console.log(this.dataSource.data)
     } catch (error) {
       console.error('Error loading doctors:', error);
       // Handle error, show error message, etc.

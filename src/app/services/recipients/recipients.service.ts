@@ -7,26 +7,42 @@ export class RecipientsService {
 
   constructor(private db: AngularFirestore) {}
 
-
+  getAllRecipients() {
+    return new Promise<any>((resolve) => {
+      this.db.collection('Recipients').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
+    });
+  }
   
   addNew(recipient:any): Promise<void> {
     return this.db.collection('Recipients').add(recipient).then(() => {
     }).catch(error => {
-      console.error('Error adding recipient:', error);
+      //console.error('Error adding recipient:', error);
       throw error;
     });
   }
 
-  getByGroupID(groupID:string) {
+  getByGroupID(groupID: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      this.db.collection('Recipients', ref => ref.where('GroupID', '==', groupID)).valueChanges({ idField: 'id' }).subscribe({
-        next: (recipients) => {
-          resolve(recipients);
-        },
-        error: (error) => {
-          reject(error);
-        }
-      });
+      // Adding some logging to understand where it might fail
+      //console.log(`Fetching recipients for group ID: ${groupID}`);
+      
+      this.db.collection('Recipients', ref => ref.where('Group', '==', groupID))
+        .valueChanges({ idField: 'id' })
+        .subscribe({
+          next: (recipients) => {
+            if (recipients.length > 0) {
+              //console.log(`Recipients found:`, recipients);
+              resolve(recipients);
+            } else {
+             // console.log('No recipients found for the given group ID.');
+              resolve([]); // Return an empty array if no recipients found
+            }
+          },
+          error: (error) => {
+            //console.error('Error fetching recipients:', error);
+            reject(error);
+          }
+        });
     });
   }
 
