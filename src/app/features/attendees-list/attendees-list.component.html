@@ -99,19 +99,10 @@
                 <span>Delete</span>
               </button>
             </mat-menu>
-          </mat-cell> 
-          
+          </mat-cell>          
         </ng-container>
-
-        <ng-container matColumnDef="noRecord">
-          <td mat-footer-cell *matFooterCellDef>No records found.</td>
-        </ng-container>
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
-        <ng-template [ngIf]="dataSource.data.length === 0">
-          <tr mat-footer-row *matFooterRowDef="['noRecord']"></tr>
-        </ng-template>
       </mat-table>
       <ng-template #noAttendees>
         <div class="no-attendees-message">No Attendees</div>

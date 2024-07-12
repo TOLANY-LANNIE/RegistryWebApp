@@ -26,18 +26,114 @@
       </div>
       <br>
 
-        <div fxLayout="row" fxLayoutAlign="stretch" fxFlexFill fxLayoutGap="8px">
-            <mat-card class="mat-elevation-z0" fxFlex="25">
-              <!--Mail Group List-->
+        <div fxLayout="row" fxLayoutAlign="stretch" fxLayoutGap="8px">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="25">
+              <!--Mail Group List Header-->
               <div class="mail-groups-list">
-                Test
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <h3>Groups List</h3>
+                  <button mat-stroked-button color="primary" class="btn">
+                    <mat-icon>add</mat-icon>
+                    Add
+                  </button>
+                </div>
+               <mat-divider></mat-divider>
+
+                <!--Mail Group List-->
+                <mat-list>
+                <mat-list-item 
+                  *ngFor="let group of groups" 
+                  class="group-item" 
+                  [ngClass]="{'selected-group-item': isSelected(group)}"
+                  (click)="selectGroup(group)">
+                  <mat-icon matListItemIcon>
+                    <ng-container *ngIf="isSelected(group); else outlineIcon">
+                      <span class="material-icons">
+                        <mat-icon color="primary">group_work</mat-icon>
+                      </span>
+                    </ng-container>
+                    <ng-template #outlineIcon>
+                      <span class="material-icons-outlined">group_work</span>
+                    </ng-template>
+                  </mat-icon>
+                  <span matListItemTitle  [ngClass]="{'selected-title': isSelected(group)}">{{ group.Name }}</span>
+                  <mat-divider></mat-divider>
+                </mat-list-item>
+                </mat-list>              
               </div>
             </mat-card>
           
-            <mat-card class="mat-elevation-z0" fxFlex="75">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="75">
               <!--Recipients List-->
               <div class="recipients-list">
-                Test
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <h3>Recipients List</h3>
+                  <button mat-stroked-button color="primary" class="btn">
+                    <mat-icon>add</mat-icon>
+                    Add
+                  </button>
+                </div>
+                <mat-divider></mat-divider>
+
+                <!--Recipients Table -->
+                <mat-table [dataSource]="dataSource" matSort matSort>
+
+                  <!-- Avartar Column -->
+                  <ng-container matColumnDef="Avartar">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <p-avatar 
+                      [label]="getInitials(element.Name, element.Surname)"
+                      styleClass="mr-2" 
+                      [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
+                    </mat-cell>
+                  </ng-container>
+        
+                <!-- Name Column -->
+                <ng-container matColumnDef="Name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{ element.Name }} </mat-cell>
+                </ng-container>
+              
+                <!-- Surname Column -->
+                <ng-container matColumnDef="Surname">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Surname </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{ element.Surname }} </mat-cell>
+                </ng-container>
+                
+                <!-- Email Column -->
+                <ng-container matColumnDef="Email">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{ element.Email }} </mat-cell>
+                </ng-container>
+        
+                <!-- MoreOptions Column -->
+               <ng-container matColumnDef="MoreOptions">
+                  <mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item title="Details">
+                        <mat-icon color="primary">info_outline</mat-icon>
+                        <span>Details</span>
+                      </button> 
+                      <button mat-menu-item title="Delete">
+                        <mat-icon color="warn">delete_outline</mat-icon>
+                        <span>Delete</span>
+                      </button>
+                    </mat-menu>
+                  </mat-cell> 
+                  
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <ng-template #noAttendees>
+                <div class="no-attendees-message">No Attendees</div>
+              </ng-template>
+              <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>        
               </div>
             </mat-card>
           </div>

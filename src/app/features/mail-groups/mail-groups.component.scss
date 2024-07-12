@@ -1,15 +1,42 @@
 @import '../../../assets/common.scss';
 
-.cards-container {
+
+
+  .padded-card {
+    padding: 8px; /* Adjust the padding as needed */
+  }
+  .mail-groups-list {
     display: flex;
-    gap: 10px; /* Space between cards */
+    flex-direction: column;
   }
   
-  .card-small {
-    flex: 0 0 25%; /* 25% width */
+  .recipients-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .selected-group-item {
+    border-left-color: #3F51B5 !important;
+    background-color: rgba(0, 0, 0, 0.05);
+    
   }
   
-  .card-large {
-    flex: 0 0 75%; /* 75% width */
+  .group-item {
+    border-left: 5px solid;
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
   }
-  
+
+  .selected-title {
+    color: #3F51B5;
+  }
+  .mat-column-Avartar {
+    flex: 0 0 10%;
+  }
+  .mat-column-Email {
+    flex: 0 0 40%;
+  }
+  .mat-column-MoreOptions {
+    flex: 0 0 10%;
+  }

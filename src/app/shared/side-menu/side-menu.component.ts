@@ -45,7 +45,7 @@ export class SideMenuComponent {
       route:'events-board'
     },
     {
-      icon:'calendar_today',
+      icon:'event',
       label:'Events',
       route:'events'
     },
