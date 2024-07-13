@@ -8,6 +8,7 @@ import { Sort, MatSort} from '@angular/material/sort';
 import { MatTableDataSource} from '@angular/material/table';
 import { AddGroupComponent } from '../../modals/add-group/add-group.component';
 import { AddRecipientComponent } from '../../modals/add-recipient/add-recipient.component';
+import { DeleteRecipientComponent } from '../../modals/delete-recipient/delete-recipient.component';
 
 
 @Component({
@@ -128,6 +129,19 @@ export class MailGroupsComponent implements AfterViewInit{
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getRecipients(this.selectedGroup); // Refresh events data after adding a new group
+    });
+  }
+  /**
+   * Delete recipient from the group
+   * @param event 
+   */
+  openDeleteRecipient(recipient: any) {
+    const dialogRef = this.dialog.open(DeleteRecipientComponent, {
+      data: recipient,
+      width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getRecipients(this.selectedGroup);
     });
   }
 }
