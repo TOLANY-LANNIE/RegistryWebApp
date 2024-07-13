@@ -7,6 +7,8 @@ import { MatPaginator} from '@angular/material/paginator';
 import { Sort, MatSort} from '@angular/material/sort';
 import { MatTableDataSource} from '@angular/material/table';
 import { AddGroupComponent } from '../../modals/add-group/add-group.component';
+import { AddRecipientComponent } from '../../modals/add-recipient/add-recipient.component';
+
 
 @Component({
   selector: 'app-mail-groups',
@@ -73,11 +75,9 @@ export class MailGroupsComponent implements AfterViewInit{
   async getRecipients(group:any) {
     try {
       this.recipients = await this.recipientsService.getRecipient(group.id);
-      console.log(this.recipients)
       this.dataSource = new MatTableDataSource(this.recipients);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource.data)
     } catch (error) {
       console.error('Error fetching mail groups:', error);
     }
@@ -113,6 +113,21 @@ export class MailGroupsComponent implements AfterViewInit{
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getMailGroups(); // Refresh events data after adding a new group
+    });
+  }
+
+  /**
+   * Open the Add Recipient Dialog
+   */
+  openAddRecipientModal() {
+    const dialogRef = this.dialog.open(AddRecipientComponent, {
+      data:this.selectedGroup,
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getRecipients(this.selectedGroup); // Refresh events data after adding a new group
     });
   }
 }

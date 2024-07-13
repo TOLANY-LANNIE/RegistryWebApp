@@ -35,6 +35,8 @@ import { EventsBoardComponent } from './features/events-board/events-board.compo
 import { PhoneNumberFormatterDirective } from './utils/phoneNumber-directive';
 import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
 import { ToastService } from './services/toast.service';
+import { AddRecipientComponent } from './modals/add-recipient/add-recipient.component';
+
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatSidenavModule} from '@angular/material/sidenav';
@@ -100,6 +102,7 @@ import { environment } from '../environment/environment';
     PhoneNumberFormatterDirective,
     MailGroupsComponent,
     AddGroupComponent,
+    AddRecipientComponent
     
   ],
   imports:[

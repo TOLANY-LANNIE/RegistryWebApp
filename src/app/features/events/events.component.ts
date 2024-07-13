@@ -70,7 +70,6 @@ export class EventsComponent implements AfterViewInit, OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource.data);
       await this.loadAttendeeCounts(); // Load attendee counts after events
     } catch (error) {
       console.error('Error fetching events:', error);

@@ -68,7 +68,7 @@
               <div class="recipients-list">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                   <h3>Recipients List</h3>
-                  <button mat-stroked-button color="primary" class="btn">
+                  <button mat-stroked-button color="primary" class="btn" (click)="openAddRecipientModal()">
                     <mat-icon>add</mat-icon>
                     Add
                   </button>
@@ -116,8 +116,8 @@
                     </button>
                     <mat-menu #menu="matMenu">
                       <button mat-menu-item title="Details">
-                        <mat-icon color="primary">info_outline</mat-icon>
-                        <span>Details</span>
+                        <mat-icon color="primary">edit</mat-icon>
+                        <span>Edit</span>
                       </button> 
                       <button mat-menu-item title="Delete">
                         <mat-icon color="warn">delete_outline</mat-icon>
