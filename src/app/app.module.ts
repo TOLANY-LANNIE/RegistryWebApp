@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GlobalInterceptor } from './interceptors/http.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddGroupComponent } from './modals/add-group/add-group.component';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
 
@@ -98,6 +99,7 @@ import { environment } from '../environment/environment';
     EventsBoardComponent,
     PhoneNumberFormatterDirective,
     MailGroupsComponent,
+    AddGroupComponent,
     
   ],
   imports:[
