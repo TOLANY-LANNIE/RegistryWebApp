@@ -1,0 +1,81 @@
+.container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+h3 {
+  color: #332f2f;
+  font-weight: bold;
+  font-style: oblique;
+}
+
+mat-table {
+  width: 100%;
+  border-radius: 8px;
+}
+
+mat-card {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.content {
+  padding: 10px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.breadcrumb-item {
+  display: inline-block;
+  color: grey;
+  margin: 0;
+}
+
+.breadcrumb-divider {
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.mat-dialog-container {
+  border-radius: 16px; /* Adjust the value as needed */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-title {
+  color: #fff;
+  background-color: #303F9F;
+}
+
+button {
+  margin-right: 8px;
+}/*# sourceMappingURL=edit-event.component.css.map */

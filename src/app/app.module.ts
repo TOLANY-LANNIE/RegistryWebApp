@@ -37,6 +37,7 @@ import { MailGroupsComponent } from './features/mail-groups/mail-groups.componen
 import { ToastService } from './services/toast.service';
 import { AddRecipientComponent } from './modals/add-recipient/add-recipient.component';
 import { DeleteRecipientComponent } from './modals/delete-recipient/delete-recipient.component';
+import { EditRecipientComponent } from './modals/edit-recipient/edit-recipient.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -104,7 +105,8 @@ import { environment } from '../environment/environment';
     MailGroupsComponent,
     AddGroupComponent,
     AddRecipientComponent,
-    DeleteRecipientComponent  
+    DeleteRecipientComponent,
+    EditRecipientComponent  
   ],
   imports:[
     BrowserModule,
