@@ -3,23 +3,46 @@
     <form [formGroup]="addEventFormGroup" (ngSubmit)="sendEmail()">
       <br>
         <div class="form-container">
+
+            <!-- Selector for Send to Individual or Mail Group -->
             <mat-form-field appearance="outline">
-                <mat-label>Name</mat-label>
-                <input matInput 
-                       placeholder="Enter Name"
-                       formControlName="name" 
-                      >
-                <mat-error *ngIf="addEventFormGroup.get('name')?.invalid && addEventFormGroup.get('name')?.touched">Name is required</mat-error>
+                <mat-label>Send To</mat-label>
+                <mat-select formControlName="sendTo" (selectionChange)="onSendToChange($event.value)">
+                    <mat-option value="individual">Individual</mat-option>
+                    <mat-option value="group">Mail Group</mat-option>
+                </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Email Address</mat-label>
-                <input matInput 
-                       placeholder="Enter Email Address"
-                       formControlName="email" >
-                <mat-error *ngIf="addEventFormGroup.get('email')?.invalid && addEventFormGroup.get('email')?.touched">Email Address is required</mat-error>
-                <mat-error *ngIf="addEventFormGroup.get('email')?.hasError('email') && addEventFormGroup.get('email')?.touched">Invalid email</mat-error>
-            </mat-form-field>
+            <!-- Input fields for Individual -->
+            <ng-container *ngIf="sendTo === 'individual'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Full Name</mat-label>
+                    <input matInput 
+                           placeholder="Enter Full Name"
+                           formControlName="fullName" >
+                    <mat-error *ngIf="addEventFormGroup.get('fullName')?.invalid && addEventFormGroup.get('fullName')?.touched">Full Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput 
+                           placeholder="Enter Email Address"
+                           formControlName="email" >
+                    <mat-error *ngIf="addEventFormGroup.get('email')?.invalid && addEventFormGroup.get('email')?.touched">Email Address is required</mat-error>
+                    <mat-error *ngIf="addEventFormGroup.get('email')?.hasError('email') && addEventFormGroup.get('email')?.touched">Invalid email</mat-error>
+                </mat-form-field>
+            </ng-container>
+
+            <!-- Selector for Mail Group -->
+            <ng-container *ngIf="sendTo === 'group'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mail Group</mat-label>
+                    <mat-select formControlName="mailGroup">
+                        <mat-option *ngFor="let group of mailGroups" [value]="group.id">{{ group.Name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
+
         </div>
     </form>
 </mat-dialog-content>
