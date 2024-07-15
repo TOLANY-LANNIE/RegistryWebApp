@@ -30,7 +30,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.notificationService.getItems().subscribe((items: any[]) => {
+    /* this.notificationService.getItems().subscribe((items: any[]) => {
       // Compare the new items with the existing ones to detect new additions
       if (this.items.length && items.length > this.items.length) {
         const newItem = items[items.length - 1];
@@ -39,7 +39,7 @@ export class AppComponent {
         });
       }
       this.items = items;
-    });
+    }); */
   }
 
   checkInviteUrl() {
