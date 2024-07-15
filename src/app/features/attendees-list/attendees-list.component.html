@@ -23,9 +23,9 @@
       </button>
     </div>
     <br>
-    <div class="flex-container">
+    <div class="flex-container" fxLayout="row" fxLayoutAlign="left start" fxLayoutGap="16px">
       <!--Searchbar-->
-      <mat-form-field appearance="outline" class="search-bar">
+      <mat-form-field appearance="outline" fxFlex.lt-sm="100%">
         <mat-label>Search</mat-label>
         <input (keyup)="applyFilter($event)" matInput>
         <mat-icon matSuffix>search</mat-icon>

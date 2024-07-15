@@ -9,9 +9,9 @@
       [home]="home" />
     </div>
     <!--Header and Button Container-->
-    <div class="header-button-container">
+    <div class="header-button-container"fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between">
       <!--Page Title-->
-      <h1>Events</h1>
+      <h1 fxFlex="100" fxFlex.gt-sm="auto">Events</h1>
 
       <!--Create Event Button-->
       <button mat-stroked-button color="primary" class="btn" (click)="openAddEventModal()">
@@ -22,17 +22,17 @@
     <br>
 
     <!--Actions Card-->
-    <div class="flex-container">
-      <!--Searchbar-->
-      <mat-form-field appearance="outline" class="search-bar">
+    <div class="flex-container" fxLayout="row" fxLayoutAlign="left start" fxLayoutGap="16px">
+      <!-- Combined Search Field -->
+      <mat-form-field appearance="outline"fxFlex.lt-sm="100%">
         <mat-label>Search</mat-label>
-        <input (keyup)="applyFilter($event)" matInput>
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-
-      <div class="right-controls">
-       <!-- Filter by Status -->
-        <mat-form-field appearance="outline">
+        <input (keyup)="applyFilter($event)" matInput placeholder="Search">
+        <button mat-icon-button matSuffix [matMenuTriggerFor]="filtersMenu">
+          <mat-icon>filter_list</mat-icon>
+        </button>
+        <mat-menu #filtersMenu="matMenu">
+        <!-- Filter by Status -->
+        <mat-form-field appearance="outline" class="menu-form-field">
           <mat-label>Search by Status</mat-label>
           <mat-select (selectionChange)="applyStatusFilter($event.value)">
             <mat-option [value]="null">All</mat-option>
@@ -40,17 +40,18 @@
             <mat-option [value]="false">Closed</mat-option>
           </mat-select>
         </mat-form-field>
-
+    
         <!-- Filter by Date -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="menu-form-field">
           <mat-label>Search By Date</mat-label>
           <input matInput [matDatepicker]="picker" (dateChange)="applyDateFilter($event.value)" placeholder="MM/DD/YYYY">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-      </div>
+        </mat-menu>
+      <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
     </div>
-    
     <br>
     <mat-card class="mat-elevation-z0">
       <!--Table-->

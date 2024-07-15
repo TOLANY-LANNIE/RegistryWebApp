@@ -9,7 +9,7 @@ import { MatTableDataSource} from '@angular/material/table';
 import { AddGroupComponent } from '../../modals/add-group/add-group.component';
 import { AddRecipientComponent } from '../../modals/add-recipient/add-recipient.component';
 import { DeleteRecipientComponent } from '../../modals/delete-recipient/delete-recipient.component';
-
+import { EditRecipientComponent } from '../../modals/edit-recipient/edit-recipient.component';
 
 @Component({
   selector: 'app-mail-groups',
@@ -139,6 +139,16 @@ export class MailGroupsComponent implements AfterViewInit{
     const dialogRef = this.dialog.open(DeleteRecipientComponent, {
       data: recipient,
       width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getRecipients(this.selectedGroup);
+    });
+  }
+
+  openEditRecipient(recipient: any) {
+    const dialogRef = this.dialog.open(EditRecipientComponent, {
+      data: recipient,
+      width: '450px',
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getRecipients(this.selectedGroup);

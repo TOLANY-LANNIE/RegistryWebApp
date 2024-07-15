@@ -76,3 +76,38 @@
   .mat-column-Surname {
     flex: 0 0 10%;
   }
+
+  mat-card {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  mat-header-cell, mat-cell {
+    min-width: 100px;
+    //white-space: nowrap;
+  }
+  
+  @media (max-width: 600px) {
+    mat-header-cell, mat-cell {
+      font-size: 12px;
+     // padding: 8px;
+    }
+  
+    mat-icon {
+      font-size: 16px;
+    }
+  
+    .clickable-cell {
+      cursor: pointer;
+    }
+  }
+  
+  @media (min-width: 601px) {
+    mat-header-cell, mat-cell {
+      font-size: 14px;
+    }
+  
+    mat-icon {
+      font-size: 24px;
+    }
+  }
