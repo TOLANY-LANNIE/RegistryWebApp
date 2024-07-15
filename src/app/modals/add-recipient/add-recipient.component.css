@@ -1,0 +1,145 @@
+.container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+h3 {
+  color: #332f2f;
+  font-weight: bold;
+  font-style: oblique;
+}
+
+mat-table {
+  width: 100%;
+  border-radius: 8px;
+}
+
+mat-card {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.content {
+  padding: 10px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.breadcrumb-item {
+  display: inline-block;
+  color: grey;
+  margin: 0;
+}
+
+.breadcrumb-divider {
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  color: white !important;
+  font-weight: bold;
+  font-style: oblique;
+}
+
+.mat-dialog-container {
+  border-radius: 16px; /* Adjust the value as needed */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjust spacing between form fields */
+}
+
+.dialog-title {
+  color: #fff;
+  background-color: #303F9F;
+  display: flex; /* Flex container to align items */
+  align-items: center; /* Align items vertically */
+  padding: 10px; /* Add padding if needed */
+}
+
+.icon-title-container {
+  display: flex; /* Flex container to align icon and text */
+  align-items: center; /* Center align items vertically */
+}
+
+.icon-title-container .icon {
+  margin-right: 8px; /* Spacing between icon and text */
+}
+
+button {
+  margin-right: 8px;
+}
+
+.red-snackbar {
+  --mdc-snackbar-container-color: red;
+  --mat-snack-bar-button-color: black;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+/* .green-snackbar {
+  --mdc-snackbar-container-color: #008B00;
+  --mat-snack-bar-button-color: white;
+  --mdc-snackbar-supporting-text-color: white;
+}*/
+/*::ng-deep .snackbar {
+  max-width: 90% !important;
+  margin-left: auto !important; 
+  margin-right: auto !important; 
+  margin-bottom: 1rem !important; 
+  padding: 10px !important; 
+  background-color: green;
+  color: white; */
+/*  .mat-button-wrapper {
+    color: black !important;
+  }
+} */
+/* Agenda styles */
+.agenda-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjust spacing between agenda items */
+  width: 100%;
+}
+
+.agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Adjust spacing between the agenda field and the remove button */
+}
+
+.agenda-field {
+  flex: 1; /* Ensure the agenda field fills available space */
+}
+
+mat-dialog-actions {
+  padding-top: 16px; /* Adjust padding for actions */
+}/*# sourceMappingURL=add-event.component.css.map */

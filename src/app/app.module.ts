@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GlobalInterceptor } from './interceptors/http.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddGroupComponent } from './modals/add-group/add-group.component';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
 
@@ -34,6 +35,10 @@ import { EventsBoardComponent } from './features/events-board/events-board.compo
 import { PhoneNumberFormatterDirective } from './utils/phoneNumber-directive';
 import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
 import { ToastService } from './services/toast.service';
+import { AddRecipientComponent } from './modals/add-recipient/add-recipient.component';
+import { DeleteRecipientComponent } from './modals/delete-recipient/delete-recipient.component';
+import { EditRecipientComponent } from './modals/edit-recipient/edit-recipient.component';
+
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatSidenavModule} from '@angular/material/sidenav';
@@ -98,7 +103,10 @@ import { environment } from '../environment/environment';
     EventsBoardComponent,
     PhoneNumberFormatterDirective,
     MailGroupsComponent,
-    
+    AddGroupComponent,
+    AddRecipientComponent,
+    DeleteRecipientComponent,
+    EditRecipientComponent  
   ],
   imports:[
     BrowserModule,

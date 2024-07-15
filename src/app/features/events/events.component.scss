@@ -44,11 +44,12 @@
     gap: 16px; /* Space between elements */
   }
   
-  .search-bar {
-    flex: 1; /* Takes up remaining space */
-    max-width: 300px; /* Max width of the search bar */
+
+  .menu-form-field {
+    width: 250px;
+    margin: 8px 16px;
   }
-  
+
   .right-controls {
     display: flex;
     gap: 16px;
@@ -72,3 +73,40 @@
     text-align: left;
     justify-content: flex-start;
   }
+
+
+  
+mat-card {
+  width: 100%;
+  overflow-x: auto;
+}
+
+mat-header-cell, mat-cell {
+  min-width: 100px;
+  //white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  mat-header-cell, mat-cell {
+    font-size: 12px;
+   // padding: 8px;
+  }
+
+  mat-icon {
+    font-size: 16px;
+  }
+
+  .clickable-cell {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 601px) {
+  mat-header-cell, mat-cell {
+    font-size: 14px;
+  }
+
+  mat-icon {
+    font-size: 24px;
+  }
+}

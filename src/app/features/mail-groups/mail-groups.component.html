@@ -1,4 +1,4 @@
-<div class="content" fxLayout="row" fxLayoutAlign="space-between">
+<div class="content" fxLayout="column" fxLayoutAlign="start stretch">
     <div fxFlex="1 1 auto">
          <!--Breadcrumbs-->
         <div class="dashboard-title">
@@ -16,23 +16,24 @@
         </h1>
       </div>
       <br>
-      <div class="flex-container">
+      <div class="flex-container" fxLayout="row" fxLayoutAlign="left start" fxLayoutGap="16px">
         <!--Searchbar-->
-        <mat-form-field appearance="outline" class="search-bar">
+        <mat-form-field appearance="outline" fxFlex.lt-sm="100%">
           <mat-label>Search</mat-label>
-          <input (keyup)="applyFilter($event)"  [(ngModel)]="searchString" matInput>
+          <input (keyup)="applyFilter($event)" [(ngModel)]="searchString" matInput>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
+      
       <br>
 
-        <div fxLayout="row" fxLayoutAlign="stretch" fxLayoutGap="8px">
-            <mat-card class="mat-elevation-z0 padded-card" fxFlex="25">
+        <div fxLayout="row" fxLayoutAlign="stretch" fxLayoutGap="12px"fxLayout.lt-sm="column">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="25" fxFlex.lt-sm="100">
               <!--Mail Group List Header-->
               <div class="mail-groups-list">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                   <h3>Groups List</h3>
-                  <button mat-stroked-button color="primary" class="btn">
+                  <button mat-stroked-button color="primary" class="btn" (click)="openAddGroupModal()">
                     <mat-icon>add</mat-icon>
                     Add
                   </button>
@@ -63,12 +64,12 @@
               </div>
             </mat-card>
           
-            <mat-card class="mat-elevation-z0 padded-card" fxFlex="75">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="75" fxFlex.lt-sm="100">
               <!--Recipients List-->
               <div class="recipients-list">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                   <h3>Recipients List</h3>
-                  <button mat-stroked-button color="primary" class="btn">
+                  <button mat-stroked-button color="primary" class="btn" (click)="openAddRecipientModal()">
                     <mat-icon>add</mat-icon>
                     Add
                   </button>
@@ -115,11 +116,11 @@
                       <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                      <button mat-menu-item title="Details">
-                        <mat-icon color="primary">info_outline</mat-icon>
-                        <span>Details</span>
+                      <button mat-menu-item title="Edit" (click)=" openEditRecipient(element)">
+                        <mat-icon color="primary">edit</mat-icon>
+                        <span>Edit</span>
                       </button> 
-                      <button mat-menu-item title="Delete">
+                      <button mat-menu-item title="Delete" (click)=" openDeleteRecipient(element)">
                         <mat-icon color="warn">delete_outline</mat-icon>
                         <span>Delete</span>
                       </button>
@@ -136,8 +137,7 @@
               <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>        
               </div>
             </mat-card>
-          </div>
-          
+        </div>
     </div>
 </div>
     

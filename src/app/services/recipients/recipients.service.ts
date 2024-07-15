@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Recipient } from '../../models/recipient';
 @Injectable({
   providedIn: 'root'
 })
@@ -66,4 +67,8 @@ export class RecipientsService {
       });
     });
   }  
+
+  updateRecipient(recipientId: string,recipientData:Recipient): Promise<void> {
+     return this.db.doc(`Recipients/${recipientId}`).update(recipientData);
+   }
 }

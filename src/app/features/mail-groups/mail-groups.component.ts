@@ -3,9 +3,13 @@ import { MenuItem } from 'primeng/api';
 import { MailGroupService } from '../../services/mail-group/mail-group.service';
 import { RecipientsService } from '../../services/recipients/recipients.service';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {Sort, MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator} from '@angular/material/paginator';
+import { Sort, MatSort} from '@angular/material/sort';
+import { MatTableDataSource} from '@angular/material/table';
+import { AddGroupComponent } from '../../modals/add-group/add-group.component';
+import { AddRecipientComponent } from '../../modals/add-recipient/add-recipient.component';
+import { DeleteRecipientComponent } from '../../modals/delete-recipient/delete-recipient.component';
+import { EditRecipientComponent } from '../../modals/edit-recipient/edit-recipient.component';
 
 @Component({
   selector: 'app-mail-groups',
@@ -72,11 +76,9 @@ export class MailGroupsComponent implements AfterViewInit{
   async getRecipients(group:any) {
     try {
       this.recipients = await this.recipientsService.getRecipient(group.id);
-      console.log(this.recipients)
       this.dataSource = new MatTableDataSource(this.recipients);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource.data)
     } catch (error) {
       console.error('Error fetching mail groups:', error);
     }
@@ -98,5 +100,58 @@ export class MailGroupsComponent implements AfterViewInit{
     const firstNameInitial = name ? name.charAt(0).toUpperCase() : '';
     const lastNameInitial = surname ? surname.charAt(0).toUpperCase() : '';
     return `${firstNameInitial}${lastNameInitial}`;
+  }
+
+  /**
+   * Open the Add Group Dialog
+   */
+  openAddGroupModal() {
+    const dialogRef = this.dialog.open(AddGroupComponent, {
+      data: {},
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getMailGroups(); // Refresh events data after adding a new group
+    });
+  }
+
+  /**
+   * Open the Add Recipient Dialog
+   */
+  openAddRecipientModal() {
+    const dialogRef = this.dialog.open(AddRecipientComponent, {
+      data:this.selectedGroup,
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getRecipients(this.selectedGroup); // Refresh events data after adding a new group
+    });
+  }
+  /**
+   * Delete recipient from the group
+   * @param event 
+   */
+  openDeleteRecipient(recipient: any) {
+    const dialogRef = this.dialog.open(DeleteRecipientComponent, {
+      data: recipient,
+      width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getRecipients(this.selectedGroup);
+    });
+  }
+
+  openEditRecipient(recipient: any) {
+    const dialogRef = this.dialog.open(EditRecipientComponent, {
+      data: recipient,
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getRecipients(this.selectedGroup);
+    });
   }
 }

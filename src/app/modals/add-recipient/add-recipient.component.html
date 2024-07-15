@@ -1,0 +1,43 @@
+<h2 mat-dialog-title class="dialog-title">
+  <span class="icon-title-container">
+    <mat-icon class="icon">description</mat-icon> 
+    Add Recipient
+  </span>
+</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="addRecipientFormGroup" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+            <!--Name-->
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput 
+                       placeholder="eg. John"
+                       formControlName="name">
+                <mat-error *ngIf="addRecipientFormGroup.get('name')?.hasError('required') && addRecipientFormGroup.get('name')?.touched">Name is required</mat-error>
+            </mat-form-field>
+
+            <!--Surname-->
+            <mat-form-field appearance="outline">
+              <mat-label>Surame</mat-label>
+              <input matInput 
+                     placeholder="eg. Doe"
+                     formControlName="surname">
+              <mat-error *ngIf="addRecipientFormGroup.get('surname')?.hasError('required') && addRecipientFormGroup.get('surname')?.touched">Surname is required</mat-error>
+            </mat-form-field>
+
+            <!--Email-->
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput 
+                     placeholder="eg. john.doe@gmail.com"
+                     formControlName="email">
+              <mat-error *ngIf="addRecipientFormGroup.get('email')?.hasError('required') && addRecipientFormGroup.get('email')?.touched">Email is required</mat-error>
+              <mat-error *ngIf="addRecipientFormGroup.get('email')?.hasError('email') && addRecipientFormGroup.get('email')?.touched">Please enter a valid email address</mat-error>
+          </mat-form-field>
+        </div>              
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close (click)="onCancel()">Cancel</button>
+  <button mat-stroked-button color="primary" [mat-dialog-close]="true" cdkFocusInitial type="submit" [disabled]="addRecipientFormGroup.invalid" (click)="onSubmit()">Save</button>
+</mat-dialog-actions>

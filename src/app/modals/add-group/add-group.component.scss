@@ -1,0 +1,17 @@
+@import '../../../assets/common.scss';
+
+.mat-dialog-container {
+  border-radius: 16px; /* Adjust the value as needed */
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-title {
+  color: #fff;
+  background-color: #303F9F;
+}
+button {
+  margin-right: 8px;
+}
