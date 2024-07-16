@@ -39,7 +39,7 @@ export class EventsService {
   }
 
   getEventById(eventId: string): Observable<Event> {
-    return this.db.collection('events').doc<Event>(eventId).valueChanges()
+    return this.db.collection('Events').doc<Event>(eventId).valueChanges()
       .pipe(
         map(event => {
           if (!event) {
