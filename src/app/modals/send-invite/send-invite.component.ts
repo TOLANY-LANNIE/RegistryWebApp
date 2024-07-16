@@ -5,7 +5,6 @@ import { EventsService } from '../../services/events/events.service';
 import { ToastService } from '../../services/toast.service';
 import emailjs from '@emailjs/browser';
 import { EmailService } from '../../services/email-service/email-service.service';
-import { environment } from '../../../environment/environment';
 import { RecipientsService } from '../../services/recipients/recipients.service';
 import { MailGroupService } from '../../services/mail-group/mail-group.service';
 
@@ -27,6 +26,7 @@ export class SendInviteComponent implements OnInit {
   location = '';
   capacity = '';
   status: boolean;
+  event:any;
 
   // Send To selection
   sendTo: string = 'individual'; // Default to 'individual'
@@ -54,17 +54,27 @@ export class SendInviteComponent implements OnInit {
 
     this.onSendToChange(this.sendTo);
     this.getMailGroups();
-
-    console.log(this.emailService.generateRegistrationLink(this.data.id));
+    this.getEventDetails();
   }
 
   async getMailGroups() {
     try {
       this.mailGroups = await this.mailGroupService.getAll();
-      console.log('Mail Groups:', this.mailGroups);
     } catch (error) {
       console.error('Error fetching mail groups:', error);
     }
+  }
+
+  getEventDetails() {
+    this.service.getEventById(this.data).subscribe({
+      next: (event) => {
+        this.event = event;
+        console.log('Event Details:', this.event);
+      },
+      error: (error) => {
+        console.error('Error fetching Event Details:', error);
+      }
+    });
   }
 
   onSendToChange(sendTo: string): void {
@@ -92,8 +102,8 @@ export class SendInviteComponent implements OnInit {
     if (this.sendTo === 'individual') {
       emailjs.send("service_lp2dh2j", "template_7b3s4v1", {
         to_name: this.addEventFormGroup.value.fullName,
-        event: this.data.Title,
-        form_url: environment.baseurl + "/invite/events-board",
+        event: this.event.Title,
+        form_url: this.emailService.generateRegistrationLink(this.data),
         from_name: "Registry App",
         reply_to: "thulani.mpofu2021@gmail.com",
         send_to: this.addEventFormGroup.value.email,
@@ -112,7 +122,7 @@ export class SendInviteComponent implements OnInit {
             emailjs.send("service_lp2dh2j", "template_7b3s4v1", {
               to_name: recipient.Name + " " + recipient.Surname,
               event: this.data.Title,
-              form_url: environment.baseurl + "/invite/events-board",
+              form_url: this.emailService.generateRegistrationLink(this.data),
               from_name: "Registry App",
               reply_to: "thulani.mpofu2021@gmail.com",
               send_to: recipient.Email,
