@@ -21,7 +21,9 @@ export class EditRecipientComponent implements OnInit {
     public dialogRef: MatDialogRef<EditRecipientComponent>,
     private service: RecipientsService,
    private toastService: ToastService,
-  ) {}
+  ) {
+    console.log(data)
+  }
 
   ngOnInit(): void {
     // Initialize the form group with form controls including agenda

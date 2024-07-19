@@ -100,15 +100,14 @@ export class SendInviteComponent implements OnInit {
   async sendEmail() {
     emailjs.init("KDgLZCkmqFbxsdIxR");
     if (this.sendTo === 'individual') {
-      emailjs.send("service_lp2dh2j", "template_7b3s4v1", {
+      emailjs.send("service_lp2dh2j","template_7b3s4v1", {
         Title: this.event.Title,
         RecipientName: this.addEventFormGroup.value.fullName,
-        StartDate:this.event.StartDate,
-        EndDate: this.event.EndDate,
+        StartDate:this.event.StartDate.toISOString(),
+        EndDate: this.event.EndDate.toISOString(),
         Location:this.event.Location,
         Capacity: this.event.Capacity,
         Description:this.event.Description,
-        this:this.event.Agenda,
         RegistrationLink: this.emailService.generateRegistrationLink(this.data),
         ContactInformation: "0112345678",
         SenderName: "Registry App",
@@ -116,7 +115,7 @@ export class SendInviteComponent implements OnInit {
         SenderOrganization: "Registry",
         SenderContactInformation: "012 345 6789",
         CurrentYear: "2024",
-        event: "Test Event",
+        event:this.event.Title,
         reply_to: "thulani.mpofu@outlook.com",
         send_to: this.addEventFormGroup.value.email
       }).then(() => {
@@ -134,12 +133,11 @@ export class SendInviteComponent implements OnInit {
             emailjs.send("service_lp2dh2j","template_7b3s4v1",{
               Title: this.event.Title,
               RecipientName: recipient.Name + " " + recipient.Surname,
-              StartDate:this.event.StartDate,
-              EndDate: this.event.EndDate,
+              StartDate:this.event.StartDate.toISOString(),
+              EndDate: this.event.EndDate.toISOString(),
               Location:this.event.Location,
               Capacity: this.event.Capacity,
               Description:this.event.Description,
-              this:this.event.Agenda,
               RegistrationLink: this.emailService.generateRegistrationLink(this.data),
               ContactInformation: "0112345678",
               SenderName: "Registry App",
@@ -147,7 +145,7 @@ export class SendInviteComponent implements OnInit {
               SenderOrganization: "Registry",
               SenderContactInformation: "012 345 6789",
               CurrentYear: "2024",
-              event: "Test Event",
+              event:this.event.Title,
               reply_to: "thulani.mpofu@outlook.com",
               send_to: recipient.Email,
               }).then(() => {
