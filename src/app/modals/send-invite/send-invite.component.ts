@@ -100,13 +100,24 @@ export class SendInviteComponent implements OnInit {
   async sendEmail() {
     emailjs.init("KDgLZCkmqFbxsdIxR");
     if (this.sendTo === 'individual') {
-      emailjs.send("service_lp2dh2j", "template_7b3s4v1", {
-        to_name: this.addEventFormGroup.value.fullName,
-        event: this.event.Title,
-        form_url: this.emailService.generateRegistrationLink(this.data),
-        from_name: "Registry App",
-        reply_to: "thulani.mpofu2021@gmail.com",
-        send_to: this.addEventFormGroup.value.email,
+      emailjs.send("service_lp2dh2j","template_7b3s4v1", {
+        Title: this.event.Title,
+        RecipientName: this.addEventFormGroup.value.fullName,
+        StartDate:this.event.StartDate.toISOString(),
+        EndDate: this.event.EndDate.toISOString(),
+        Location:this.event.Location,
+        Capacity: this.event.Capacity,
+        Description:this.event.Description,
+        RegistrationLink: this.emailService.generateRegistrationLink(this.data),
+        ContactInformation: "0112345678",
+        SenderName: "Registry App",
+        SenderTitle: "Event Planner",
+        SenderOrganization: "Registry",
+        SenderContactInformation: "012 345 6789",
+        CurrentYear: "2024",
+        event:this.event.Title,
+        reply_to: "thulani.mpofu@outlook.com",
+        send_to: this.addEventFormGroup.value.email
       }).then(() => {
         this.showSuccessMessage(this.addEventFormGroup.value.fullName);
       }).catch(() => {
@@ -119,14 +130,25 @@ export class SendInviteComponent implements OnInit {
         try {
           const recipients = await this.recipientsService.getRecipient(selectedGroup.id);
           for (const recipient of recipients) {
-            emailjs.send("service_lp2dh2j", "template_7b3s4v1", {
-              to_name: recipient.Name + " " + recipient.Surname,
-              event: this.data.Title,
-              form_url: this.emailService.generateRegistrationLink(this.data),
-              from_name: "Registry App",
-              reply_to: "thulani.mpofu2021@gmail.com",
+            emailjs.send("service_lp2dh2j","template_7b3s4v1",{
+              Title: this.event.Title,
+              RecipientName: recipient.Name + " " + recipient.Surname,
+              StartDate:this.event.StartDate.toISOString(),
+              EndDate: this.event.EndDate.toISOString(),
+              Location:this.event.Location,
+              Capacity: this.event.Capacity,
+              Description:this.event.Description,
+              RegistrationLink: this.emailService.generateRegistrationLink(this.data),
+              ContactInformation: "0112345678",
+              SenderName: "Registry App",
+              SenderTitle: "Event Planner",
+              SenderOrganization: "Registry",
+              SenderContactInformation: "012 345 6789",
+              CurrentYear: "2024",
+              event:this.event.Title,
+              reply_to: "thulani.mpofu@outlook.com",
               send_to: recipient.Email,
-            }).then(() => {
+              }).then(() => {
               this.showSuccessMessage(selectedGroup.name);
             }).catch(() => {
               this.showErrorMessage();

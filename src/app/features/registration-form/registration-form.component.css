@@ -4,12 +4,6 @@
   padding-bottom: 20px;
 }
 
-h3 {
-  color: #332f2f;
-  font-weight: bold;
-  font-style: oblique;
-}
-
 mat-table {
   width: 100%;
   border-radius: 8px;
@@ -34,7 +28,7 @@ mat-card {
 .dashboard-title {
   display: flex;
   align-items: center;
-  padding: 1rem 0;
+  padding: 10px 0;
 }
 
 .breadcrumb {
@@ -82,6 +76,7 @@ mat-card {
 
 /* Main content padding adjusted for toolbar */
 .main {
+  width: 100%;
   padding-top: 64px; /* Adjust this based on the actual height of your toolbar */
 }
 
@@ -98,13 +93,14 @@ mat-card {
 .container-wrapper {
   display: flex;
   justify-content: center;
-  width: 100%; /* Ensure the container wrappers take up the full width */
+  width: 100%;
 }
 
 .container {
   display: flex;
   box-sizing: border-box;
-  width: 70%; /* Ensure the containers inside have the same width */
+  width: 70%;
+  padding: 16px;
 }
 
 @media (max-width: 600px) {

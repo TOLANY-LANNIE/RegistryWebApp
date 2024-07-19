@@ -23,6 +23,7 @@ $gradient: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab);
 
 /* Main content padding adjusted for toolbar */
 .main {
+  width: 100%;
   padding-top: 64px; /* Adjust this based on the actual height of your toolbar */
 }
 
@@ -38,14 +39,14 @@ $gradient: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab);
 .container-wrapper {
   display: flex;
   justify-content: center;
-  width: 100%; /* Ensure the container wrappers take up the full width */
+  width: 100%; 
 }
 
 .container {
   display: flex;
   box-sizing: border-box;
-  width: 70%; /* Ensure the containers inside have the same width */
-  //margin: auto;
+  width: 70%;
+  padding: 16px;
 }
 
 @media (max-width: 600px) {
