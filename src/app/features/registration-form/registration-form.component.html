@@ -1,6 +1,5 @@
 <!--Blue Theme that covers the top of the screen-->
 <div class="background">
-  <img src="../../../assets/img/Jade_Elephant_Logo.png" alt="Logo" class="logo-top-left">
 </div>
 <div class="spaced-div"></div>
 <!--Main Container-->
@@ -16,182 +15,149 @@
   </div>
 
   <div class="container-wrapper">
-      <mat-card class="container" fxLayout="column" fxLayoutAlign="center center">
-        <div fxFlex="1 1 auto">
-          <h1>Sign up for the Conference</h1>
-          <form [formGroup]="attendeeForm" (ngSubmit)="onSubmit()">
-
-            <!--Health Professionalt Number-->
-            <div class="input-container">
-              
-              <!--Honorific-->
-              <mat-form-field appearance="outline">
-                <mat-label>Title</mat-label>
-                <mat-select formControlName="honorific" [(ngModel)]="honorific" >
-                  <mat-option value="Dr.">Dr.</mat-option>
-                  <mat-option value="Mr.">Mr.</mat-option>
-                  <mat-option value="Master.">Master.</mat-option>
-                  <mat-option value="Mrs.">Mrs.</mat-option> 
-                  <mat-option value="Miss">Miss</mat-option>
-                  <mat-option value="Miss">Ms</mat-option>
-                </mat-select>
-                <mat-icon matSuffix color="primary"></mat-icon>
-                <mat-error *ngIf="attendeeForm.get('honorific')?.hasError('required') && attendeeForm.get('honorific')?.touched">
-                  Honorific is required
-                </mat-error>
-              </mat-form-field>
-          
-               <!--Name-->
-               <mat-form-field appearance="outline">
-                <mat-label>Name</mat-label>
-                <input matInput 
-                      #nameInput
-                      type="text"
-                      maxlength="10"
-                      formControlName="name" 
-                      [(ngModel)]="name">
-                      <mat-hint align="end">{{nameInput.value.length}}/10</mat-hint>
-                      <mat-icon matSuffix></mat-icon>
-                <mat-error *ngIf="attendeeForm.get('name')?.invalid && attendeeForm.get('name')?.touched">Name is required</mat-error>
-              </mat-form-field>   
-            </div>  
-            <div class="input-container">
-
-                <!--Surname-->
-                <mat-form-field appearance="outline">
-                  <mat-label>Surname</mat-label>
-                  <input matInput
-                        #surnameInput
-                        maxlength="10" 
-                        formControlName="surname"
-                        [(ngModel)]="surname">
-                        <mat-hint align="end">{{surnameInput.value.length}}/10</mat-hint>
-                        <mat-icon matSuffix color="primary"></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('surname')?.invalid && attendeeForm.get('surname')?.touched">Surname is required</mat-error>
-                </mat-form-field>
-                
-                <!--Practise Number-->
-                <mat-form-field appearance="outline">
-                  <mat-label>Health Professional Number</mat-label>
-                  <input matInput 
-                        #input 
-                        maxlength="8"
-                        placeholder="eg. 23465554"
-                        formControlName="practiseNumber" 
-                        [(ngModel)]="practiseNumber"
-                        restrictNumbers>
-                        <mat-hint align="end">{{input.value.length}}/8</mat-hint>
-                        <mat-icon matSuffix></mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('practiseNumber')?.invalid && attendeeForm.get('practiseNumber')?.touched">Practise Number is required</mat-error>
-                </mat-form-field>  
-
-            </div>
-
-            <div class="input-container">
-              <!--Contact Number-->
-              <mat-form-field appearance="outline">
-                <mat-label>Contact Number</mat-label>
-                <input matInput
-                      #contactInput 
-                      maxlength="12"
-                      placeholder="012-345-6789"
-                      formControlName="contact"
-                      type="tel"
-                      appPhoneNumberFormatter
-                      restrictNumbers>
-                <mat-icon matSuffix color="primary">phone</mat-icon>
-                <mat-error *ngIf="contact?.invalid && contact?.touched">
-                  <ng-container *ngIf="contact?.errors?.required">Contact Number is required</ng-container>
-                  <ng-container *ngIf="contact?.errors?.pattern">Invalid contact number format.</ng-container>
-                </mat-error>
-                <mat-error *ngIf="attendeeForm.get('contact')?.errors?.['startsWithZero'] && attendeeForm.get('contact')?.touched">
-                  Contact number must start with 0
-                </mat-error>
-                <mat-error *ngIf="attendeeForm.get('contact')?.errors?.['hasTwelveDigits'] && attendeeForm.get('contact')?.touched">
-                  Contact number must be exactly 10 digits long
-                </mat-error>
-              </mat-form-field>
-              
-              <!--Email-->
-              <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput 
-                      placeholder="Email"
-                      formControlName="email"
-                      [(ngModel)]="email">
-                      <mat-icon matSuffix>alternate_email</mat-icon>
-                <mat-error *ngIf="attendeeForm.get('email')?.hasError('required') && attendeeForm.get('email')?.touched">Email is required</mat-error>
-                <mat-error *ngIf="attendeeForm.get('email')?.hasError('email') && attendeeForm.get('email')?.touched">Invalid email</mat-error>
-              </mat-form-field>
-            </div>
-
-            <!--Dietary Preferences-->
-            <div class="input-container">
-              <mat-form-field appearance="outline">
-                  <mat-label>Dietary Preferences</mat-label>
-                  <mat-select formControlName="dietaryPreference" [(ngModel)]="dietaryPreference" >
-                    <mat-option value="Vegetarian">Vegetarian</mat-option>
-                    <mat-option value="Vegan">Vegan</mat-option>
-                    <mat-option value="Pescatarian">Pescatarian</mat-option>
-                    <mat-option value="Gluten-free">Gluten-Free</mat-option>
-                    <mat-option value="Dairy-free">Dairy-Free</mat-option>
-                    <mat-option value="Nut-free">Nut-Free</mat-option>
-                    <mat-option value="Halal">Halal</mat-option>
-                    <mat-option value="Kosher">Kosher</mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix> fastfood</mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('dietaryPreference')?.hasError('required') && attendeeForm.get('dietaryPreference')?.touched">
-                    Dietary preference is required
-                  </mat-error>
-              </mat-form-field>
-              <!--Return flight required-->
-              <mat-form-field appearance="outline">
-                <mat-label>Return Flight Required</mat-label>
-                <mat-select formControlName="returnRoute" [(ngModel)]="returnRoute">
-                  <mat-option value="Yes">Yes</mat-option>
-                  <mat-option value="No">No</mat-option>
-                </mat-select>
-                <mat-icon matSuffix>flight</mat-icon>
-                <mat-error *ngIf="attendeeForm.get('returnRoute')?.hasError('required') && attendeeForm.get('returnRoute')?.touched">
-                  Answer about the Return Flight is required
-                </mat-error>
+    <mat-card class="mat-elevation-z0 container" fxLayout="column" fxLayoutAlign="center stretch">
+      <div fxFlex="1 1 auto">
+        <h1>Sign up for the Conference</h1>
+        <form [formGroup]="attendeeForm" (ngSubmit)="onSubmit()">
+        
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutWrap="wrap" fxLayout.lt-sm="column">
+            <!-- Honorific -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Title</mat-label>
+              <mat-select formControlName="honorific" [(ngModel)]="honorific">
+                <mat-option value="Dr.">Dr.</mat-option>
+                <mat-option value="Mr.">Mr.</mat-option>
+                <mat-option value="Master.">Master.</mat-option>
+                <mat-option value="Mrs.">Mrs.</mat-option>
+                <mat-option value="Miss">Miss</mat-option>
+                <mat-option value="Ms">Ms</mat-option>
+              </mat-select>
+              <mat-icon matSuffix color="primary"></mat-icon>
+              <mat-error *ngIf="attendeeForm.get('honorific')?.hasError('required') && attendeeForm.get('honorific')?.touched">
+                Honorific is required
+              </mat-error>
             </mat-form-field>
-            </div>
-
-            <div class="input-container">
-              <mat-form-field appearance="outline">
-                  <mat-label>Transfer Required</mat-label>
-                  <mat-select formControlName="transfer" [(ngModel)]="transfer">
-                    <mat-option value="None">None Required</mat-option>
-                    <mat-option value="No">From Airport to Hotel</mat-option>
-                    <mat-option value="No">From Hotel to Airport</mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix >transform</mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('transfer')?.hasError('required') && attendeeForm.get('transfer')?.touched">
-                    Transfer Request is required
-                  </mat-error>
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                  <mat-label>Accommodation Required</mat-label>
-                  <mat-select formControlName="accommodation" [(ngModel)]="accommodation">
-                    <mat-option value="Yes">Yes</mat-option>
-                    <mat-option value="No">No</mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix>hotel</mat-icon>
-                  <mat-error *ngIf="attendeeForm.get('accommodation')?.hasError('required') && attendeeForm.get('accommodation')?.touched">
-                    Accommodation request is required
-                  </mat-error>
-              </mat-form-field>
-            </div>
-          </form>
-          <mat-dialog-actions class="mat-dialog-actions">
-            <button mat-stroked-button color="primary" type="submit" [disabled]="attendeeForm.invalid" class="stretched-button" (click)="onSubmit()">
-              Sign Up for the Conference
-            </button>
-          </mat-dialog-actions>      
-        </div>
-      </mat-card>
-    </div>
+    
+            <!-- Name -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Name</mat-label>
+              <input matInput #nameInput type="text" maxlength="10" formControlName="name" [(ngModel)]="name">
+              <mat-hint align="end">{{nameInput.value.length}}/10</mat-hint>
+              <mat-icon matSuffix></mat-icon>
+              <mat-error *ngIf="attendeeForm.get('name')?.invalid && attendeeForm.get('name')?.touched">Name is required</mat-error>
+            </mat-form-field>
+          </div>
+    
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutWrap="wrap" fxLayout.lt-sm="column">
+            <!-- Surname -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Surname</mat-label>
+              <input matInput #surnameInput maxlength="10" formControlName="surname" [(ngModel)]="surname">
+              <mat-hint align="end">{{surnameInput.value.length}}/10</mat-hint>
+              <mat-icon matSuffix color="primary"></mat-icon>
+              <mat-error *ngIf="attendeeForm.get('surname')?.invalid && attendeeForm.get('surname')?.touched">Surname is required</mat-error>
+            </mat-form-field>
+    
+            <!-- Practice Number -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Health Professional Number</mat-label>
+              <input matInput #input maxlength="8" placeholder="eg. 23465554" formControlName="practiseNumber" [(ngModel)]="practiseNumber" restrictNumbers>
+              <mat-hint align="end">{{input.value.length}}/8</mat-hint>
+              <mat-icon matSuffix></mat-icon>
+              <mat-error *ngIf="attendeeForm.get('practiseNumber')?.invalid && attendeeForm.get('practiseNumber')?.touched">Practice Number is required</mat-error>
+            </mat-form-field>
+          </div>
+    
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutWrap="wrap" fxLayout.lt-sm="column">
+            <!-- Contact Number -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Contact Number</mat-label>
+              <input matInput #contactInput maxlength="12" placeholder="012-345-6789" formControlName="contact" type="tel" appPhoneNumberFormatter restrictNumbers>
+              <mat-icon matSuffix color="primary">phone</mat-icon>
+              <mat-error *ngIf="contact?.invalid && contact?.touched">
+                <ng-container *ngIf="contact?.errors?.required">Contact Number is required</ng-container>
+                <ng-container *ngIf="contact?.errors?.pattern">Invalid contact number format.</ng-container>
+              </mat-error>
+              <mat-error *ngIf="attendeeForm.get('contact')?.errors?.['startsWithZero'] && attendeeForm.get('contact')?.touched">
+                Contact number must start with 0
+              </mat-error>
+              <mat-error *ngIf="attendeeForm.get('contact')?.errors?.['hasTwelveDigits'] && attendeeForm.get('contact')?.touched">
+                Contact number must be exactly 10 digits long
+              </mat-error>
+            </mat-form-field>
+    
+            <!-- Email -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" formControlName="email" [(ngModel)]="email">
+              <mat-icon matSuffix>alternate_email</mat-icon>
+              <mat-error *ngIf="attendeeForm.get('email')?.hasError('required') && attendeeForm.get('email')?.touched">Email is required</mat-error>
+              <mat-error *ngIf="attendeeForm.get('email')?.hasError('email') && attendeeForm.get('email')?.touched">Invalid email</mat-error>
+            </mat-form-field>
+          </div>
+    
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutWrap="wrap" fxLayout.lt-sm="column">
+            <!-- Dietary Preferences -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Dietary Preferences</mat-label>
+              <mat-select formControlName="dietaryPreference" [(ngModel)]="dietaryPreference">
+                <mat-option value="Vegetarian">Vegetarian</mat-option>
+                <mat-option value="Vegan">Vegan</mat-option>
+                <mat-option value="Pescatarian">Pescatarian</mat-option>
+                <mat-option value="Gluten-free">Gluten-Free</mat-option>
+                <mat-option value="Dairy-free">Dairy-Free</mat-option>
+                <mat-option value="Nut-free">Nut-Free</mat-option>
+                <mat-option value="Halal">Halal</mat-option>
+                <mat-option value="Kosher">Kosher</mat-option>
+              </mat-select>
+              <mat-icon matSuffix>fastfood</mat-icon>
+              <mat-error *ngIf="attendeeForm.get('dietaryPreference')?.hasError('required') && attendeeForm.get('dietaryPreference')?.touched">Dietary preference is required</mat-error>
+            </mat-form-field>
+    
+            <!-- Return flight required -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Return Flight Required</mat-label>
+              <mat-select formControlName="returnRoute" [(ngModel)]="returnRoute">
+                <mat-option value="Yes">Yes</mat-option>
+                <mat-option value="No">No</mat-option>
+              </mat-select>
+              <mat-icon matSuffix>flight</mat-icon>
+              <mat-error *ngIf="attendeeForm.get('returnRoute')?.hasError('required') && attendeeForm.get('returnRoute')?.touched">Answer about the Return Flight is required</mat-error>
+            </mat-form-field>
+          </div>
+    
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutWrap="wrap" fxLayout.lt-sm="column">
+            <!-- Transfer Required -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Transfer Required</mat-label>
+              <mat-select formControlName="transfer" [(ngModel)]="transfer">
+                <mat-option value="None">None Required</mat-option>
+                <mat-option value="No">From Airport to Hotel</mat-option>
+                <mat-option value="No">From Hotel to Airport</mat-option>
+              </mat-select>
+              <mat-icon matSuffix>transform</mat-icon>
+              <mat-error *ngIf="attendeeForm.get('transfer')?.hasError('required') && attendeeForm.get('transfer')?.touched">Transfer Request is required</mat-error>
+            </mat-form-field>
+    
+            <!-- Accommodation Required -->
+            <mat-form-field appearance="outline" fxFlex="50" fxFlex.gt-sm="100">
+              <mat-label>Accommodation Required</mat-label>
+              <mat-select formControlName="accommodation" [(ngModel)]="accommodation">
+                <mat-option value="Yes">Yes</mat-option>
+                <mat-option value="No">No</mat-option>
+              </mat-select>
+              <mat-icon matSuffix>hotel</mat-icon>
+              <mat-error *ngIf="attendeeForm.get('accommodation')?.hasError('required') && attendeeForm.get('accommodation')?.touched">Accommodation request is required</mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+        <mat-dialog-actions class="mat-dialog-actions">
+          <button mat-stroked-button color="primary" type="submit" [disabled]="attendeeForm.invalid" class="stretched-button" (click)="onSubmit()">
+            Sign Up for the Conference
+          </button>
+        </mat-dialog-actions>
+      </div>
+    </mat-card>
+  </div>
     
 </div>
