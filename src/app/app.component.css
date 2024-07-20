@@ -29,6 +29,7 @@
 .content {
   padding: 16px;
   transition: all 500ms ease-out;
+  background-color: #f1f5f9;
 }
 
 mat-sidenav-container {

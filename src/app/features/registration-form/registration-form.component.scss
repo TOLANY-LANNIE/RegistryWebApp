@@ -24,7 +24,7 @@ $gradient: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab);
 /* Main content padding adjusted for toolbar */
 .main {
   width: 100%;
-  padding-top: 64px; /* Adjust this based on the actual height of your toolbar */
+  padding: 64px; 
 }
 
 /* Image size */
@@ -38,20 +38,18 @@ $gradient: linear-gradient(45deg, #d2001a, #7462ff, #f48e21, #23d5ab);
 /* Container styling */
 .container-wrapper {
   display: flex;
-  justify-content: center;
   width: 100%; 
 }
 
 .container {
   display: flex;
   box-sizing: border-box;
-  width: 70%;
   padding: 16px;
 }
 
 @media (max-width: 600px) {
-  .container {
-    width: 90%; /* Adjust width to 90% on mobile screens */
+  .image-container {
+    width: 100%; /* Adjust width to 90% on mobile screens */
   }
 }
 
@@ -142,9 +140,9 @@ mat-icon {
 }
 
 h1 {
-  padding: 16px;
+  padding: 4px;
   font-family: 'Roboto', sans-serif; /* Set font family to Poppins */
-  text-align: center; /* Center align the text */
+  text-align: left; /* Center align the text */
   color: #0381D8;
   font-weight: regular;
 }
@@ -158,8 +156,33 @@ h1 {
 
 .stretched-button {
   width: 100%;
-  margin-left: 16px;
-  margin-right: 16px;
 }
 
+.title{
+  font-size: larger;
+}
 
+.event-card {
+  margin-bottom: 8px;
+  border-radius: 8px;
+  padding: 16px;
+  color: grey;
+
+  .event-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+
+  }
+
+  .event-date,
+  .event-location {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .event-description {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+}
