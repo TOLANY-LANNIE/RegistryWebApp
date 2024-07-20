@@ -7,11 +7,13 @@ import emailjs from '@emailjs/browser';
 import { EmailService } from '../../services/email-service/email-service.service';
 import { RecipientsService } from '../../services/recipients/recipients.service';
 import { MailGroupService } from '../../services/mail-group/mail-group.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-send-invite',
   templateUrl: './send-invite.component.html',
   styleUrls: ['./send-invite.component.scss'],
+  providers: [DatePipe]
 })
 export class SendInviteComponent implements OnInit {
   /**
@@ -42,6 +44,7 @@ export class SendInviteComponent implements OnInit {
     private toastService: ToastService,
     private emailService: EmailService,
     private mailGroupService: MailGroupService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -103,8 +106,8 @@ export class SendInviteComponent implements OnInit {
       emailjs.send("service_lp2dh2j","template_7b3s4v1", {
         Title: this.event.Title,
         RecipientName: this.addEventFormGroup.value.fullName,
-        StartDate:this.event.StartDate.toISOString(),
-        EndDate: this.event.EndDate.toISOString(),
+        StartDate:this.formatDate(this.event.StartDate),
+        EndDate: this.formatDate(this.event.EndDate),
         Location:this.event.Location,
         Capacity: this.event.Capacity,
         Description:this.event.Description,
@@ -133,8 +136,8 @@ export class SendInviteComponent implements OnInit {
             emailjs.send("service_lp2dh2j","template_7b3s4v1",{
               Title: this.event.Title,
               RecipientName: recipient.Name + " " + recipient.Surname,
-              StartDate:this.event.StartDate.toISOString(),
-              EndDate: this.event.EndDate.toISOString(),
+              StartDate:this.formatDate(this.event.StartDate),
+              EndDate: this.formatDate(this.event.EndDate),
               Location:this.event.Location,
               Capacity: this.event.Capacity,
               Description:this.event.Description,
@@ -160,6 +163,11 @@ export class SendInviteComponent implements OnInit {
         }
       }
     }
+  }
+
+  formatDate(date: string): string {
+    // Convert date to 'MM/dd/yyyy'
+    return this.datePipe.transform(date, 'MM/dd/yyyy') ?? '';
   }
 
   showSuccessMessage(name: string) {
