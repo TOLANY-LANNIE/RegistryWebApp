@@ -46,4 +46,15 @@ body {
 } */
 .hide {
   display: none;
+}
+
+.p-breadcrumb {
+  background: transparent;
+  border: 1px solid transparent !important;
+  border-radius: 0px;
+  padding: 0px;
+}
+
+.mat-mdc-header-row {
+  background-color: #E8EAF6 !important;
 }/*# sourceMappingURL=styles.css.map */

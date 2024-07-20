@@ -4,12 +4,6 @@
   padding-bottom: 20px;
 }
 
-h3 {
-  color: #332f2f;
-  font-weight: bold;
-  font-style: oblique;
-}
-
 mat-table {
   width: 100%;
   border-radius: 8px;
@@ -34,7 +28,7 @@ mat-card {
 .dashboard-title {
   display: flex;
   align-items: center;
-  padding: 1rem 0;
+  padding: 10px 0;
 }
 
 .breadcrumb {

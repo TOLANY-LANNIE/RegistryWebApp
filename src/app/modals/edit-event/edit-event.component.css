@@ -4,12 +4,6 @@
   padding-bottom: 20px;
 }
 
-h3 {
-  color: #332f2f;
-  font-weight: bold;
-  font-style: oblique;
-}
-
 mat-table {
   width: 100%;
   border-radius: 8px;
@@ -34,7 +28,7 @@ mat-card {
 .dashboard-title {
   display: flex;
   align-items: center;
-  padding: 1rem 0;
+  padding: 10px 0;
 }
 
 .breadcrumb {
@@ -62,6 +56,16 @@ mat-card {
   text-decoration: underline;
 }
 
+h3 {
+  font-weight: normal !important;
+  font-style: normal !important;
+}
+
+h2 {
+  color: white !important;
+  font-weight: bold;
+}
+
 .mat-dialog-container {
   border-radius: 16px; /* Adjust the value as needed */
 }
@@ -74,8 +78,38 @@ mat-card {
 .dialog-title {
   color: #fff;
   background-color: #303F9F;
+  display: flex; /* Flex container to align items */
+  align-items: center; /* Align items vertically */
+  padding: 10px; /* Add padding if needed */
+}
+
+.icon-title-container {
+  display: flex; /* Flex container to align icon and text */
+  align-items: center; /* Center align items vertically */
+}
+
+.icon-title-container .icon {
+  margin-right: 8px; /* Spacing between icon and text */
 }
 
 button {
   margin-right: 8px;
+}
+
+/* Agenda styles */
+.agenda-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adjust spacing between agenda items */
+  width: 100%;
+}
+
+.agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Adjust spacing between the agenda field and the remove button */
+}
+
+.agenda-field {
+  flex: 1; /* Ensure the agenda field fills available space */
 }/*# sourceMappingURL=edit-event.component.css.map */

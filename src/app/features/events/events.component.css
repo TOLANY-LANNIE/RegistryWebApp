@@ -4,12 +4,6 @@
   padding-bottom: 20px;
 }
 
-h3 {
-  color: #332f2f;
-  font-weight: bold;
-  font-style: oblique;
-}
-
 mat-table {
   width: 100%;
   border-radius: 8px;
@@ -34,7 +28,7 @@ mat-card {
 .dashboard-title {
   display: flex;
   align-items: center;
-  padding: 1rem 0;
+  padding: 10px 0;
 }
 
 .breadcrumb {
@@ -105,9 +99,9 @@ h1 {
   gap: 16px; /* Space between elements */
 }
 
-.search-bar {
-  flex: 1; /* Takes up remaining space */
-  max-width: 300px; /* Max width of the search bar */
+.menu-form-field {
+  width: 250px;
+  margin: 8px 16px;
 }
 
 .right-controls {
@@ -132,4 +126,33 @@ h1 {
 .mat-column-Capacity {
   text-align: left;
   justify-content: flex-start;
+}
+
+mat-card {
+  width: 100%;
+  overflow-x: auto;
+}
+
+mat-header-cell, mat-cell {
+  min-width: 100px;
+}
+
+@media (max-width: 600px) {
+  mat-header-cell, mat-cell {
+    font-size: 12px;
+  }
+  mat-icon {
+    font-size: 16px;
+  }
+  .clickable-cell {
+    cursor: pointer;
+  }
+}
+@media (min-width: 601px) {
+  mat-header-cell, mat-cell {
+    font-size: 14px;
+  }
+  mat-icon {
+    font-size: 24px;
+  }
 }/*# sourceMappingURL=events.component.css.map */

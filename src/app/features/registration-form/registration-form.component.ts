@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { startsWithZeroValidator } from '../../utils/validators';
 import {  hasTwelveDigitsValidator } from '../../utils/validators';
 import { Guest } from '../../models/guests.mode';
+import { EventsService } from '../../services/events/events.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -28,7 +29,11 @@ export class RegistrationFormComponent implements OnInit {
   returnRoute: any;
   transfer: any;
   accommodation: any;
-  
+
+  imageSrc: string ='../../../assets/img/Pfizer_Horizon Logo_Final.jpg';
+  imageAvailable: boolean = true;
+  eventDetails:any;
+
 
   constructor(
     private fb: FormBuilder,
@@ -37,11 +42,14 @@ export class RegistrationFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-  ) { }
+    private eventService: EventsService
+  ) { 
+    this.checkImageAvailability();
+  }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.queryParams['eventId'];
-    //console.log(this.eventId)
+    this.getEventDetails(this.eventId);
     this.attendeeForm = this.fb.group({
       honorific: ['', Validators.required],
       name: ['', Validators.required],
@@ -103,5 +111,34 @@ export class RegistrationFormComponent implements OnInit {
         panelClass: ['error'],
       });
     }
+  }
+  /**
+   * Check in the Event Object has an Event image
+   */
+  checkImageAvailability() {
+    const img = new Image();
+    img.src = this.imageSrc;
+    img.onload = () => this.imageAvailable = true;
+    img.onerror = () => this.imageAvailable = false;
+  }
+
+  /**
+   * Get Event Details based on the id
+   */
+ async getEventDetails(eventID:string){
+    this.eventService.getEventById(eventID).subscribe(
+      event => {
+        this.eventDetails = event;
+        //console.log(this.eventDetails);
+      },
+      error => {
+        console.log( error.message);
+      }
+    );
+  }
+
+  formatDate(date: string): string {
+    // Convert date to 'MM/dd/yyyy'
+    return this.datePipe.transform(date, 'MM/dd/yyyy') ?? '';
   }
 }
