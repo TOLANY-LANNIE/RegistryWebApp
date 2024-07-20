@@ -180,7 +180,17 @@ h1 {
     font-size: 16px;
     margin-bottom: 16px;
   }
-
+  
+  .event-date {
+    display: flex;
+    align-items: center;
+  }
+  
+  .date-icon {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  
   .event-description {
     font-size: 16px;
     margin-bottom: 16px;

@@ -166,8 +166,8 @@ export class SendInviteComponent implements OnInit {
   }
 
   formatDate(date: string): string {
-    // Convert date to 'MM/dd/yyyy'
-    return this.datePipe.transform(date, 'MM/dd/yyyy') ?? '';
+    // Convert date to 'MMMM d, y'
+    return this.datePipe.transform(date, 'MMMM d, y') ?? '';
   }
 
   showSuccessMessage(name: string) {

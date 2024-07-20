@@ -5,35 +5,45 @@
 <div class="main" fxLayout="row" fxLayoutAlign="stretch" fxLayoutGap="12px"fxLayout.lt-sm="column">
   <mat-card class="event-card" fxFlex="25" fxFlex.lt-sm="100">
     <h1><strong>{{eventDetails.Title}}</strong> </h1> 
-    <div class="event-date">
-      <strong>Date:</strong>
-      <br> 
-      {{formatDate(eventDetails.StartDate)}} - {{formatDate(eventDetails.EndDate)}}
+    
+    <div class="event-date" fxLayout="row" fxLayoutAlign="start">
+      <strong>From:&nbsp;</strong>
+      <span>{{ formatDate(eventDetails.StartDate) }}</span>
     </div>
-
+    
+    <div class="event-date" fxLayout="row" fxLayoutAlign="start">
+      <strong>To:&nbsp;</strong>
+      <span>{{ formatDate(eventDetails.EndDate) }}</span>
+    </div>
+    
     <div class="event-description">
       <strong>Description:</strong>
       <br>
       {{eventDetails.Description}}
     </div>
-
+    
     <div class="event-location">
       <strong>Location:</strong>
       <br>
       {{eventDetails.Location}}
     </div>
+    
     <br>
+    
     <div class="event-location">
       <strong>Agenda:</strong>
       <ul>
         <li *ngFor="let agendaItem of eventDetails.Agenda">{{ agendaItem }}</li>
       </ul>
-    </div>  
+    </div>
+    
     <br>
+    
     <div class="event-location">
       <strong>Available spots:</strong> 
       {{eventDetails.Capacity}}
     </div>
+    
   </mat-card>
 
   <div fxFlex="75" fxFlex.lt-sm="100">
