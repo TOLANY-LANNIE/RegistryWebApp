@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { AttendeesService } from '../../services/attendees/attendees.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from '../../services/toast.service';
 import { startsWithZeroValidator } from '../../utils/validators';
 import {  hasTwelveDigitsValidator } from '../../utils/validators';
 import { Guest } from '../../models/guests.mode';
 import { EventsService } from '../../services/events/events.service';
+import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-registration-form',
@@ -41,7 +42,7 @@ export class RegistrationFormComponent implements OnInit {
     private service: AttendeesService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar,
+    private toastService: ToastService,
     private eventService: EventsService
   ) { 
     this.checkImageAvailability();
@@ -74,12 +75,9 @@ export class RegistrationFormComponent implements OnInit {
     const email = this.attendeeForm.value.email;
 
     try {
-      const guestExists = await this.service.checkGuestExists(practiceNumber, contact, email, this.eventId);
+      const guestExists = await this.service.checkGuestExists(this.attendeeForm.value.practiseNumber, this.attendeeForm.value.contact, this.attendeeForm.value.email, this.eventId);
       if (guestExists) {
-        this.snackBar.open('Guest with the same practice number, contact, or email is already registered for this event.', 'Close', {
-          duration: 3000,
-          panelClass: 'snackbar'
-        });
+        this.showRecordExists();
         return;
       }
 
@@ -99,17 +97,12 @@ export class RegistrationFormComponent implements OnInit {
 
       await this.service.addNewAttendee(guest);
       this.router.navigate(['/invite/thank-you']);
-      this.snackBar.open('Form submitted successfully', 'Close',{
-        duration: 5000,
-        panelClass: ['success'],
-      });
+      this.showSuccessMessage();
+      this.sendConfirmationEmail();
     
     } catch (error) {
 
-      this.snackBar.open('Failed to submit form. Please try again later.', 'Close', {
-        duration: 5000,
-        panelClass: ['error'],
-      });
+      this.showErrorMessage()
     }
   }
   /**
@@ -141,4 +134,51 @@ export class RegistrationFormComponent implements OnInit {
     // Convert date to 'MMMM d, y'
     return this.datePipe.transform(date, 'MMMM d, y') ?? '';
   }
+
+   /**
+   * Event added successfully message 
+   */
+   showSuccessMessage() {
+    this.toastService.showSuccess('Success', 'Registered successfully');
+  }
+
+  /**
+   * Failed to added the events to the Db 
+   */
+  showErrorMessage() {
+    this.toastService.showError('Error', 'An error occurred during the operation.');
+  }
+
+  showRecordExists(){
+    this.toastService.showError('Error', 'Guest with the same practice number, contact, or email is already registered for this event.');
+  }
+
+
+  sendConfirmationEmail() {
+    emailjs.init("KDgLZCkmqFbxsdIxR");
+  
+    emailjs.send("service_lp2dh2j", "template_9k4bqsd", {
+      Title: this.eventDetails.Title,
+      RecipientName: this.attendeeForm.value.name + " " + this.attendeeForm.value.surname,
+      StartDate: this.eventDetails.StartDate,
+      EndDate: this.eventDetails.EndDate,
+      Location: this.eventDetails.Location,
+      Capacity: this.eventDetails.Capacity,
+      Description: this.eventDetails.Description,
+      ContactInformation: "0123456789",
+      SenderName: "Event Registry App",
+      SenderTitle: "Event Planner",
+      CurrentYear: "2024",
+      from_name: "Thulani",
+      reply_to: "thulani.mpofu2021@outlook.com",
+      send_to: this.attendeeForm.value.email,
+    }).then(response => {
+      console.log('SUCCESS!', response.status, response.text);
+      this.toastService.showSuccess('Success', 'Confirmation email sent successfully');
+    }).catch(error => {
+      console.error('FAILED...', error);
+      this.toastService.showError('Error', 'Failed to send confirmation email');
+    });
+  }
+  
 }
