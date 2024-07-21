@@ -105,6 +105,7 @@ export class RegistrationFormComponent implements OnInit {
       this.showErrorMessage()
     }
   }
+  
   /**
    * Check in the Event Object has an Event image
    */
