@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed,AfterViewInit, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NotificationService } from './services/notification/notification.service';
@@ -13,21 +13,14 @@ export class AppComponent {
   collapsed = signal(false);
   showHeaderAndSideMenu: boolean = true;
   sidenavWidth = computed(() => this.collapsed() ? '65px' : '250px');
+  isSmallScreen = signal(false);
 
   constructor(
     private router: Router, 
     private breakpointObserver: BreakpointObserver,
     private notificationService: NotificationService,
     private snackBar: MatSnackBar
-  ) {
-    // Observe screen size changes
-    this.breakpointObserver.observe([Breakpoints.Handset])
-      .subscribe(result => {
-        if (result.matches) {
-          this.collapsed.set(true); // Collapse the sidenav for small screens
-        }
-      });
-  }
+  ) {}
 
   ngOnInit(): void {
     /* this.notificationService.getItems().subscribe((items: any[]) => {
@@ -40,6 +33,20 @@ export class AppComponent {
       }
       this.items = items;
     }); */
+  }
+
+  ngAfterViewInit(){
+    // Observe screen size changes
+    this.breakpointObserver.observe([Breakpoints.Handset])
+      .subscribe(result => {
+        if (result.matches) {
+          this.collapsed.set(true); // Collapse the sidenav for small screens
+          this.isSmallScreen.set(true);
+        } else {
+          this.collapsed.set(false); // Expand the sidenav for larger screens
+          this.isSmallScreen.set(false);
+        }
+      });
   }
 
   checkInviteUrl() {
