@@ -77,6 +77,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 import { AngularFireModule } from "@angular/fire/compat";
@@ -158,6 +159,7 @@ import { environment } from '../environment/environment';
     SplitterModule,
     ButtonModule,
     FileUploadModule,
+    OverlayPanelModule,
     
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,

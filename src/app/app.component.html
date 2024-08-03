@@ -16,45 +16,45 @@
   <span class="header-spacer"></span>
 
   <!--Notification Icon-->
-  <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+  <button mat-icon-button (click)="overlayPanel.toggle($event)">
     <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
   </button>
-  <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
-    <app-notification-card 
-      date="2024-08-02" 
-      message="You have new tasks iuiikjk ououiuiui ooouiui iuiiuiui" 
-      (delete)="handleDelete('tasks')">
-    </app-notification-card>
-    <app-notification-card 
-      date="2024-08-02" 
-      message="You have a new message" 
-      (delete)="handleDelete('message')">
-    </app-notification-card>
-  </mat-menu>
+  <p-overlayPanel #overlayPanel>
+    <div class="flex flex-column gap-3 w-25rem">
+      <app-notification-card 
+        date="2024-08-02" 
+        message="You have new tasks" 
+        (delete)="handleDelete('tasks')">
+      </app-notification-card>
+      <app-notification-card 
+        date="2024-08-02" 
+        message="You have a new message" 
+        (delete)="handleDelete('message')">
+      </app-notification-card>
+    </div>
+  </p-overlayPanel>
 
   <!--User Icon-->
-  <button mat-button [matMenuTriggerFor]="userMenu">
-      <div class="user-icon">
+  <button mat-button  (click)="userOverlay.toggle($event)">
         <p-avatar 
         icon="pi pi-user" 
         styleClass="mr-2" 
         [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" 
         shape="circle" />
-      </div>
   </button>
-  <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
-
-    <a mat-menu-item [routerLink]="['/account/profile']">
-      <mat-icon>person</mat-icon>
-      <span>Account</span>
-    </a>
-
-    <a mat-menu-item [routerLink]="['/auth/login']">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Log out</span>
-    </a>
-
-  </mat-menu>
+  <p-overlayPanel #userOverlay>
+    <div class="flex flex-column gap-3 w-25rem">
+      <a mat-menu-item [routerLink]="['/account/profile']">
+        <mat-icon>person</mat-icon>
+        <span>Account</span>
+      </a>
+  
+      <a mat-menu-item [routerLink]="['/auth/login']">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Log out</span>
+      </a>
+    </div>
+  </p-overlayPanel>
 </mat-toolbar>
 <mat-sidenav-container>
     <!--SideNav-->
