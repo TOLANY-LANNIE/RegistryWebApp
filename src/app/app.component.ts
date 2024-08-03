@@ -49,6 +49,10 @@ export class AppComponent {
       });
   }
 
+  handleDelete(type: string) {
+    console.log(`Delete notification of type: ${type}`);
+    // Implement the delete logic here
+  }
   checkInviteUrl() {
     return window.location.href.indexOf('invite') > -1;
   }

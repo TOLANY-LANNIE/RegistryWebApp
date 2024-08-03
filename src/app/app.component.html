@@ -20,15 +20,19 @@
     <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
   </button>
   <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
-
-    <a mat-menu-item>
-      <span>You have new tasks</span>
-    </a>
-    <a mat-menu-item>
-      <span>You have a new message</span>
-    </a>
-
+    <app-notification-card 
+      date="2024-08-02" 
+      message="You have new tasks iuiikjk ououiuiui ooouiui iuiiuiui" 
+      (delete)="handleDelete('tasks')">
+    </app-notification-card>
+    <app-notification-card 
+      date="2024-08-02" 
+      message="You have a new message" 
+      (delete)="handleDelete('message')">
+    </app-notification-card>
   </mat-menu>
+
+  <!--User Icon-->
   <button mat-button [matMenuTriggerFor]="userMenu">
       <div class="user-icon">
         <p-avatar 
