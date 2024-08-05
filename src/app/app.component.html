@@ -7,7 +7,7 @@
   <ng-container *ngIf="!checkInviteUrl()">
   <!--HeaderComponent-->
  <mat-toolbar class="mat-elevation-z3" color="primary">
-  <button mat-icon-button (click)="collapsed.set(!collapsed())">
+  <button mat-icon-button (click)="collapsed.set(!collapsed())" *ngIf="!isSmallScreen()">
     <mat-icon>menu</mat-icon>
   </button> 
   <a class="navbar-brand">
@@ -16,41 +16,45 @@
   <span class="header-spacer"></span>
 
   <!--Notification Icon-->
-  <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+  <button mat-icon-button (click)="overlayPanel.toggle($event)">
     <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
   </button>
-  <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+  <p-overlayPanel #overlayPanel>
+    <div class="flex flex-column gap-3 w-25rem">
+      <app-notification-card 
+        date="2024-08-02" 
+        message="You have new tasks" 
+        (delete)="handleDelete('tasks')">
+      </app-notification-card>
+      <app-notification-card 
+        date="2024-08-01" 
+        message="You have a new message" 
+        (delete)="handleDelete('message')">
+      </app-notification-card>
+    </div>
+  </p-overlayPanel>
 
-    <a mat-menu-item>
-      <span>You have new tasks</span>
-    </a>
-    <a mat-menu-item>
-      <span>You have a new message</span>
-    </a>
-
-  </mat-menu>
-  <button mat-button [matMenuTriggerFor]="userMenu">
-      <div class="user-icon">
-        <p-avatar 
+  <!--User Icon-->
+  <button mat-button  (click)="userOverlay.toggle($event)">
+    <p-avatar 
         icon="pi pi-user" 
         styleClass="mr-2" 
         [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" 
         shape="circle" />
-      </div>
   </button>
-  <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
-
-    <a mat-menu-item [routerLink]="['/account/profile']">
-      <mat-icon>person</mat-icon>
-      <span>Account</span>
-    </a>
-
-    <a mat-menu-item [routerLink]="['/auth/login']">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Log out</span>
-    </a>
-
-  </mat-menu>
+  <p-overlayPanel #userOverlay>
+    <div class="flex flex-column gap-3 w-25rem">
+      <a mat-menu-item [routerLink]="['/account/profile']">
+        <mat-icon color="primary">person</mat-icon>
+        <span>Account</span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-menu-item [routerLink]="['/auth/login']">
+        <mat-icon color="primary">exit_to_app</mat-icon>
+        <span>Log out</span>
+      </a>
+    </div>
+  </p-overlayPanel>
 </mat-toolbar>
 <mat-sidenav-container>
     <!--SideNav-->

@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddGroupComponent } from './modals/add-group/add-group.component';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { AppComponent } from './app.component';
 import { AttendeesListComponent } from './features/attendees-list/attendees-list.component';
@@ -38,6 +39,7 @@ import { ToastService } from './services/toast.service';
 import { AddRecipientComponent } from './modals/add-recipient/add-recipient.component';
 import { DeleteRecipientComponent } from './modals/delete-recipient/delete-recipient.component';
 import { EditRecipientComponent } from './modals/edit-recipient/edit-recipient.component';
+import { NotificationCardComponent} from './features/notification-card/notification-card.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -76,6 +78,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 import { AngularFireModule } from "@angular/fire/compat";
@@ -108,7 +111,8 @@ import { environment } from '../environment/environment';
     AddGroupComponent,
     AddRecipientComponent,
     DeleteRecipientComponent,
-    EditRecipientComponent  
+    EditRecipientComponent ,
+    NotificationCardComponent 
   ],
   imports:[
     BrowserModule,
@@ -121,6 +125,7 @@ import { environment } from '../environment/environment';
     FormsModule,
     FlexLayoutModule,
     CommonModule,
+    TimeagoModule.forRoot(),
 
     MatProgressSpinnerModule,
     MatToolbarModule,
@@ -156,6 +161,7 @@ import { environment } from '../environment/environment';
     SplitterModule,
     ButtonModule,
     FileUploadModule,
+    OverlayPanelModule,
     
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,

@@ -1,0 +1,16 @@
+<div class="notification-card">
+  <div class="card-header">
+    <span class="date">{{ date | timeago }}</span>
+    <button mat-icon-button (click)="onDelete()">
+      <mat-icon color="warn">close</mat-icon>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="icon-wrapper">
+      <span class="unread-dot"></span>
+      <mat-icon color="primary">notification_important</mat-icon>
+    </div>
+    <span>{{ message }}</span>
+  </div>
+</div>
+<mat-divider></mat-divider>
