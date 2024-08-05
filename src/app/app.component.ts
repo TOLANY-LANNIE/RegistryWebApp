@@ -1,8 +1,9 @@
 import { Component, signal, computed,AfterViewInit, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { NotificationService } from './services/notification/notification.service';
+import { NotificationService } from './services/notification-service/notification-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from './services/toast.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,20 +20,19 @@ export class AppComponent {
     private router: Router, 
     private breakpointObserver: BreakpointObserver,
     private notificationService: NotificationService,
+    private toastService:ToastService,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    /* this.notificationService.getItems().subscribe((items: any[]) => {
+    this.notificationService.detectChanges().subscribe((items: any[]) => {
       // Compare the new items with the existing ones to detect new additions
       if (this.items.length && items.length > this.items.length) {
         const newItem = items[items.length - 1];
-        this.snackBar.open(`New item added: ${newItem.name}`, 'Close', {
-          duration: 3000
-        });
+        this.showInfo();
       }
       this.items = items;
-    }); */
+    });
   }
 
   ngAfterViewInit(){
@@ -53,7 +53,15 @@ export class AppComponent {
     console.log(`Delete notification of type: ${type}`);
     // Implement the delete logic here
   }
+
+  /**
+   * Show that a new attendee has signed up
+   */
+  showInfo() {
+    this.toastService.showInfo('Notification','New attendee signed up');
+}
+
   checkInviteUrl() {
     return window.location.href.indexOf('invite') > -1;
-  }
+ }
 }

@@ -1,20 +1,33 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
-
+import { Router, NavigationEnd } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
+  private activeComponent: string = '';
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private router: Router) { 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.activeComponent = event.urlAfterRedirects;
+      }
+    });
+  }
+
+  showToast(key: string, severity: string, summary: string, detail: string, restrictedComponents: string[] = []): void {
+    if (!restrictedComponents.includes(this.activeComponent)) {
+      this.messageService.add({ key, severity, summary, detail });
+    }
+  }
 
   /**
    * Show a success message.
    * @param summary Summary of the message.
    * @param detail Detail of the message.
    */
-  showSuccess(summary: string, detail: string): void {
-    this.messageService.add({ severity: 'success', summary, detail });
+  showSuccess(summary: string, detail: string, restrictedComponents: string[] = []): void {
+    this.showToast('bottom-center', 'success', summary, detail, restrictedComponents);
   }
 
   /**
@@ -22,8 +35,8 @@ export class ToastService {
    * @param summary Summary of the message.
    * @param detail Detail of the message.
    */
-  showError(summary: string, detail: string): void {
-    this.messageService.add({ severity: 'error', summary, detail });
+  showError(summary: string, detail: string, restrictedComponents: string[] = []): void {
+    this.showToast('bottom-center', 'error', summary, detail, restrictedComponents);
   }
 
   /**
@@ -31,18 +44,21 @@ export class ToastService {
    * @param summary Summary of the message.
    * @param detail Detail of the message.
    */
-  showInfo(summary: string, detail: string): void {
-    this.messageService.add({ severity: 'info', summary, detail });
+  showInfo(summary: string, detail: string, restrictedComponents: string[] = []): void {
+    this.showToast('top-right', 'info', summary, detail, restrictedComponents);
   }
 
+  
   /**
    * Show a warning message.
    * @param summary Summary of the message.
    * @param detail Detail of the message.
    */
-  showWarning(summary: string, detail: string): void {
-    this.messageService.add({ severity: 'warn', summary, detail });
+  showWarn(summary: string, detail: string, restrictedComponents: string[] = []): void {
+    this.showToast('top-right', 'warn', summary, detail, restrictedComponents);
   }
+
+ 
 
   /**
    * Clear all messages.
