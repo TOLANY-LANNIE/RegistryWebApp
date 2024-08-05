@@ -27,7 +27,7 @@
         (delete)="handleDelete('tasks')">
       </app-notification-card>
       <app-notification-card 
-        date="2024-08-02" 
+        date="2024-08-01" 
         message="You have a new message" 
         (delete)="handleDelete('message')">
       </app-notification-card>
@@ -36,7 +36,7 @@
 
   <!--User Icon-->
   <button mat-button  (click)="userOverlay.toggle($event)">
-        <p-avatar 
+    <p-avatar 
         icon="pi pi-user" 
         styleClass="mr-2" 
         [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" 
@@ -48,7 +48,7 @@
         <mat-icon color="primary">person</mat-icon>
         <span>Account</span>
       </a>
-  
+      <mat-divider></mat-divider>
       <a mat-menu-item [routerLink]="['/auth/login']">
         <mat-icon color="primary">exit_to_app</mat-icon>
         <span>Log out</span>

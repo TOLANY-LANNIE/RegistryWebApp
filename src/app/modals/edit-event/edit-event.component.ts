@@ -118,29 +118,40 @@ export class EditEventComponent implements OnInit {
     if (this.editEventFormGroup.invalid || !this.isChanged()) {
       return;
     }
-
+  
     const formValues = this.editEventFormGroup.value;
+    
+    const startDate = new Date(formValues.startDate);
+    const endDate = new Date(formValues.endDate);
+  
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      // Handle invalid date
+      this.showErrorMessage();
+      return;
+    }
+  
     const event: Event = {
       Title: formValues.title,
-      StartDate: formValues.startDate.toISOString(),
-      EndDate: formValues.endDate.toISOString(),
+      StartDate: startDate.toISOString(),
+      EndDate: endDate.toISOString(),
       Description: formValues.description,
       Location: formValues.location,
       Capacity: formValues.capacity,
       Status: formValues.status,
       Agenda: formValues.agenda.map((a: { item: string }) => a.item) // Map agenda to simple array
     };
-
+  
     this.service.updateEvent(this.data.id, event)
       .then(() => {
-      this.showSuccessMessage();
+        this.showSuccessMessage();
         this.dialogRef.close();
       })
       .catch(error => {
         this.showErrorMessage();
-       // console.error('Error updating event:', error);
+        // console.error('Error updating event:', error);
       });
   }
+  
 
   showSuccessMessage() {
     this.toastService.showSuccess('Success', 'Updated successfully');

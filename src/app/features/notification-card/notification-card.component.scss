@@ -1,38 +1,57 @@
 .notification-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  .card-header {
     display: flex;
-    flex-direction: column;
-    padding: 10px;
-    cursor: pointer;
-    &:hover {
-      background-color: #f5f5f5;
-    }
-  
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-  
-    .card-body {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .card-body {
+    display: flex;
+    align-items: center;
+
+    .icon-wrapper {
+      position: relative;
       display: flex;
       align-items: center;
-    }
-  
-    .date {
-      font-size: 12px;
-      color: gray;
-    }
-  
-    mat-icon {
-      margin-right: 10px;
-    }
-  
-    button {
-      padding: 0;
-      min-width: 0;
-      width: 24px;
-      height: 24px;
+
+      .unread-dot {
+        width: 4px;
+        height: 4px;
+        background-color:#3F51B5;
+        border-radius: 50%;
+        position: absolute;
+        left: -10px; // Adjust as needed
+      }
+
+      mat-icon {
+        margin-right: 10px;
+      }
     }
   }
-  
+
+  .date {
+    font-size: 12px;
+    color: gray;
+  }
+
+  mat-icon {
+    margin-right: 10px;
+  }
+
+  button {
+    padding: 0;
+    min-width: 0;
+    width: 24px;
+    height: 24px;
+  }
+}

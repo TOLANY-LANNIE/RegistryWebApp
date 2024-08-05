@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddGroupComponent } from './modals/add-group/add-group.component';
 import { LoggerModule} from "ngx-logger";
 import { FormsModule} from '@angular/forms';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { AppComponent } from './app.component';
 import { AttendeesListComponent } from './features/attendees-list/attendees-list.component';
@@ -124,6 +125,7 @@ import { environment } from '../environment/environment';
     FormsModule,
     FlexLayoutModule,
     CommonModule,
+    TimeagoModule.forRoot(),
 
     MatProgressSpinnerModule,
     MatToolbarModule,
