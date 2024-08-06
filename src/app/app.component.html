@@ -2,34 +2,38 @@
 <app-loader></app-loader>
 
 <!--Toast Message-->
-<p-toast position="bottom-center"/>
+<p-toast key="top-right" position="top-right"></p-toast>
+<p-toast key="bottom-center" position="bottom-center"></p-toast>
 
   <ng-container *ngIf="!checkInviteUrl()">
   <!--HeaderComponent-->
- <mat-toolbar class="mat-elevation-z3" color="primary">
-  <button mat-icon-button (click)="collapsed.set(!collapsed())" *ngIf="!isSmallScreen()">
-    <mat-icon>menu</mat-icon>
-  </button> 
-  <a class="navbar-brand">
-    <h2>Registry App</h2>
-  </a>
-  <span class="header-spacer"></span>
+  <mat-toolbar class="mat-elevation-z3" color="primary">
+    <button mat-icon-button (click)="collapsed.set(!collapsed())" *ngIf="!isSmallScreen()">
+      <mat-icon>menu</mat-icon>
+    </button> 
+    <a class="navbar-brand">
+      <h2>Registry App</h2>
+    </a>
+    <span class="header-spacer"></span>
 
-  <!--Notification Icon-->
-  <button mat-icon-button (click)="overlayPanel.toggle($event)">
-    <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
+    <!--Notification Icon-->
+    <button mat-icon-button (click)="overlayPanel.toggle($event)">
+      <mat-icon>notifications</mat-icon>
+      <span *ngIf="unreadCount > 0" matBadge="{{unreadCount}}" matBadgeColor="accent"></span>
   </button>
-  <p-overlayPanel #overlayPanel>
-    <div class="flex flex-column gap-3 w-25rem">
+  
+  <p-overlayPanel #overlayPanel (onShow)="markNotificationsAsRead()">
+    <div class="flex flex-column gap-1 w-12rem">
+      <!-- Display a message if there are no notifications -->
+      <p *ngIf="notifications.length === 0" class="no-notifications-message">You are caught up</p>
+  
+      <!-- Display notifications if there are any -->
       <app-notification-card 
-        date="2024-08-02" 
-        message="You have new tasks" 
-        (delete)="handleDelete('tasks')">
-      </app-notification-card>
-      <app-notification-card 
-        date="2024-08-01" 
-        message="You have a new message" 
-        (delete)="handleDelete('message')">
+        *ngFor="let notification of notifications" 
+        [date]="formatDate(notification.Date)" 
+        [message]="notification.Message" 
+        [read]="notification.Read" 
+        (Delete)="handleDelete(notification)">
       </app-notification-card>
     </div>
   </p-overlayPanel>

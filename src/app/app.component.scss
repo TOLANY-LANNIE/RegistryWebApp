@@ -42,3 +42,12 @@ mat-sidenav,mat-sidenav-container{
   transition: all 500ms ease-in-out;
   //background-color:  #f1f5f9;
 }
+
+.no-notifications-message {
+  font-style: italic;
+  color: gray; /* Optional: add a color to style the text */
+}
+
+:host ::ng-deep .p-overlaypanel {
+  max-width: 3rem; /* Set the desired max width here */
+}
