@@ -7,7 +7,7 @@
   </div>
   <div class="card-body">
     <div class="icon-wrapper">
-      <span class="unread-dot"></span>
+      <span class="unread-dot" *ngIf="!read"></span>
       <mat-icon color="primary">notification_important</mat-icon>
     </div>
     <span>{{ message }}</span>

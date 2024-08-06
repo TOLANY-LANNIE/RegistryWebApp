@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { AttendeesService } from '../../services/attendees/attendees.service';
@@ -9,6 +9,8 @@ import {  hasTwelveDigitsValidator } from '../../utils/validators';
 import { Guest } from '../../models/guests.mode';
 import { EventsService } from '../../services/events/events.service';
 import emailjs from '@emailjs/browser';
+import { Notification } from '../../models/notification';
+import { NotificationService } from '../../services/notification-service/notification-service.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -43,14 +45,18 @@ export class RegistrationFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastService: ToastService,
-    private eventService: EventsService
+    private eventService: EventsService,
+    private notificationService: NotificationService
   ) { 
     this.checkImageAvailability();
   }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.queryParams['eventId'];
-    this.getEventDetails(this.eventId);
+    if (this.eventId) {
+      this.getEventDetails(this.eventId);
+    }
+    
     this.attendeeForm = this.fb.group({
       honorific: ['', Validators.required],
       name: ['', Validators.required],
@@ -98,7 +104,8 @@ export class RegistrationFormComponent implements OnInit {
       await this.service.addNewAttendee(guest);
       this.router.navigate(['/invite/thank-you']);
       this.showSuccessMessage();
-      this.sendConfirmationEmail();
+      //this.sendConfirmationEmail();
+      this.sendNotifaction();
     
     } catch (error) {
 
@@ -123,7 +130,7 @@ export class RegistrationFormComponent implements OnInit {
     this.eventService.getEventById(eventID).subscribe(
       event => {
         this.eventDetails = event;
-        //console.log(this.eventDetails);
+       // console.log(this.eventDetails);
       },
       error => {
         console.log( error.message);
@@ -154,8 +161,12 @@ export class RegistrationFormComponent implements OnInit {
     this.toastService.showError('Error', 'Guest with the same practice number, contact, or email is already registered for this event.');
   }
 
-
   sendConfirmationEmail() {
+    if (!this.eventDetails) {
+      this.toastService.showError('Error', 'Event details are not available.');
+      return;
+    }
+  
     emailjs.init("KDgLZCkmqFbxsdIxR");
   
     emailjs.send("service_lp2dh2j", "template_9k4bqsd", {
@@ -174,12 +185,28 @@ export class RegistrationFormComponent implements OnInit {
       reply_to: "thulani.mpofu2021@outlook.com",
       send_to: this.attendeeForm.value.email,
     }).then(response => {
-      console.log('SUCCESS!', response.status, response.text);
       this.toastService.showSuccess('Success', 'Confirmation email sent successfully');
     }).catch(error => {
-      console.error('FAILED...', error);
       this.toastService.showError('Error', 'Failed to send confirmation email');
     });
   }
+  
+  async sendNotifaction() {
+    if (!this.eventDetails) {
+      this.toastService.showError('Error', 'Event details are not available.');
+      return;
+    }
+  
+    const notification: Notification = {
+      Date: new Date().toISOString(),
+      Message: this.attendeeForm.value.name + " " + this.attendeeForm.value.surname + " has registered for the event " + this.eventDetails.Title,
+      Read: false,
+      Hide: false,
+      User: ""
+    };
+  
+    await this.notificationService.addNotification(notification);
+  }
+  
   
 }
