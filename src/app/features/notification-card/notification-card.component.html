@@ -8,8 +8,12 @@
   <div class="card-body">
     <div class="icon-wrapper">
       <span class="unread-dot" *ngIf="!read"></span>
-      <mat-icon color="primary">notification_important</mat-icon>
+      <p-avatar 
+              [label]="avatarLabel"
+              styleClass="mr-2" 
+              [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
     </div>
+    &nbsp;
     <span>{{ message }}</span>
   </div>
 </div>

@@ -104,7 +104,7 @@ export class RegistrationFormComponent implements OnInit {
       await this.service.addNewAttendee(guest);
       this.router.navigate(['/invite/thank-you']);
       this.showSuccessMessage();
-      this.sendConfirmationEmail();
+      //this.sendConfirmationEmail();
       this.sendNotifaction();
     
     } catch (error) {

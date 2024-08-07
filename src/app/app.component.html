@@ -30,7 +30,7 @@
       <!-- Display notifications if there are any -->
       <app-notification-card 
         *ngFor="let notification of notifications" 
-        [date]="formatDate(notification.Date)" 
+        [date]="notification.Date" 
         [message]="notification.Message" 
         [read]="notification.Read" 
         (Delete)="handleDelete(notification)">
@@ -44,7 +44,7 @@
         icon="pi pi-user" 
         styleClass="mr-2" 
         [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" 
-        shape="circle" />
+    />
   </button>
   <p-overlayPanel #userOverlay>
     <div class="flex flex-column gap-3 w-25rem">
