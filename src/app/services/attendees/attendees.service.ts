@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Guest } from '../../models/guests.mode';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendeesService {
-
+  private attendeesSubject = new BehaviorSubject<Guest[]>([]);
+  attendees$: Observable<Guest[]> = this.attendeesSubject.asObservable();
+  
+  
   constructor(private db: AngularFirestore) { }
-
-  getAllAttendees() {
-    return new Promise<any>((resolve) => {
-      this.db.collection('Attendees').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
-    });
-  }
 
   addNewAttendee(guest: Guest): Promise<void> {
     return this.db.collection('Attendees').add(guest).then(() => {
@@ -24,18 +23,27 @@ export class AttendeesService {
     });
   }
 
-  getAllAttendeesByEvent(eventId: string) {
-    return new Promise<any>((resolve, reject) => {
-      this.db.collection('Attendees', ref => ref.where('Event', '==', eventId)).valueChanges({ idField: 'id' }).subscribe({
-        next: (attendees) => {
-          resolve(attendees);
-        },
-        error: (error) => {
-          reject(error);
-        }
+  private loadAttendeesByEvent(eventId: string): void {
+    this.db.collection<Notification>('Attendees', ref => ref.where('Event', '==', eventId))
+      .valueChanges({ idField: 'id' })
+      .pipe(
+        map((attendees: any[]) => attendees.filter(attendee => attendee.Event === eventId))
+      )
+      .subscribe({
+        next: attendees => this.attendeesSubject.next(attendees),
+        error: error => console.error('Error fetching attendees:', error)
       });
-    });
   }
+
+  /**
+   * Get all attendees by event ID as an Observable.
+   */
+  getAllAttendeesByEvent(eventId: string): Observable<Guest[]> {
+    this.loadAttendeesByEvent(eventId);
+    return this.attendees$;
+  }
+  
+  
 
   delete(eventId: string): Promise<void> {
     return this.db.collection('Attendees').doc(eventId).delete();

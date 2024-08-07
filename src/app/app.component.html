@@ -30,7 +30,7 @@
       <!-- Display notifications if there are any -->
       <app-notification-card 
         *ngFor="let notification of notifications" 
-        [date]="formatDate(notification.Date)" 
+        [date]="notification.Date" 
         [message]="notification.Message" 
         [read]="notification.Read" 
         (Delete)="handleDelete(notification)">

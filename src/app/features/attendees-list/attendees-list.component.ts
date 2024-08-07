@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild,ChangeDetectorRef} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {Sort, MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -12,6 +12,8 @@ import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.servi
 import { SendInviteComponent } from '../../modals/send-invite/send-invite.component';
 import { AttendeeDetailsComponent } from '../../modals/attendee-details/attendee-details.component';
 import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.component';
+import { Subscription } from 'rxjs';
+
 import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-attendees-list',
@@ -36,6 +38,8 @@ export class AttendeesListComponent implements AfterViewInit{
   event:any;
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+  private attendeesSubscription: Subscription;
+  private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
 
   constructor(
     private dialog: MatDialog,
@@ -57,9 +61,7 @@ export class AttendeesListComponent implements AfterViewInit{
       //console.log(this.event);
     });
 
-    this.loadDoctors();
-    //this.getAttendeesForEvent(this.event.id);
-
+    this.loadAttendees();
     this.items = [
       { label: 'Events', routerLink: '/events' },
       { label: 'Attendees', routerLink: '/attendees' },
@@ -67,18 +69,27 @@ export class AttendeesListComponent implements AfterViewInit{
     this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
   }
 
-  async loadDoctors(): Promise<void> {
-    try {
-      this.attendees = await this.service.getAllAttendeesByEvent(this.event);
-      //console.log(this.attendees)
-      this.dataSource = new MatTableDataSource(this.attendees);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      //console.log(this.dataSource.data)
-    } catch (error) {
-      console.error('Error loading doctors:', error);
-      // Handle error, show error message, etc.
+  ngOnDestroy(): void {
+    if (this.attendeesSubscription) {
+      this.attendeesSubscription.unsubscribe();
     }
+  }
+
+  async loadAttendees(): Promise<void> {
+    this.attendeesSubscription = this.service.getAllAttendeesByEvent(this.event)
+      .subscribe({
+        next: (attendees: Guest[]) => {
+          console.log(attendees)
+          this.attendees = attendees;
+          this.dataSource = new MatTableDataSource(this.attendees);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        error: (error) => {
+          console.error('Error loading attendees:', error);
+          // Handle error, show error message, etc.
+        }
+      });
   }
 
   announceSortChange(sortState: Sort) {
@@ -121,7 +132,7 @@ export class AttendeesListComponent implements AfterViewInit{
       width: '250px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.loadDoctors(); // Refresh events data after deleting attendee
+     // this.loadAttendees(); // Refresh events data after deleting attendee
     });
   }
 
