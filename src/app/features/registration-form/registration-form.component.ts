@@ -33,7 +33,7 @@ export class RegistrationFormComponent implements OnInit {
   transfer: any;
   accommodation: any;
 
-  imageSrc: string;// ='../../../assets/img/Pfizer_Horizon Logo_Final.jpg';
+  imageSrc: string ='../../../assets/img/Pfizer_Horizon Logo_Final.jpg';
   imageAvailable: boolean = true;
   eventDetails:any;
 

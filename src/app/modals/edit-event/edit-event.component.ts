@@ -130,7 +130,7 @@ export class EditEventComponent implements OnInit {
       return;
     }
   
-    const event: Event = {
+    const event = {
       Title: formValues.title,
       StartDate: startDate.toISOString(),
       EndDate: endDate.toISOString(),

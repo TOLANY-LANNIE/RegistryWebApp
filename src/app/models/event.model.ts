@@ -7,5 +7,6 @@ export interface Event {
     Capacity: number; // Maximum capacity of attendees for the event
     Status: boolean; // Status of the event (active/inactive)
     Agenda: string[]; // List of agenda items
+    Banner:string;
   }
   
