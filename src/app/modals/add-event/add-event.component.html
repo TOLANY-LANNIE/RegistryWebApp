@@ -74,7 +74,24 @@
               <mat-error *ngIf="addEventFormGroup.get('status')?.hasError('required') && addEventFormGroup.get('status')?.touched">
                 Active Status is required
               </mat-error>
-            </mat-form-field>              
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Upload Event Banner</mat-label>
+              <input type="file" (change)="onFileSelected($event)" hidden #fileInput>
+              <input matInput placeholder="Choose an image" [value]="fileName" readonly formControlName="banner">
+              <button mat-icon-button matSuffix (click)="fileInput.click()">
+                <mat-icon>file_upload</mat-icon>
+              </button>
+              <mat-error *ngIf="addEventFormGroup.get('banner')?.hasError('required') && addEventFormGroup.get('banner')?.touched">
+                Banner is required
+              </mat-error>
+            </mat-form-field>
+            
+            <!-- Display the selected image -->
+            <div *ngIf="imagePreview" class="image-preview">
+              <img [src]="imagePreview" alt="Event Banner Preview" />
+            </div>
         </div>
 
         <!-- Agenda Section -->

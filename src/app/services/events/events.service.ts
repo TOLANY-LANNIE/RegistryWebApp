@@ -1,36 +1,56 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, } from '@angular/fire/compat/firestore';
-import { Event } from '../../models/event.model';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private storage: AngularFireStorage) { }
 
   getAllEvents() {
-    return new Promise<any>((resolve)=> {
+    return new Promise<any>((resolve) => {
       this.db.collection('Events').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
-    })
-  }
-  addNewEvent(event: Event): void {
-    this.db.collection('Events').add({
-      Title: event.Title,
-      StartDate:event.StartDate,
-      EndDate: event.EndDate,
-      Description: event.Description,
-      Location: event.Location,
-      Capacity: event.Capacity,
-      Status: event.Status,
-      Agenda: event.Agenda,
-      //Image: event.Image,
-    })
+    });
   }
 
-  updateEvent(eventId: string, eventData: Event): Promise<void> {
-   // return this.db.collection('Events').doc(eventId).update(eventData);
+  addNewEvent(event: any, bannerFile: File): Observable<void> {
+    const eventRef = this.db.collection('Events').doc().ref;
+    const filePath = `event-banners/${eventRef.id}_${bannerFile.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, bannerFile);
+
+    return new Observable(observer => {
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            const eventData = {
+              Title: event.Title,
+              StartDate: event.StartDate,
+              EndDate: event.EndDate,
+              Description: event.Description,
+              Location: event.Location,
+              Capacity: event.Capacity,
+              Status: event.Status,
+              Agenda: event.Agenda,
+              BannerUrl: url // Store the download URL in Firestore
+            };
+            eventRef.set(eventData).then(() => {
+              observer.next();
+              observer.complete();
+            }).catch(error => {
+              observer.error(error);
+            });
+          });
+        })
+      ).subscribe();
+    });
+  }
+
+  updateEvent(eventId: string, eventData:any): Promise<void> {
     return this.db.doc(`Events/${eventId}`).update(eventData);
   }
 

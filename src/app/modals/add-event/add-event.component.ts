@@ -2,7 +2,6 @@ import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/co
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../services/events/events.service';
-import { Event } from '../../models/event.model';
 import { DatePipe } from '@angular/common';
 import { ToastService } from '../../services/toast.service';
 
@@ -17,6 +16,11 @@ export class AddEventComponent implements OnInit {
   addEventFormGroup!: FormGroup;
   @Input() min: any;
   todayDate: Date = new Date(); // Today's date
+
+  // Image upload details
+  fileName: string = '';
+  imagePreview: string | ArrayBuffer | null = null;
+  bannerFile: File | null = null;
 
   // Event Details variables
   title = '';
@@ -48,7 +52,8 @@ export class AddEventComponent implements OnInit {
       location: ['', [Validators.required]],
       capacity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       status: ['', [Validators.required]],
-      agenda: this.fb.array([]) // Initialize agenda FormArray
+      agenda: this.fb.array([]), // Initialize agenda FormArray
+      banner: ['', [Validators.required]] // Banner FormControl with required validation
     });
 
     // Update endDate validator when startDate changes
@@ -88,11 +93,29 @@ export class AddEventComponent implements OnInit {
     return endDate < this.todayDate ? { pastDate: true } : endDate < startDate ? { invalidEndDate: true } : null;
   }
 
+  // Function to handle the file selection
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      this.bannerFile = input.files[0];
+      this.fileName = this.bannerFile.name;
+      this.addEventFormGroup.patchValue({ banner: this.bannerFile });
+
+      // Create a file reader to preview the image
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(this.bannerFile);
+    }
+  }
+
   onSubmit(): void {
     if (this.addEventFormGroup.invalid) {
       return;
     }
-    const event: Event = {
+  
+    const event = {
       Title: this.addEventFormGroup.value.title,
       StartDate: new Date(this.addEventFormGroup.value.startDate).toISOString(),
       EndDate: new Date(this.addEventFormGroup.value.endDate).toISOString(),
@@ -100,16 +123,18 @@ export class AddEventComponent implements OnInit {
       Location: this.addEventFormGroup.value.location,
       Capacity: this.addEventFormGroup.value.capacity,
       Status: this.addEventFormGroup.value.status,
-      Agenda: this.addEventFormGroup.value.agenda.map((a: { item: string }) => a.item) // Map agenda items
+      Agenda: this.addEventFormGroup.value.agenda.map((a: { item: string }) => a.item),
     };
-
-    try {
-      this.service.addNewEvent(event);
-      this.showSuccessMessage();
-    } catch (error) {
-      this.showErrorMessage();
-    }
+  
+    this.service.addNewEvent(event, this.addEventFormGroup.value.banner)
+      .subscribe(() => {
+        this.showSuccessMessage();
+        this.dialogRef.close();
+      }, (error) => {
+        this.showErrorMessage();
+      });
   }
+  
 
   onCancel(): void {
     this.dialogRef.close();
@@ -123,7 +148,7 @@ export class AddEventComponent implements OnInit {
   }
 
   /**
-   * Failed to added the events to the Db 
+   * Failed to add the events to the Db 
    */
   showErrorMessage() {
     this.toastService.showError('Error', 'An error occurred during the operation.');
