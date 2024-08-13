@@ -13,8 +13,8 @@ import { SendInviteComponent } from '../../modals/send-invite/send-invite.compon
 import { AttendeeDetailsComponent } from '../../modals/attendee-details/attendee-details.component';
 import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.component';
 import { Subscription } from 'rxjs';
-
 import { MenuItem } from 'primeng/api';
+import { EventsService } from '../../services/events/events.service';
 @Component({
   selector: 'app-attendees-list',
   templateUrl: './attendees-list.component.html',
@@ -36,6 +36,7 @@ export class AttendeesListComponent implements AfterViewInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   attendees: Guest[]=[];
   event:any;
+  eventDetails: any = {};
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
   private attendeesSubscription: Subscription;
@@ -46,7 +47,8 @@ export class AttendeesListComponent implements AfterViewInit{
     private _liveAnnouncer: LiveAnnouncer,
     private service: AttendeesService,
     private route: ActivatedRoute,
-    private breadcrumbService: BreadcrumbsService
+    private breadcrumbService: BreadcrumbsService,
+    private eventService:EventsService
   ) {
   }
 
@@ -58,7 +60,9 @@ export class AttendeesListComponent implements AfterViewInit{
     this.route.queryParams.subscribe(params => {
       const serializedData = params['data'];
       this.event = JSON.parse(serializedData);
-      //console.log(this.event);
+      if (this.event) {
+        this.getEventDetails(this.event);
+      }
     });
 
     this.loadAttendees();
@@ -155,6 +159,23 @@ export class AttendeesListComponent implements AfterViewInit{
     const lastNameInitial = surname ? surname.charAt(0).toUpperCase() : '';
     return `${firstNameInitial}${lastNameInitial}`;
   }
+
+
+  /**
+   * Get Event Details based on the id
+   */
+ async getEventDetails(eventID:string){
+  this.eventService.getEventById(eventID).subscribe(
+    event => {
+      this.eventDetails = event;
+     // console.log(this.eventDetails);
+    },
+    error => {
+      console.log( error.message);
+    }
+  );
+}
+
 }
 
 
