@@ -130,7 +130,12 @@ export class RegistrationFormComponent implements OnInit {
     this.eventService.getEventById(eventID).subscribe(
       event => {
         this.eventDetails = event;
-       // console.log(this.eventDetails);
+        if (this.eventDetails.BannerUrl) {
+          this.imageSrc = this.eventDetails.BannerUrl;
+        } else {
+          this.imageSrc = '';
+        }
+        this.checkImageAvailability(); // Check if the image is available
       },
       error => {
         console.log( error.message);

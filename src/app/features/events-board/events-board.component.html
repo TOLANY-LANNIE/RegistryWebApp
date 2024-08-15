@@ -31,11 +31,22 @@
 
     <br>
 
-    <!--Events Card Grid-->
-    <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of filteredEvents">
-        <app-event-card [card]="card" [attendeeCount]="getAttendeeCount(card.id)" [style.view-transition-name]="card.id"></app-event-card>
+    <!-- Events Card Grid or No Events Found Message -->
+    <div *ngIf="filteredEvents.length > 0; else noEvents">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let card of filteredEvents">
+          <app-event-card [card]="card" [attendeeCount]="getAttendeeCount(card.id)" [style.view-transition-name]="card.id"></app-event-card>
+        </div>
       </div>
     </div>
+
+    <!-- No Events Found Message -->
+    <ng-template #noEvents>
+      <div class="no-events-message" fxLayout="column" fxLayoutAlign="center center">
+        <h2>No events found</h2>
+        <p>There are currently no events matching the selected criteria.</p>
+      </div>
+    </ng-template>
+
   </div>
 </div>

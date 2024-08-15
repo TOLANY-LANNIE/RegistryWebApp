@@ -13,6 +13,7 @@ import { AddEventComponent } from '../../modals/add-event/add-event.component';
 import { EditEventComponent } from '../../modals/edit-event/edit-event.component';
 import { DeleteAlertComponent } from '../../modals/delete-alert/delete-alert.component';
 import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-events',
@@ -22,12 +23,13 @@ import { EventDetailsComponent } from '../../modals/event-details/event-details.
 })
 export class EventsComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['Title', 'Start Date', 'End Date', 'Capacity', 'Guests', 'Status', 'MoreOptions'];
-  dataSource: MatTableDataSource<any>= new MatTableDataSource<any>();// Initialize with type `any`
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>(); // Initialize with type `any`
   searchString = '';
   panelOpenState = false;
   attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+  private eventsSubscription: Subscription;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -42,44 +44,40 @@ export class EventsComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    this.getEvents(); // Load events after view initialization
+    this.subscribeToEvents(); // Subscribe to events and automatically update when changes occur
     this.items = [
-      { label: 'Events' }, 
+      { label: 'Events' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
   }
 
-  /**
-   * This method is called after the component's view has been initialized.
-   * It is used to set the paginator for the dataSource, enabling pagination functionality.
-   */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  async getEvents() {
-    try {
-      const events = await this.service.getAllEvents();
-      events.forEach((event: { id: any; }) => {
-        if (!event.id) {
-          console.error('Event missing Id:', event); // Debugging missing Id
-        }
-      });
-      this.dataSource = new MatTableDataSource<any>(events); // Initialize dataSource with type `any`
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      await this.loadAttendeeCounts(); // Load attendee counts after events
-    } catch (error) {
-      console.error('Error fetching events:', error);
+  ngOnDestroy() {
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
     }
+  }
+
+  subscribeToEvents() {
+    this.eventsSubscription = this.service.getAllEvents().subscribe({
+      next: (events) => {
+        this.dataSource.data = events;
+        this.loadAttendeeCounts();
+      },
+      error: (error) => {
+        console.error('Error fetching events:', error);
+      }
+    });
   }
 
   async loadAttendeeCounts() {
     for (const event of this.dataSource.data) {
       if (!event.id) {
-        console.error('Missing Id for event:', event); // Debugging missing Id
+        console.error('Missing Id for event:', event);
         continue;
       }
       try {
@@ -94,9 +92,7 @@ export class EventsComponent implements AfterViewInit, OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    if (this.dataSource) {
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   applyStatusFilter(activeStatus: boolean | null) {
@@ -134,9 +130,6 @@ export class EventsComponent implements AfterViewInit, OnInit {
     }
   }
 
-  /**
-   * Open the Add Event Dialog
-   */
   openAddEventModal() {
     const dialogRef = this.dialog.open(AddEventComponent, {
       data: {},
@@ -144,8 +137,8 @@ export class EventsComponent implements AfterViewInit, OnInit {
       panelClass: 'fullscreen-dialog',
       width: '500px',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getEvents(); // Refresh events data after adding a new event
+    dialogRef.afterClosed().subscribe(() => {
+      //this.getEvents(); // Refresh events data after adding a new event
     });
   }
 
@@ -154,8 +147,8 @@ export class EventsComponent implements AfterViewInit, OnInit {
       data: event,
       width: '250px',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getEvents(); // Refresh events data after deleting an event
+    dialogRef.afterClosed().subscribe(() => {
+      //this.getEvents(); // Refresh events data after deleting an event
     });
   }
 
@@ -166,8 +159,8 @@ export class EventsComponent implements AfterViewInit, OnInit {
       panelClass: 'fullscreen-dialog',
       width: '500px',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getEvents(); // Refresh events data after editing an event
+    dialogRef.afterClosed().subscribe(() => {
+      //this.getEvents(); // Refresh events data after editing an event
     });
   }
 
@@ -178,8 +171,8 @@ export class EventsComponent implements AfterViewInit, OnInit {
       panelClass: 'fullscreen-dialog',
       width: '500px',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getEvents(); // Refresh events data after viewing details
+    dialogRef.afterClosed().subscribe(() => {
+      //this.getEvents(); // Refresh events data after viewing details
     });
   }
 
@@ -197,7 +190,6 @@ export class EventsComponent implements AfterViewInit, OnInit {
   }
 
   formatDate(date: string): string {
-    // Convert date to 'MM/dd/yyyy'
     return this.datePipe.transform(date, 'MM/dd/yyyy') ?? '';
   }
 }
