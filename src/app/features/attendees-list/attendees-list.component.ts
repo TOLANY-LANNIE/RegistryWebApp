@@ -83,7 +83,7 @@ export class AttendeesListComponent implements AfterViewInit{
     this.attendeesSubscription = this.service.getAllAttendeesByEvent(this.event)
       .subscribe({
         next: (attendees: Guest[]) => {
-          console.log(attendees)
+          //console.log(attendees)
           this.attendees = attendees;
           this.dataSource = new MatTableDataSource(this.attendees);
           this.dataSource.paginator = this.paginator;

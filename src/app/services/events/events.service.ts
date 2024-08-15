@@ -11,12 +11,10 @@ export class EventsService {
 
   constructor(private db: AngularFirestore, private storage: AngularFireStorage) { }
 
-  getAllEvents() {
-    return new Promise<any>((resolve) => {
-      this.db.collection('Events').valueChanges({ idField: 'id' }).subscribe(events => resolve(events));
-    });
+  getAllEvents(): Observable<any[]> {
+    return this.db.collection('Events').valueChanges({ idField: 'id' });
   }
-
+  
   addNewEvent(event: any, bannerFile: File): Observable<void> {
     const eventRef = this.db.collection('Events').doc().ref;
     const filePath = `event-banners/${eventRef.id}_${bannerFile.name}`;

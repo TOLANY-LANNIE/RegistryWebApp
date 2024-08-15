@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService } from '../../services/events/events.service';
-import { AttendeesService } from '../../services/attendees/attendees.service'; // Import the attendees service
+import { AttendeesService } from '../../services/attendees/attendees.service';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-events-board',
@@ -11,7 +12,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./events-board.component.scss'],
   providers: [DatePipe]
 })
-export class EventsBoardComponent implements OnInit {
+export class EventsBoardComponent implements OnInit, OnDestroy {
   events: any[] = []; // To store events pulled from Firestore
   attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts
   filterOptions: string[] = ['All Events', "Today's Event", "This Week's Events", "This Month's Events"];
@@ -26,10 +27,11 @@ export class EventsBoardComponent implements OnInit {
 
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+  private eventsSubscription: Subscription;
 
   constructor(
     private service: EventsService,
-    private attendeesService: AttendeesService, // Inject attendees service
+    private attendeesService: AttendeesService,
     private router: Router,
     private datePipe: DatePipe
   ) {
@@ -43,29 +45,30 @@ export class EventsBoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEvents(); // Load events after view initialization
+    this.subscribeToEvents(); // Subscribe to events and automatically update when changes occur
     this.home = { icon: 'pi pi-home', routerLink: '/events' };
   }
 
-  async getEvents() {
-    try {
-      // Fetch events from the service
-      const events = await this.service.getAllEvents();
-
-      // Filter events where event.Status is "Yes"
-      this.events = events.filter((event: { Status: boolean; }) => event.Status === true);
-      this.filterEvents();
-      // Fetch attendee counts
-      await this.loadAttendeeCounts();
-    } catch (error) {
-      console.error('Error fetching events:', error);
-      // Handle the error appropriately
+  ngOnDestroy() {
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
     }
   }
 
-  /**
-   * Load attendee counts for each event
-   */
+  subscribeToEvents() {
+    this.eventsSubscription = this.service.getAllEvents().subscribe({
+      next: (events) => {
+        // Filter events where event.Status is "Yes"
+        this.events = events.filter((event: { Status: boolean }) => event.Status === true);
+        this.filterEvents(); // Filter the events based on the selected chip
+        this.loadAttendeeCounts(); // Fetch attendee counts after loading events
+      },
+      error: (error) => {
+        console.error('Error fetching events:', error);
+      }
+    });
+  }
+
   async loadAttendeeCounts() {
     for (const event of this.events) {
       try {
@@ -78,35 +81,38 @@ export class EventsBoardComponent implements OnInit {
     }
   }
 
-  /**
-   * Counts the number of Guest that have signed up
-   * @param eventId 
-   * @returns the guest count 
-   */
   getAttendeeCount(eventId: string): number {
     return this.attendeeCounts[eventId] ?? 0; // Return 0 if count is not yet loaded
   }
 
+  /**
+   * Filter Events based on the Start Date
+   */
   filterEvents(): void {
     switch (this.selectedChip) {
       case "Today's Event":
         this.filteredEvents = this.events.filter(event => {
-          const eventDate = new Date(event.StartDate);
-          return this.datePipe.transform(eventDate, 'yyyy-MM-dd') === this.datePipe.transform(this.today, 'yyyy-MM-dd');
+          const eventStartDate = event.StartDate ? new Date(event.StartDate) : null;
+          const eventEndDate = event.EndDate ? new Date(event.EndDate) : eventStartDate;
+          return (
+            eventStartDate && eventEndDate &&
+            this.datePipe!.transform(this.today, 'yyyy-MM-dd')! >= this.datePipe!.transform(eventStartDate, 'yyyy-MM-dd')! &&
+            this.datePipe!.transform(this.today, 'yyyy-MM-dd')! <= this.datePipe!.transform(eventEndDate, 'yyyy-MM-dd')!
+          );
         });
         break;
-
+  
       case "This Week's Events":
         this.filteredEvents = this.events.filter(event => {
-          const eventDate = new Date(event.StartDate);
-          return eventDate >= this.weekStart && eventDate <= this.weekEnd;
+          const eventDate = event.StartDate ? new Date(event.StartDate) : null;
+          return eventDate && eventDate >= this.weekStart && eventDate <= this.weekEnd;
         });
         break;
-
+  
       case "This Month's Events":
         this.filteredEvents = this.events.filter(event => {
-          const eventDate = new Date(event.StartDate);
-          return eventDate >= this.monthStart && eventDate <= this.monthEnd;
+          const eventDate = event.StartDate ? new Date(event.StartDate) : null;
+          return eventDate && eventDate >= this.monthStart && eventDate <= this.monthEnd;
         });
         break;
   
@@ -116,6 +122,9 @@ export class EventsBoardComponent implements OnInit {
     }
     this.sortEvents(); // Ensure events are sorted after filtering
   }
+  
+  
+  
 
   sortEvents(): void {
     this.filteredEvents.sort((a, b) => {

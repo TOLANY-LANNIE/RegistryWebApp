@@ -56,11 +56,14 @@
             <img *ngIf="imageAvailable; else titleTemplate" [src]="imageSrc" alt="Event Banner Image" class="image-fixed-size" />
           </div>
         </mat-card>
-        
-        <ng-template #titleTemplate class="banner image-container">
-          <h1>{{eventDetails?.Title}}</h1>
-        </ng-template>    
+      
+        <ng-template #titleTemplate>
+          <div class="banner-title">
+            <h1>{{ eventDetails?.Title }}</h1>
+          </div>
+        </ng-template>
       </div>
+      
 
       <div class="container-wrapper">
         <mat-card class="mat-elevation-z0 container" fxLayout="column" fxLayoutAlign="center stretch">
