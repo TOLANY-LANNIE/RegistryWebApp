@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
 import { UnsplashService } from '../../services/unsplash/unsplash.service';
 import { DatePipe } from '@angular/common';
+import { animate } from "motion";
 
 @Component({
   selector: 'app-event-card',
@@ -11,9 +12,10 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./event-card.component.scss'],
   providers: [DatePipe] 
 })
-export class EventCardComponent implements OnInit {
+export class EventCardComponent implements OnInit, AfterViewInit {
   @Input() card: any;
   @Input() attendeeCount: number; // New input to receive attendee count
+  @ViewChild('attendeeCountElement') attendeeCountElement: ElementRef; // ViewChild to access the attendee count element
   photo: any = null;
 
   constructor(
@@ -25,6 +27,10 @@ export class EventCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchPhoto();
+  }
+
+  ngAfterViewInit(): void {
+    this.animateAttendeeCount();
   }
 
   viewDetails(event: any) {
@@ -78,5 +84,19 @@ export class EventCardComponent implements OnInit {
   navigateToAttendees(event: any) {
     const serializedData = JSON.stringify(event.id);
     this.router.navigate(['/attendees'], { queryParams: { data: serializedData } });
+  }
+
+  /**
+   * Animate attendeeCount using Motion One
+   */
+  animateAttendeeCount(): void {
+    animate(this.attendeeCountElement.nativeElement, {
+      scale: [1, 1.2, 1], // Scale up and down
+      opacity: [0, 1], // Fade in
+      transformOrigin: 'center', // Transform origin
+    }, {
+      duration: 0.5, // 0.5 seconds
+      easing: 'ease-in-out', // Ease in-out animation
+    });
   }
 }

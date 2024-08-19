@@ -25,6 +25,7 @@
     "@emailjs/browser": "^4.3.3",
     "@types/unsplash-js": "^7.0.0",
     "firebase": "^10.11.1",
+    "motion": "^10.18.0",
     "ngx-logger": "^5.0.12",
     "ngx-timeago": "^3.0.0",
     "primeicons": "^7.0.0",

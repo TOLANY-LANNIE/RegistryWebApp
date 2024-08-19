@@ -41,7 +41,7 @@
     
     <div class="event-location">
       <strong>Available spots:</strong> 
-      {{eventDetails?.Capacity}}
+      {{eventDetails?.Capacity - attendeeCounts[eventId]}}
     </div>
     
   </mat-card>
