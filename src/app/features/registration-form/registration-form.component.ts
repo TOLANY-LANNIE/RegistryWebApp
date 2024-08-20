@@ -11,6 +11,7 @@ import { EventsService } from '../../services/events/events.service';
 import emailjs from '@emailjs/browser';
 import { Notification } from '../../models/notification';
 import { NotificationService } from '../../services/notification-service/notification-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-registration-form',
@@ -19,6 +20,8 @@ import { NotificationService } from '../../services/notification-service/notific
   providers: [DatePipe] 
 })
 export class RegistrationFormComponent implements OnInit {
+  events: any[] = []; // To store events pulled from Firestore
+  attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts
   attendeeForm: FormGroup;
   eventId: string;
   
@@ -36,6 +39,7 @@ export class RegistrationFormComponent implements OnInit {
   imageSrc: string ='../../../assets/img/Pfizer_Horizon Logo_Final.jpg';
   imageAvailable: boolean = true;
   eventDetails:any;
+  private eventsSubscription: Subscription;
 
 
   constructor(
@@ -46,7 +50,8 @@ export class RegistrationFormComponent implements OnInit {
     private route: ActivatedRoute,
     private toastService: ToastService,
     private eventService: EventsService,
-    private notificationService: NotificationService
+    private attendeesService: AttendeesService,
+    private notificationService: NotificationService,
   ) { 
     this.checkImageAvailability();
   }
@@ -69,6 +74,14 @@ export class RegistrationFormComponent implements OnInit {
       transfer: ['', [Validators.required]],
       accommodation: ['', [Validators.required]],
     });
+
+    this.subscribeToEvents();// Subscribe to events and automatically update when changes occur
+  }
+
+  ngOnDestroy() {
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
+    }
   }
 
   async onSubmit() {
@@ -121,6 +134,22 @@ export class RegistrationFormComponent implements OnInit {
     img.src = this.imageSrc;
     img.onload = () => this.imageAvailable = true;
     img.onerror = () => this.imageAvailable = false;
+  }
+
+  /**
+   * 
+   */
+  subscribeToEvents() {
+    this.eventsSubscription = this.eventService.getAllEvents().subscribe({
+      next: (events) => {
+        // Filter events where event.Status is "Yes"
+        this.events = events.filter((event: { Status: boolean }) => event.Status === true);
+        this.loadAttendeeCounts(); // Fetch attendee counts after loading events
+      },
+      error: (error) => {
+        console.error('Error fetching events:', error);
+      }
+    });
   }
 
   /**
@@ -213,5 +242,18 @@ export class RegistrationFormComponent implements OnInit {
     await this.notificationService.addNotification(notification);
   }
   
-  
+  /**
+   * Get the number of attendees for each event
+   */
+  async loadAttendeeCounts() {
+    for (const event of this.events) {
+      try {
+        const count = await this.attendeesService.getAttendeesCountByEvent(event.id);
+        this.attendeeCounts[event.id] = count;
+      } catch (error) {
+        console.error('Error fetching attendee count for event ID', event.id, ':', error);
+        this.attendeeCounts[event.id] = 0; // Handle the error appropriately
+      }
+    }
+  }
 }
