@@ -7,6 +7,8 @@ import { ThankyouComponent } from './features/thankyou/thankyou.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { EventsBoardComponent } from './features/events-board/events-board.component';
 import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
+import { CalendarComponent } from './features/calendar/calendar.component';
+import { LoginComponent } from './features/login/login.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +23,8 @@ export const routes: Routes = [
     {path: 'events', component:EventsComponent},
     {path: 'groups', component:MailGroupsComponent},
     { path: 'events-board', component: EventsBoardComponent },
+    { path: 'calendar', component: CalendarComponent},
+    { path: 'login', component: LoginComponent }, 
     {path:'', redirectTo:'events-board', pathMatch:'full'}
 ];
 

@@ -71,5 +71,6 @@
     </mat-sidenav-content>
 </mat-sidenav-container>
 </ng-container>
-<!-- Only display the router outlet without header and side menu for the login page -->
+<!-- Only display the router outlet without header and side menu for the invite and auth pages -->
 <router-outlet *ngIf="checkInviteUrl()"></router-outlet>
+<router-outlet *ngIf="checkAuthUrl()"></router-outlet>
