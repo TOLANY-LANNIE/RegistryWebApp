@@ -26,21 +26,31 @@ export class CalendarComponent {
     dateClick: (arg) => this.handleDateClick(arg),
     editable: true,
     nowIndicator: true,
-    events: [
-      { title: ' Test Event 1', date: '2024-08-12' },
-      { title: ' Test Event 2', date: '2024-08-23' }
-    ]
+    events: []
   };
-
+  
   constructor(
     private eventService:EventsService
   ) {}
 
   ngOnInit() {
+
+    //Breadcrumbs
     this.items = [
       { label: 'Calendar', routerLink: '/calendar' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
+
+
+     // Load events from the service
+     this.eventService.getAllEvents().subscribe((events) => {
+      this.calendarOptions.events = events.map(event => ({
+        title: event.Title,
+        start: event.StartDate,
+        end: event.EndDate
+      }));
+    });
+    
   }
 
   handleDateClick(arg: DateClickArg) {
