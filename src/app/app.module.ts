@@ -40,6 +40,8 @@ import { AddRecipientComponent } from './modals/add-recipient/add-recipient.comp
 import { DeleteRecipientComponent } from './modals/delete-recipient/delete-recipient.component';
 import { EditRecipientComponent } from './modals/edit-recipient/edit-recipient.component';
 import { NotificationCardComponent} from './features/notification-card/notification-card.component';
+import { CalendarComponent } from './features/calendar/calendar.component';
+import { LoginComponent } from './features/login/login.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -80,6 +82,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 
+import { FullCalendarModule} from '@fullcalendar/angular'
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
@@ -112,7 +115,9 @@ import { environment } from '../environment/environment';
     AddRecipientComponent,
     DeleteRecipientComponent,
     EditRecipientComponent ,
-    NotificationCardComponent 
+    NotificationCardComponent,
+    CalendarComponent ,
+    LoginComponent,
   ],
   imports:[
     BrowserModule,
@@ -163,6 +168,8 @@ import { environment } from '../environment/environment';
     FileUploadModule,
     OverlayPanelModule,
     
+    FullCalendarModule,
+
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
   ],

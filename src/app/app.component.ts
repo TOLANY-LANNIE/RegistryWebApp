@@ -121,6 +121,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
 
+  checkAuthUrl() {
+    return window.location.href.indexOf('login') > -1;
+  }
+
+
   /**
    * Format the date string to MM/DD/YYYY
    * @param date 

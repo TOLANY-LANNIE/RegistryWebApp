@@ -45,7 +45,7 @@ export class SideMenuComponent {
       route:'events-board'
     },
     {
-      icon:'event',
+      icon:'event_available',
       label:'Events',
       route:'events'
     },
@@ -53,6 +53,11 @@ export class SideMenuComponent {
       icon:'group',
       label:'Email Groups',
       route:'groups'
+    },
+    {
+      icon:'event',
+      label:'Calendar',
+      route:'calendar'
     },
   ]);
 
