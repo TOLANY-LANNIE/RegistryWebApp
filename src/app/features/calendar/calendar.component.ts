@@ -6,11 +6,12 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { MenuItem } from 'primeng/api';
 import { EventsService } from '../../services/events/events.service';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']  // Corrected styleUrls
+  styleUrls: ['./calendar.component.scss'],
+  providers: [DatePipe] 
 })
 export class CalendarComponent {
   items: MenuItem[] | undefined;
@@ -26,11 +27,13 @@ export class CalendarComponent {
     dateClick: (arg) => this.handleDateClick(arg),
     editable: true,
     nowIndicator: true,
-    events: []
+    events: [],
+    navLinks:true,
   };
   
   constructor(
-    private eventService:EventsService
+    private eventService:EventsService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -46,8 +49,8 @@ export class CalendarComponent {
      this.eventService.getAllEvents().subscribe((events) => {
       this.calendarOptions.events = events.map(event => ({
         title: event.Title,
-        start: event.StartDate,
-        end: event.EndDate
+        start: this.formatDate(event.StartDate),
+        end: this.formatDate(event.EndDate),
       }));
     });
     
@@ -55,5 +58,10 @@ export class CalendarComponent {
 
   handleDateClick(arg: DateClickArg) {
     alert('date click! ' + arg.dateStr);
+  }
+
+  formatDate(date: string): string {
+    // Convert date to 'MM/dd/yyyy'
+    return this.datePipe.transform(date, 'yyyy-MM-dd') ?? '';
   }
 }
