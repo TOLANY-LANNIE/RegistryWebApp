@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -7,6 +7,8 @@ import listPlugin from '@fullcalendar/list';
 import { MenuItem } from 'primeng/api';
 import { EventsService } from '../../services/events/events.service';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -24,7 +26,7 @@ export class CalendarComponent {
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek' 
     },
-    dateClick: (arg) => this.handleDateClick(arg),
+    eventClick: (arg) => this.handleDateClick(arg),
     editable: true,
     nowIndicator: true,
     events: [],
@@ -33,7 +35,8 @@ export class CalendarComponent {
   
   constructor(
     private eventService:EventsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -51,14 +54,39 @@ export class CalendarComponent {
         title: event.Title,
         start: this.formatDate(event.StartDate),
         end: this.formatDate(event.EndDate),
+        id: event.id
       }));
     });
     
   }
 
-  handleDateClick(arg: DateClickArg) {
-    alert('date click! ' + arg.dateStr);
+  viewDetails(event: any) {
+    const dialogRef = this.dialog.open(EventDetailsComponent, {
+      data: event,
+      disableClose: true,
+      panelClass: 'fullscreen-dialog',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {});
   }
+
+  handleDateClick(arg: EventClickArg) {
+    this.getEventDetails(arg.event.id);
+  }
+
+  /**
+   * Get Event Details based on the id
+   */
+ async getEventDetails(eventID:string){
+  this.eventService.getEventById(eventID).subscribe(
+    event => {
+      this.viewDetails(event);
+    },
+    error => {
+      console.log( error.message);
+    }
+  );
+}
 
   formatDate(date: string): string {
     // Convert date to 'MM/dd/yyyy'
