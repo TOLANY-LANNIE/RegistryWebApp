@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
@@ -12,10 +12,10 @@ import { animate } from "motion";
   styleUrls: ['./event-card.component.scss'],
   providers: [DatePipe] 
 })
-export class EventCardComponent implements OnInit, AfterViewInit {
+export class EventCardComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @Input() card: any;
-  @Input() attendeeCount: number; // New input to receive attendee count
-  @ViewChild('attendeeCountElement') attendeeCountElement: ElementRef; // ViewChild to access the attendee count element
+  @Input() attendeeCount: number; // Input to receive attendee count
+  @ViewChild('attendeeCountElement') attendeeCountElement!: ElementRef; // ViewChild to access the attendee count element
   photo: any = null;
 
   constructor(
@@ -32,6 +32,15 @@ export class EventCardComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.animateAttendeeCount();
   }
+
+  ngAfterViewChecked(): void {
+    if (this.attendeeCountElement && !this.animationStarted) {
+      this.animateAttendeeCount();
+      this.animationStarted = true;
+    }
+  }
+
+  private animationStarted = false;
 
   viewDetails(event: any) {
     const dialogRef = this.dialog.open(EventDetailsComponent, {
@@ -90,13 +99,15 @@ export class EventCardComponent implements OnInit, AfterViewInit {
    * Animate attendeeCount using Motion One
    */
   animateAttendeeCount(): void {
-    animate(this.attendeeCountElement.nativeElement, {
-      scale: [1, 1.2, 1], // Scale up and down
-      opacity: [0, 1], // Fade in
-      transformOrigin: 'center', // Transform origin
-    }, {
-      duration: 0.5, // 0.5 seconds
-      easing: 'ease-in-out', // Ease in-out animation
-    });
+    if (this.attendeeCountElement) {
+      animate(this.attendeeCountElement.nativeElement, {
+        scale: [1, 1.2, 1], // Scale up and down
+        opacity: [0, 1], // Fade in
+        transformOrigin: 'center', // Transform origin
+      }, {
+        duration: 0.5, // 0.5 seconds
+        easing: 'ease-in-out', // Ease in-out animation
+      });
+    }
   }
 }
