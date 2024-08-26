@@ -6,6 +6,7 @@ import { ToastService } from './services/toast.service';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SearchService } from './services/search/search.service';
 
 @Component({
   selector: 'app-root',
@@ -52,7 +53,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private notificationService: NotificationService,
     private toastService: ToastService,
     private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -79,9 +81,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.searchFieldVisible.update(visible => !visible);
   }
 
-  onSearchQueryChanged(event: Event): void {
-    const inputElement = event.target as HTMLInputElement; // Cast the event target to HTMLInputElement
-    this.searchQuery.set(inputElement.value); // Update the search query using signal
+  /**
+   * Search field function 
+   */
+  onSearchChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const query = inputElement.value;
+    this.searchService.setSearchQuery(query);
   }
   
   handleDelete(notification: any): void {

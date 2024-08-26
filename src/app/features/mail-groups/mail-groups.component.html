@@ -16,17 +16,6 @@
         </h1>
       </div>
       <br>
-      <div class="flex-container" fxLayout="row" fxLayoutAlign="left start" fxLayoutGap="16px">
-        <!--Searchbar-->
-        <mat-form-field appearance="outline" fxFlex.lt-sm="100%">
-          <mat-label>Search</mat-label>
-          <input (keyup)="applyFilter($event)" [(ngModel)]="searchString" matInput>
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </div>
-      
-      <br>
-
         <div fxLayout="row" fxLayoutAlign="stretch" fxLayoutGap="12px"fxLayout.lt-sm="column">
             <mat-card class="mat-elevation-z0 padded-card" fxFlex="25" fxFlex.lt-sm="100">
               <!--Mail Group List Header-->

@@ -15,6 +15,8 @@ import { DeleteGuestComponent } from '../../modals/delete-guest/delete-guest.com
 import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { EventsService } from '../../services/events/events.service';
+import { SearchService } from '../../services/search/search.service';
+
 @Component({
   selector: 'app-attendees-list',
   templateUrl: './attendees-list.component.html',
@@ -48,7 +50,8 @@ export class AttendeesListComponent implements AfterViewInit{
     private service: AttendeesService,
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbsService,
-    private eventService:EventsService
+    private eventService:EventsService,
+    private searchService: SearchService
   ) {
   }
 
@@ -71,6 +74,12 @@ export class AttendeesListComponent implements AfterViewInit{
       { label: 'Attendees', routerLink: '/attendees' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
+
+     //Subscribe to the search service
+     this.searchService.searchQuery$.subscribe(query => {
+      this.applyFilter(query);
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -106,11 +115,10 @@ export class AttendeesListComponent implements AfterViewInit{
 
   /**
    * Filters the content on the table based on the searchbox input
-   * @param event 
+   * @param string 
    */
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase(); 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openInviteModal() {

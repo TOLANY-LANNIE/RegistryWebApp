@@ -14,6 +14,7 @@ import { EditEventComponent } from '../../modals/edit-event/edit-event.component
 import { DeleteAlertComponent } from '../../modals/delete-alert/delete-alert.component';
 import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
 import { Subscription } from 'rxjs';
+import { SearchService } from '../../services/search/search.service';
 
 @Component({
   selector: 'app-events',
@@ -24,7 +25,6 @@ import { Subscription } from 'rxjs';
 export class EventsComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['Title', 'Start Date', 'End Date', 'Capacity', 'Guests', 'Status', 'MoreOptions'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>(); // Initialize with type `any`
-  searchString = '';
   panelOpenState = false;
   attendeeCounts: { [eventId: string]: number } = {}; // To store attendee counts
   items: MenuItem[] | undefined;
@@ -40,7 +40,8 @@ export class EventsComponent implements AfterViewInit, OnInit {
     private service: EventsService,
     private attendeesService: AttendeesService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private searchService: SearchService
   ) {}
 
   ngOnInit() {
@@ -49,6 +50,11 @@ export class EventsComponent implements AfterViewInit, OnInit {
       { label: 'Events' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
+    
+    //Subscribe to the search service
+    this.searchService.searchQuery$.subscribe(query => {
+      this.applyFilter(query);
+    });
   }
 
   ngAfterViewInit() {
@@ -90,11 +96,10 @@ export class EventsComponent implements AfterViewInit, OnInit {
     }
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  
   applyStatusFilter(activeStatus: boolean | null) {
     if (this.dataSource) {
       this.dataSource.filterPredicate = (data, filter) => {

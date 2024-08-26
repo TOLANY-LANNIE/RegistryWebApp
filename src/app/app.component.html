@@ -22,7 +22,7 @@
    <!-- Center Section: Search Bar -->
    <div class="toolbar-section center-section" *ngIf="!isSmallScreen(); else mobileSearch">
     <mat-form-field class="search-field">
-      <input matInput placeholder="Search" (input)="onSearchQueryChanged($event)">
+      <input matInput placeholder="Search" (input)="onSearchChange($event)">
       <mat-icon matSuffix color="primary">search</mat-icon>
     </mat-form-field>
   </div>
@@ -84,7 +84,7 @@
       <mat-icon>search</mat-icon>
     </button>
     <mat-form-field class="search-field" *ngIf="searchFieldVisible()" [@searchFieldAnimation]="searchFieldVisible() ? 'visible' : 'hidden'">
-      <input matInput placeholder="Search" (input)="onSearchQueryChanged($event)">
+      <input matInput placeholder="Search" (input)="onSearchChange($event)">
       <button mat-icon-button matSuffix (click)="toggleSearchField()">
         <mat-icon color="primary">close</mat-icon>
       </button>
