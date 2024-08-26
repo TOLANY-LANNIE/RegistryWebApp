@@ -19,12 +19,18 @@ export const routes: Routes = [
         { path: 'thank-you', component: ThankyouComponent },
         ]
     },
+    {
+        path: 'auth',
+        component: LoginLayoutComponent,
+        children: [
+        {path: 'login', component: LoginComponent},
+        ]
+    },
     {path: 'attendees', component:AttendeesListComponent},
     {path: 'events', component:EventsComponent},
     {path: 'groups', component:MailGroupsComponent},
     { path: 'events-board', component: EventsBoardComponent },
     { path: 'calendar', component: CalendarComponent},
-    { path: 'login', component: LoginComponent }, 
     {path:'', redirectTo:'events-board', pathMatch:'full'}
 ];
 

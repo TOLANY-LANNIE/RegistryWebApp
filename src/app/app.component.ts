@@ -114,7 +114,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   checkAuthUrl(): boolean {
-    return window.location.href.indexOf('login') > -1;
+    return window.location.href.indexOf('auth') > -1;
   }
 
   formatDate(date: string): string {
