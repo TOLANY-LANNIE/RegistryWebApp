@@ -62,6 +62,7 @@ export class SideMenuComponent {
     {
       icon:'exit_to_app',
       label:'Logout',
+      route:'auth/login'
     },
   ]);
 

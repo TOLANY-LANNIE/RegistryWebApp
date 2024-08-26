@@ -20,39 +20,6 @@
       </button>
     </div>
     <br>
-
-    <!--Actions Card-->
-    <div class="flex-container" fxLayout="row" fxLayoutAlign="left start" fxLayoutGap="16px">
-      <!-- Combined Search Field -->
-      <mat-form-field appearance="outline"fxFlex.lt-sm="100%">
-        <mat-label>Search</mat-label>
-        <input (keyup)="applyFilter($event)" matInput placeholder="Search">
-        <button mat-icon-button matSuffix [matMenuTriggerFor]="filtersMenu">
-          <mat-icon>filter_list</mat-icon>
-        </button>
-        <mat-menu #filtersMenu="matMenu">
-        <!-- Filter by Status -->
-        <mat-form-field appearance="outline" class="menu-form-field">
-          <mat-label>Search by Status</mat-label>
-          <mat-select (selectionChange)="applyStatusFilter($event.value)">
-            <mat-option [value]="null">All</mat-option>
-            <mat-option [value]="true">Open</mat-option>
-            <mat-option [value]="false">Closed</mat-option>
-          </mat-select>
-        </mat-form-field>
-    
-        <!-- Filter by Date -->
-        <mat-form-field appearance="outline" class="menu-form-field">
-          <mat-label>Search By Date</mat-label>
-          <input matInput [matDatepicker]="picker" (dateChange)="applyDateFilter($event.value)" placeholder="MM/DD/YYYY">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        </mat-menu>
-      <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-    </div>
-    <br>
     <mat-card class="mat-elevation-z0">
       <!--Table-->
       <mat-table [dataSource]="dataSource" matSort>

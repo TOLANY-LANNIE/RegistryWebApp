@@ -5,12 +5,35 @@ import { NotificationService } from './services/notification-service/notificatio
 import { ToastService } from './services/toast.service';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SearchService } from './services/search/search.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  animations: [
+    trigger('searchFieldAnimation', [
+      state('hidden', style({
+        transform: 'translateX(100%)',
+        opacity: 0,
+        width: '0px',
+        overflow: 'hidden'
+      })),
+      state('visible', style({
+        transform: 'translateX(0)',
+        opacity: 1,
+        width: '*'
+      })),
+      transition('hidden => visible', [
+        animate('300ms ease-in-out')
+      ]),
+      transition('visible => hidden', [
+        animate('300ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   items: any[] = [];
@@ -20,6 +43,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   isSmallScreen = signal(false);
   notifications: any[] = [];
   unreadCount: number = 0;
+  searchQuery = signal(''); // Use signal for the search query
+  searchFieldVisible = signal(false);
   private notificationsSubscription: Subscription;
 
   constructor(
@@ -28,110 +53,83 @@ export class AppComponent implements OnInit, AfterViewInit {
     private notificationService: NotificationService,
     private toastService: ToastService,
     private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
-    this.notificationsSubscription = this.notificationService.notifications$
-    .subscribe(notifications => {
+    this.notificationsSubscription = this.notificationService.notifications$.subscribe(notifications => {
       this.notifications = notifications;
       this.calculateUnreadCount();
-      this.cdr.detectChanges(); // Force change detection
+      this.cdr.detectChanges();
     });
   }
 
-  ngAfterViewInit() {
-    this.breakpointObserver.observe([Breakpoints.Handset])
-      .subscribe(result => {
-        if (result.matches) {
-          this.collapsed.set(true); // Collapse the sidenav for small screens
-          this.isSmallScreen.set(true);
-        } else {
-          this.collapsed.set(false); // Expand the sidenav for larger screens
-          this.isSmallScreen.set(false);
-        }
-      });
+  ngAfterViewInit(): void {
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      if (result.matches) {
+        this.collapsed.set(true);
+        this.isSmallScreen.set(true);
+      } else {
+        this.collapsed.set(false);
+        this.isSmallScreen.set(false);
+      }
+    });
   }
 
-  /* loadNotifications(): void {
-    this.notificationService.getAllNotifications()
-      .then(notifications => {
-        // Filter notifications where Hide is false
-        this.notifications = notifications.filter((notification: { Hide: any; }) => !notification.Hide);
-        this.calculateUnreadCount();
-      })
-      .catch(error => {
-        console.error('Error fetching notifications:', error);
-      });
-  } */
-  
-
-  handleDelete(notification: any): void{
-    console.log(`Delete notification of type: ${notification.id}`);
-    // Implement the delete logic here
-    this.notificationService.delete(notification.id)
-      .then(() => {
-        console.log(`Notification ${notification.id} marked as hidden.`);
-        
-        // Update notifications array
-        this.notifications = this.notifications.filter(n => n.id !== notification.id);
-      })
-      .catch(error => {
-        console.error(`Error marking notification ${notification.id} as hidden:`, error);
-      });
+  toggleSearchField() {
+    this.searchFieldVisible.update(visible => !visible);
   }
 
   /**
-   * Count unread comments
+   * Search field function 
    */
-  calculateUnreadCount(): void {
-    this.unreadCount = this.notifications.filter(notification => !notification.Read).length;
+  onSearchChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const query = inputElement.value;
+    this.searchService.setSearchQuery(query);
+  }
+  
+  handleDelete(notification: any): void {
+    this.notificationService.delete(notification.id).then(() => {
+      this.notifications = this.notifications.filter(n => n.id !== notification.id);
+    }).catch(error => {
+      console.error(`Error deleting notification ${notification.id}:`, error);
+    });
   }
 
-  handleHide(notification: any): void {
-   
-    this.notificationService.markAsHidden(notification)
-      .then(() => {
-        console.log(`Notification ${notification.id} marked as hidden.`);
-        
-        // Update notifications array
-        this.notifications = this.notifications.filter(n => n.id !== notification.id);
-      })
-      .catch(error => {
-        console.error(`Error marking notification ${notification.id} as hidden:`, error);
-      });
+  calculateUnreadCount(): void {
+    this.unreadCount = this.notifications.filter(notification => !notification.Read).length;
   }
 
   markNotificationsAsRead(): void {
     const unreadNotifications = this.notifications.filter(notification => !notification.Read);
     unreadNotifications.forEach(notification => {
-      notification.Read = true; // Ensure property name matches backend
+      notification.Read = true;
       this.notificationService.markAsRead(notification.id).then(() => {
-       // console.log(`Notification ${notification.id} marked as read.`);
-        this.calculateUnreadCount(); // Recalculate unread count after marking as read
-        this.cdr.detectChanges(); // Force change detection
+        this.calculateUnreadCount();
+        this.cdr.detectChanges();
       }).catch(error => {
         console.error(`Error marking notification ${notification.id} as read:`, error);
       });
     });
   }
 
-  checkInviteUrl() {
+  checkInviteUrl(): boolean {
     return window.location.href.indexOf('invite') > -1;
   }
 
-
-  checkAuthUrl() {
-    return window.location.href.indexOf('login') > -1;
+  checkAuthUrl(): boolean {
+    return window.location.href.indexOf('auth') > -1;
   }
 
-
-  /**
-   * Format the date string to MM/DD/YYYY
-   * @param date 
-   * @returns 
-   */
   formatDate(date: string): string {
     return this.datePipe.transform(date, 'MM/dd/yyyy') ?? '';
+  }
+
+  ngOnDestroy(): void {
+    if (this.notificationsSubscription) {
+      this.notificationsSubscription.unsubscribe();
+    }
   }
 }

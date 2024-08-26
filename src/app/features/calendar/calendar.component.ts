@@ -20,6 +20,9 @@ export class CalendarComponent {
   home: MenuItem | undefined;
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
+    height: 'auto',
+    contentHeight: 'auto',
+    aspectRatio: 1.35,
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin,listPlugin],  
     headerToolbar: {
       left: 'prev today next',

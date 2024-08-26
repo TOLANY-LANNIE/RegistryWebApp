@@ -10,6 +10,7 @@ import { AddGroupComponent } from '../../modals/add-group/add-group.component';
 import { AddRecipientComponent } from '../../modals/add-recipient/add-recipient.component';
 import { DeleteRecipientComponent } from '../../modals/delete-recipient/delete-recipient.component';
 import { EditRecipientComponent } from '../../modals/edit-recipient/edit-recipient.component';
+import { SearchService } from '../../services/search/search.service';
 
 @Component({
   selector: 'app-mail-groups',
@@ -31,15 +32,15 @@ export class MailGroupsComponent implements AfterViewInit{
   constructor(
     private dialog: MatDialog,
     private groupService: MailGroupService,
-    private recipientsService: RecipientsService
+    private recipientsService: RecipientsService,
+    private searchService: SearchService
   ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -54,6 +55,11 @@ export class MailGroupsComponent implements AfterViewInit{
       { label: 'Email-Groups' }
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/events-board' };
+
+    //Subsribe to the search service
+    this.searchService.searchQuery$.subscribe(query => {
+      this.applyFilter(query);
+    });
   }
 
   async getMailGroups() {

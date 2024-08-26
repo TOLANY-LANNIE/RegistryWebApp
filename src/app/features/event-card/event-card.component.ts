@@ -4,13 +4,25 @@ import { Router } from '@angular/router';
 import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
 import { UnsplashService } from '../../services/unsplash/unsplash.service';
 import { DatePipe } from '@angular/common';
-import { animate } from "motion";
+//import { animate } from "motion";
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
   styleUrls: ['./event-card.component.scss'],
-  providers: [DatePipe] 
+  providers: [DatePipe],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({
+        opacity: 0
+      })),
+      transition('void <=> *', [
+        animate('1000ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class EventCardComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @Input() card: any;
@@ -30,12 +42,12 @@ export class EventCardComponent implements OnInit, AfterViewInit, AfterViewCheck
   }
 
   ngAfterViewInit(): void {
-    this.animateAttendeeCount();
+   // this.animateAttendeeCount();
   }
 
   ngAfterViewChecked(): void {
     if (this.attendeeCountElement && !this.animationStarted) {
-      this.animateAttendeeCount();
+     // this.animateAttendeeCount();
       this.animationStarted = true;
     }
   }
@@ -98,7 +110,7 @@ export class EventCardComponent implements OnInit, AfterViewInit, AfterViewCheck
   /**
    * Animate attendeeCount using Motion One
    */
-  animateAttendeeCount(): void {
+  /* animateAttendeeCount(): void {
     if (this.attendeeCountElement) {
       animate(this.attendeeCountElement.nativeElement, {
         scale: [1, 1.2, 1], // Scale up and down
@@ -109,5 +121,5 @@ export class EventCardComponent implements OnInit, AfterViewInit, AfterViewCheck
         easing: 'ease-in-out', // Ease in-out animation
       });
     }
-  }
+  } */
 }
