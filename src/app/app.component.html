@@ -7,27 +7,41 @@
 
   <ng-container *ngIf="!checkInviteUrl()">
   <!--HeaderComponent-->
-  <mat-toolbar class="mat-elevation-z3" color="primary">
+  <!--HeaderComponent-->
+<mat-toolbar class="mat-elevation-z3" color="primary">
+  <!-- Left Section: Menu Button and Title -->
+  <div class="toolbar-section">
     <button mat-icon-button (click)="collapsed.set(!collapsed())" *ngIf="!isSmallScreen()">
       <mat-icon>menu</mat-icon>
-    </button> 
+    </button>
     <a class="navbar-brand">
       <h2>Registry App</h2>
     </a>
-    <span class="header-spacer"></span>
+  </div>
 
-    <!--Notification Icon-->
-    <button mat-icon-button (click)="overlayPanel.toggle($event)">
-      <mat-icon>notifications</mat-icon>
-      <span *ngIf="unreadCount > 0" matBadge="{{unreadCount}}" matBadgeColor="accent"></span>
+   <!-- Center Section: Search Bar -->
+   <div class="toolbar-section center-section" *ngIf="!isSmallScreen(); else mobileSearch">
+    <mat-form-field class="search-field">
+      <input matInput placeholder="Search" (input)="onSearchQueryChanged($event)">
+      <mat-icon matSuffix color="primary">search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <!-- Right Section: Notification and User Icons -->
+  <div class="toolbar-section">
+    <!-- Notification Icon -->
+  <button mat-icon-button (click)="overlayPanel.toggle($event)">
+    <mat-icon>notifications</mat-icon>
+    <span *ngIf="unreadCount > 0" matBadge="{{unreadCount}}" matBadgeColor="accent"></span>
   </button>
   
+  <!-- Notification Overlay Panel -->
   <p-overlayPanel #overlayPanel (onShow)="markNotificationsAsRead()">
     <div class="flex flex-column gap-1 w-12rem">
-      <!-- Display a message if there are no notifications -->
+      <!-- No Notifications Message -->
       <p *ngIf="notifications.length === 0" class="no-notifications-message">You are caught up</p>
   
-      <!-- Display notifications if there are any -->
+      <!-- Notification Cards -->
       <app-notification-card 
         *ngFor="let notification of notifications" 
         [date]="notification.Date" 
@@ -38,14 +52,16 @@
     </div>
   </p-overlayPanel>
 
-  <!--User Icon-->
-  <button mat-button  (click)="userOverlay.toggle($event)">
+  <!-- User Icon -->
+  <button mat-button (click)="userOverlay.toggle($event)">
     <p-avatar 
-        icon="pi pi-user" 
-        styleClass="mr-2" 
-        [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" 
-    />
+      icon="pi pi-user" 
+      styleClass="mr-2" 
+      [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }">
+    </p-avatar>
   </button>
+  
+  <!-- User Overlay Panel -->
   <p-overlayPanel #userOverlay>
     <div class="flex flex-column gap-3 w-25rem">
       <a mat-menu-item [routerLink]="['/account/profile']">
@@ -59,7 +75,24 @@
       </a>
     </div>
   </p-overlayPanel>
+  </div>
 </mat-toolbar>
+<!-- Mobile Search Field Template -->
+<ng-template #mobileSearch>
+  <div class="toolbar-section mobile-search-section">
+    <button mat-icon-button (click)="toggleSearchField()" *ngIf="!searchFieldVisible()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-form-field class="search-field" *ngIf="searchFieldVisible()" [@searchFieldAnimation]="searchFieldVisible() ? 'visible' : 'hidden'">
+      <input matInput placeholder="Search" (input)="onSearchQueryChanged($event)">
+      <button mat-icon-button matSuffix (click)="toggleSearchField()">
+        <mat-icon color="primary">close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</ng-template>
+
+
 <mat-sidenav-container>
     <!--SideNav-->
     <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
