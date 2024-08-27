@@ -64,7 +64,7 @@ export class CalendarComponent {
       headerToolbar: {
         left: isSmallScreen ? 'title' : 'prev today next',
         center:isSmallScreen ?'today':'title',
-        right: isSmallScreen ? 'prev,next' : 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: isSmallScreen ? 'prev,next' : 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       },
       eventClick: (arg) => this.handleDateClick(arg),
       editable: true,
