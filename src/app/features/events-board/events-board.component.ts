@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { SearchService } from '../../services/search/search.service';
 
 @Component({
   selector: 'app-events-board',
@@ -33,7 +34,8 @@ export class EventsBoardComponent implements OnInit, OnDestroy {
     private service: EventsService,
     private attendeesService: AttendeesService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private searchService: SearchService
   ) {
     this.today.setHours(0, 0, 0, 0); // Set to midnight for comparison
     this.weekStart = new Date(this.today);
@@ -47,6 +49,11 @@ export class EventsBoardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscribeToEvents(); // Subscribe to events and automatically update when changes occur
     this.home = { icon: 'pi pi-home', routerLink: '/events' };
+
+    // Subscribe to the search query and filter events accordingly
+  this.searchService.searchQuery$.subscribe((searchQuery: string) => {
+    this.filterEvents(searchQuery);
+  });
   }
 
   ngOnDestroy() {
@@ -88,10 +95,13 @@ export class EventsBoardComponent implements OnInit, OnDestroy {
   /**
    * Filter Events based on the Start Date
    */
-  filterEvents(): void {
+  filterEvents(searchQuery: string = ''): void {
+    let filteredEvents = this.events;
+  
+    // Apply chip-based filtering first
     switch (this.selectedChip) {
       case "Today's Event":
-        this.filteredEvents = this.events.filter(event => {
+        filteredEvents = filteredEvents.filter(event => {
           const eventStartDate = event.StartDate ? new Date(event.StartDate) : null;
           const eventEndDate = event.EndDate ? new Date(event.EndDate) : eventStartDate;
           return (
@@ -103,25 +113,35 @@ export class EventsBoardComponent implements OnInit, OnDestroy {
         break;
   
       case "This Week's Events":
-        this.filteredEvents = this.events.filter(event => {
+        filteredEvents = filteredEvents.filter(event => {
           const eventDate = event.StartDate ? new Date(event.StartDate) : null;
           return eventDate && eventDate >= this.weekStart && eventDate <= this.weekEnd;
         });
         break;
   
       case "This Month's Events":
-        this.filteredEvents = this.events.filter(event => {
+        filteredEvents = filteredEvents.filter(event => {
           const eventDate = event.StartDate ? new Date(event.StartDate) : null;
           return eventDate && eventDate >= this.monthStart && eventDate <= this.monthEnd;
         });
         break;
   
       case "All Events":
-        this.filteredEvents = this.events;
+        filteredEvents = filteredEvents;
         break;
     }
+  
+    // Apply search-based filtering
+    if (searchQuery) {
+      filteredEvents = filteredEvents.filter(event =>
+        event.Title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+  
+    this.filteredEvents = filteredEvents;
     this.sortEvents(); // Ensure events are sorted after filtering
   }
+  
   
   
   

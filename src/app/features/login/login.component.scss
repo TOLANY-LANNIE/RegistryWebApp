@@ -1,0 +1,75 @@
+
+.login-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .vertical-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-container {
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-container img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .btn-primary {
+    background-color: #003489;
+    border: #003489;
+  }
+  
+  a {
+    color: #003489;
+  }
+  
+  .circular-logo {
+    width: 200px;
+    height: 200px; /* Ensures the image is a perfect square */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image fits within the circular frame */
+  }
+  
+  /* Checkbox container styling to align left */
+  .checkbox-container {
+    text-align: left; /* Aligns the checkbox to the left */
+    margin-bottom: 10px; /* Adds some space below the checkbox */
+  }
+  
+  /* Slogan styling */
+  .app-slogan {
+    font-size: 18px; /* Adjusts the font size */
+    color: #3F51B5; /* Matches the color scheme of the app */
+    margin-top: 10px; /* Adds space above the slogan */
+    font-family: 'Arial', sans-serif; /* Matches a clean, modern font style */
+  }
+  
+  /* Media query for small screens */
+  @media (max-width: 575.98px) {
+    .login-container {
+      grid-template-columns: 100%;
+    }
+  
+    .logo-container {
+      display: none;
+    }
+  }
