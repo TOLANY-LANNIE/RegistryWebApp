@@ -1,0 +1,173 @@
+.container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+mat-table {
+  width: 100%;
+  border-radius: 8px;
+}
+
+mat-card {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.content {
+  padding: 10px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.breadcrumb-item {
+  display: inline-block;
+  color: grey;
+  margin: 0;
+}
+
+.breadcrumb-divider {
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+:host ::ng-deep .mat-mdc-form-field-bottom-align {
+  display: inline-block;
+  height: 0px;
+}
+
+:host ::ng-deep .mat-form-field {
+  font-size: 12px;
+}
+
+.clickable-cell {
+  cursor: pointer;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px; /* Make the borders round */
+  color: white;
+}
+
+.header-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0; /* Remove default margin */
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px; /* Space between elements */
+}
+
+.search-bar {
+  flex: 1; /* Takes up remaining space */
+  max-width: 300px; /* Max width of the search bar */
+}
+
+.right-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.mat-column-Email {
+  flex: 0 0 30%;
+}
+
+.mat-column-MoreOptions {
+  flex: 0 0 10%;
+}
+
+.mat-column-Test {
+  flex: 0 0 10%;
+}
+
+.mat-column-Honorific {
+  flex: 0 0 6%;
+}
+
+.mat-column-Name {
+  flex: 0 0 10%;
+}
+
+.mat-column-Surname {
+  flex: 0 0 10%;
+}
+
+mat-card {
+  width: 100%;
+  overflow-x: auto;
+}
+
+mat-header-cell, mat-cell {
+  min-width: 100px;
+}
+
+@media (max-width: 600px) {
+  mat-header-cell, mat-cell {
+    font-size: 12px;
+  }
+  mat-icon {
+    font-size: 16px;
+  }
+  .clickable-cell {
+    cursor: pointer;
+  }
+}
+@media (min-width: 601px) {
+  mat-header-cell, mat-cell {
+    font-size: 14px;
+  }
+  mat-icon {
+    font-size: 24px;
+  }
+}
+.calendar-container {
+  width: 100%;
+  overflow-x: auto;
+}
+.calendar-container full-calendar {
+  padding: 8px 4px;
+  width: 100%;
+  max-width: 100%;
+}/*# sourceMappingURL=calendar.component.css.map */

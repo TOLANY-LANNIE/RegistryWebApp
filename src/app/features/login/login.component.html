@@ -1,47 +1,56 @@
-
-
 <div class="login-container">
-    <div class="logo-container vertical-center">
-      <img src="../../../assets/img/events-animate.svg" alt="Logo Image" />
-    </div>
-       
-    <div class=" vertical-center text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 offset-md-3">
-            <form>
-              <img class="mb-4 circular-logo" src="../../../assets/img/Registry.webp" width="200" />
-              <h1 class="h3 mb-3 fw-normal">Events Registry App</h1>
-          
-              <!-- Angular Material Form Field for Email -->
-              <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Correo electronico</mat-label>
-                <input matInput type="email" id="email" placeholder="name@example.com" />
-              </mat-form-field>
-              <br />
-          
-              <!-- Angular Material Form Field for Password -->
-              <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Password</mat-label>
-                <input matInput type="password" id="password" placeholder="Password" />
-              </mat-form-field>
-              <br />
-          
-              <div class="checkbox-container">
-                <p class="mt-5 mb-3 text-muted">
-                  <a id="forgot-password" href="#">Forgot Password?</a>
-                </p>
-              </div>
-          
-              <!-- Angular Material Button for Sign In -->
-              <button mat-raised-button color="primary" class="w-100">Sign in</button>
-              <br>
-              <!-- Angular Material Button for Create Account -->
-              <button mat-button color="primary" class="w-100">Create Account</button>
-            </form>
-          </div>          
-        </div>
-      </div>
-    </div>
+  <div class="logo-container vertical-center">
+    <img src="../../../assets/img/events-animate.svg" alt="Logo Image" />
   </div>
-  
+
+  <div class="vertical-center text-center">
+    <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="full-width-form center-content">
+      <!-- Centered Logo and Title -->
+      <img class="mb-4 circular-logo" src="../../../assets/img/Registry.webp" width="200" />
+      <h1 class="h3 mb-3 fw-normal">Events Registry </h1>
+
+      <!-- Welcome Back Message -->
+      <p class="welcome-message">Welcome back, Sign In to continue</p>
+
+      <!-- Angular Material Form Field for Email -->
+      <mat-form-field appearance="outline" class="full-width mat-form-field-extended">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="email" 
+          id="email" 
+          placeholder="name@example.com"  
+          formControlName="email"
+          [(ngModel)]="email" />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">Email is required</mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">Invalid email</mat-error>
+      </mat-form-field>
+    
+      <!-- Angular Material Form Field for Password -->
+      <mat-form-field appearance="outline" class="full-width mat-form-field-extended">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" 
+          formControlName="password" 
+          id="password" 
+          placeholder="Password"/>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">Password is required</mat-error>
+        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <br />
+
+      <!-- Checkbox and Forgot Password Link -->
+      <div class="checkbox-container">
+        <p class="mt-3 mb-3 text-muted">
+          <a id="forgot-password" href="#">Forgot Password?</a>
+        </p>
+      </div>
+
+      <!-- Angular Material Button for Sign In -->
+      <button mat-raised-button color="primary" class="full-width">Sign in</button>
+      <br /><br />
+
+      <!-- Angular Material Button for Create Account -->
+      <button mat-button color="primary" class="full-width">Create Account</button>
+    </form>
+  </div>
+</div>
