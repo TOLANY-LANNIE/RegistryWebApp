@@ -9,6 +9,10 @@ import { EventsBoardComponent } from './features/events-board/events-board.compo
 import { MailGroupsComponent } from './features/mail-groups/mail-groups.component';
 import { CalendarComponent } from './features/calendar/calendar.component';
 import { LoginComponent } from './features/login/login.component';
+import { SignupComponent } from './features/signup/signup.component';
+import { AuthGuard } from './shared/guard/auth.guard';
+import { SecureInnerPageGuard } from './shared/guard/secure-inner-page.guard';
+
 
 export const routes: Routes = [
     {
@@ -24,14 +28,15 @@ export const routes: Routes = [
         component: LoginLayoutComponent,
         children: [
         {path: 'login', component: LoginComponent},
+        {path: 'sign-up', component: SignupComponent},
         ]
     },
-    {path: 'attendees', component:AttendeesListComponent},
-    {path: 'events', component:EventsComponent},
-    {path: 'groups', component:MailGroupsComponent},
-    { path: 'events-board', component: EventsBoardComponent },
-    { path: 'calendar', component: CalendarComponent},
-    {path:'', redirectTo:'events-board', pathMatch:'full'}
+    {path: 'attendees', component:AttendeesListComponent,canActivate: [AuthGuard] },
+    {path: 'events', component:EventsComponent ,canActivate: [AuthGuard] },
+    {path: 'groups', component:MailGroupsComponent ,canActivate: [AuthGuard] },
+    { path: 'events-board', component: EventsBoardComponent, canActivate: [AuthGuard] },
+    { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
+    {path:'', redirectTo:'/auth/login', pathMatch:'full'}
 ];
 
 @NgModule({

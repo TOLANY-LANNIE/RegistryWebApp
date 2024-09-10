@@ -42,6 +42,8 @@ import { EditRecipientComponent } from './modals/edit-recipient/edit-recipient.c
 import { NotificationCardComponent} from './features/notification-card/notification-card.component';
 import { CalendarComponent } from './features/calendar/calendar.component';
 import { LoginComponent } from './features/login/login.component';
+import { SignupComponent } from './features/signup/signup.component';
+import { AuthGuard } from './shared/guard/auth.guard';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
@@ -87,6 +89,10 @@ import { FullCalendarModule} from '@fullcalendar/angular'
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { environment } from '../environment/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { AuthService } from './services/auth/auth.service';
+
 
 
 @NgModule({
@@ -118,6 +124,7 @@ import { environment } from '../environment/environment';
     NotificationCardComponent,
     CalendarComponent ,
     LoginComponent,
+    SignupComponent,
   ],
   imports:[
     BrowserModule,
@@ -172,6 +179,8 @@ import { environment } from '../environment/environment';
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
   ],
   providers:[
     provideRouter(
@@ -188,7 +197,8 @@ import { environment } from '../environment/environment';
    provideAnimationsAsync(),
    provideAnimations(),
    ToastService,
-   MessageService
+   MessageService,
+   AuthGuard
   ],
   bootstrap:[AppComponent]
 })

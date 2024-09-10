@@ -1,11 +1,8 @@
 declare var google: any;
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from '../../../environment/environment';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { tap, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +10,16 @@ import { throwError } from 'rxjs';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
-  hide = true;
+  hide = true; // To toggle password visibility
   loginForm: FormGroup;
+  errorMessage: string = ''; // Add this property to store error messages
   email: string;
   password: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private authService:AuthService
   ) { }
 
 
@@ -44,5 +43,10 @@ export class LoginComponent implements OnInit{
 
     this.email = this.loginForm.get('email')?.value;
     this.password = this.loginForm.get('password')?.value;
+
+    this.authService.login(this.email, this.password).catch((error) => {
+      this.errorMessage = 'Incorrect email or password'; // Set the error message
+    });
   }
+
 }
