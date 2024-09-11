@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SearchService } from './services/search/search.service';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -54,7 +55,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private toastService: ToastService,
     private datePipe: DatePipe,
     private cdr: ChangeDetectorRef,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private authSer: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -131,5 +133,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.notificationsSubscription) {
       this.notificationsSubscription.unsubscribe();
     }
+  }
+
+  /**
+   * Sign out function
+   */
+  signOut() {
+    sessionStorage.removeItem('user');
+    this.authSer.logout();
   }
 }

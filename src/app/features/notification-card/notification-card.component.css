@@ -1,0 +1,48 @@
+.notification-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  cursor: pointer;
+}
+.notification-card:hover {
+  background-color: #f5f5f5;
+}
+.notification-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.notification-card .card-body {
+  display: flex;
+  align-items: center;
+}
+.notification-card .card-body .icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.notification-card .card-body .icon-wrapper .unread-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #3F51B5;
+  border-radius: 50%;
+  position: absolute;
+  left: -10px;
+}
+.notification-card .card-body .icon-wrapper mat-icon {
+  margin-right: 10px;
+}
+.notification-card .date {
+  font-size: 12px;
+  color: gray;
+}
+.notification-card mat-icon {
+  margin-right: 10px;
+}
+.notification-card button {
+  padding: 0;
+  min-width: 0;
+  width: 24px;
+  height: 24px;
+}/*# sourceMappingURL=notification-card.component.css.map */

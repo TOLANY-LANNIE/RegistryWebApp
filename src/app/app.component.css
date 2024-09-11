@@ -1,10 +1,32 @@
-.header-spacer {
-  flex: 1 1 auto;
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-.mat-toolbar {
-  position: relative;
-  z-index: 5;
+mat-toolbar .toolbar-section {
+  display: flex;
+  align-items: center;
+}
+mat-toolbar .toolbar-section.center-section {
+  flex: 1;
+  justify-content: center;
+}
+mat-toolbar .toolbar-section.mobile-search-section {
+  justify-content: flex-end;
+  flex: 1;
+}
+mat-toolbar .search-field {
+  width: 100%;
+  max-width: 500px;
+  transition: max-width 0.3s ease-in-out;
+}
+mat-toolbar .search-field.mobile {
+  max-width: 0;
+  overflow: hidden;
+  width: auto;
+}
+mat-toolbar .search-field.mobile.visible {
+  max-width: 300px;
 }
 
 .navbar-brand {
@@ -40,4 +62,35 @@ mat-sidenav-container {
 
 mat-sidenav, mat-sidenav-container {
   transition: all 500ms ease-in-out;
+}
+
+.no-notifications-message {
+  font-style: italic;
+  color: gray; /* Optional: add a color to style the text */
+}
+
+:host ::ng-deep .p-overlaypanel {
+  max-width: 3rem; /* Set the desired max width here */
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+mat-toolbar .toolbar-section {
+  display: flex;
+  align-items: center;
+}
+mat-toolbar .toolbar-section.center-section {
+  flex: 1;
+  justify-content: center;
+}
+mat-toolbar .toolbar-section ::ng-deep .mat-mdc-form-field-bottom-align {
+  display: inline-block;
+  height: 0px;
+}
+mat-toolbar .search-field {
+  width: 100%;
+  max-width: 400px; /* Adjust width as needed */
 }/*# sourceMappingURL=app.component.css.map */

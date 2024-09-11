@@ -63,7 +63,8 @@
   width: 100%;
   height: auto;
   max-height: 100%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 /* Full width for inputs and buttons */
@@ -88,7 +89,8 @@ a {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 /* Checkbox container styling to align left */
@@ -102,7 +104,7 @@ a {
   font-size: 18px;
   color: #3F51B5;
   margin-top: 10px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 /* Media query for small screens */
@@ -110,9 +112,7 @@ a {
   .login-container {
     grid-template-columns: 100%;
   }
-
   .logo-container {
     display: none;
   }
-}
-
+}/*# sourceMappingURL=signup.component.css.map */

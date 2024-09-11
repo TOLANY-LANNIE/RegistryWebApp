@@ -1,0 +1,120 @@
+<div class="login-container">
+    <div class="logo-container vertical-center">
+      <img src="../../../assets/img/events-animate.svg" alt="Logo Image" />
+    </div>
+  
+    <div class="vertical-center text-center">
+      <form class="full-width-form center-content" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <!-- Centered Logo and Title -->
+        <img class="mb-4 circular-logo" src="../../../assets/img/Registry.webp" width="200" />
+        <h1 class="h3 mb-3 fw-normal">Events Registry App</h1>
+  
+        <!-- Welcome Message for Sign Up -->
+        <p class="welcome-message">Create your account to get started</p>
+  
+        <!-- Angular Material Form Field for Full Name -->
+        <mat-form-field appearance="outline" class="full-width mat-form-field-extended">
+          <mat-label>Full Name</mat-label>
+          <input 
+            matInput type="text" 
+            id="fullName" 
+            placeholder="Your Full Name"
+            formControlName="fullName"
+            [(ngModel)]="fullName" 
+            />
+            <mat-error *ngIf="signUpForm.get('fullName')?.hasError('required') && signUpForm.get('fullName')?.touched">
+              Full Name is required
+            </mat-error>
+        </mat-form-field>
+        <br />
+  
+        <!-- Angular Material Form Field for Email -->
+        <mat-form-field appearance="outline" class="full-width mat-form-field-extended">
+          <mat-label>Email Address</mat-label>
+          <input 
+            matInput type="email" 
+            id="email" 
+            placeholder="name@example.com"
+            formControlName="email"
+            [(ngModel)]="email" 
+            />
+          <mat-error *ngIf="signUpForm.get('email')?.hasError('required') && signUpForm.get('email')?.touched">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="signUpForm.get('email')?.hasError('email') && signUpForm.get('email')?.touched">
+            Invalid email
+          </mat-error>
+        </mat-form-field>
+        <br />
+  
+       <!-- Angular Material Form Field for Password -->
+      <mat-form-field appearance="outline" class="full-width mat-form-field-extended">
+        <mat-label>Password</mat-label>
+        <input 
+          matInput 
+          [type]="hide ? 'password' : 'text'" 
+          id="password" 
+          placeholder="Password"
+          formControlName="password"
+        />
+        <mat-error *ngIf="signUpForm.get('password')?.hasError('required') && signUpForm.get('password')?.touched">
+          Password is required
+        </mat-error>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          type="button"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <br />
+
+      <!-- Angular Material Form Field for Confirm Password -->
+      <mat-form-field appearance="outline" class="full-width mat-form-field-extended">
+        <mat-label>Confirm Password</mat-label>
+        <input 
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+          [(ngModel)]="confirmPassword"
+        />
+        <mat-error *ngIf="signUpForm.get('confirmPassword')?.hasError('required') && signUpForm.get('confirmPassword')?.touched">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">
+          Passwords should match
+      </mat-error>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          type="button"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+
+        <br />
+  
+        <!-- Angular Material Button for Sign Up -->
+        <button mat-raised-button color="primary" class="full-width" [disabled]="signUpForm.invalid">Sign Up</button>
+        <br /><br />
+  
+        <!-- Link to Login Page -->
+        <p class="mt-3 mb-3 text-muted"> 
+          <a href="#" [routerLink]="['/auth/login']"> Already have an account?</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  

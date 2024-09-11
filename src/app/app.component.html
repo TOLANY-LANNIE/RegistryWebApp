@@ -69,7 +69,7 @@
         <span>Account</span>
       </a>
       <mat-divider></mat-divider>
-      <a mat-menu-item [routerLink]="['/auth/login']">
+      <a mat-menu-item [routerLink]="['/auth/login']" (click)="signOut()">
         <mat-icon color="primary">exit_to_app</mat-icon>
         <span>Log out</span>
       </a>
