@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit{
 
     this.authService.login(this.email, this.password).catch((error) => {
       this.errorMessage = 'Incorrect email or password'; // Set the error message
+      this.loginForm.reset(); // Reset the form fields when login fails
     });
   }
 

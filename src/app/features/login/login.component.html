@@ -64,7 +64,7 @@
       </div>
 
       <!-- Angular Material Button for Sign In -->
-      <button mat-raised-button color="primary" class="full-width">Sign in</button>
+      <button mat-raised-button color="primary" class="full-width"  [disabled]="loginForm.invalid">Sign in</button>
       <br /><br />
 
       <!-- Angular Material Button for Create Account -->

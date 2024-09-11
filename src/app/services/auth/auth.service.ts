@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-
+import { UserService } from '../users/users.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private userData: any;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private userService: UserService // Inject UserService
+  ) {
     // Subscribe to the authentication state
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -46,6 +50,37 @@ export class AuthService {
           // Navigate to EventsBoardComponent after successful login
           this.router.navigate(['/events-board']);
         });
+      });
+  }
+
+  // Signup method
+  signUp(email: string, password: string, fullName: string): Promise<void> {
+    return this.afAuth.createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.userData = result.user;
+        const userId = result.user?.uid;
+
+        // Store additional user information in Firestore
+        const userData = {
+          uid: userId,
+          email: email,
+          fullName: fullName,
+          createdAt: new Date()
+        };
+
+        if (userId) {
+          return this.userService.addUser(userId, userData)
+            .then(() => {
+              // Save user data and token in local storage
+              return result.user?.getIdToken().then((token) => {
+                localStorage.setItem('user', JSON.stringify(this.userData));
+                localStorage.setItem('token', token);
+                // Navigate to EventsBoardComponent after successful signup
+                this.router.navigate(['/events-board']);
+              });
+            });
+        }
+        return Promise.reject('User ID not found');
       });
   }
 
