@@ -6,6 +6,7 @@ import { ToastService } from '../../services/toast.service';
 import emailjs from '@emailjs/browser';
 import { MailGroupService } from '../../services/mail-group/mail-group.service';
 import { MailGroup } from '../../models/mail-group.model';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-add-group',
@@ -29,7 +30,8 @@ export class AddGroupComponent {
       public dialog: MatDialog,
       private service:EventsService,
       private toastService: ToastService,
-      private mailGroupService: MailGroupService
+      private mailGroupService: MailGroupService,
+      private authService: AuthService
     ){
 
     }
@@ -50,16 +52,23 @@ export class AddGroupComponent {
       if(this.addGroupFormGroup.invalid){
         return
       }
-     const group:MailGroup ={
-       Name: this.addGroupFormGroup.value.name,
-       Description: this.addGroupFormGroup.value.description
-      }
-      try{
-        this.mailGroupService.addNew(group);
-        this.showSuccessMessage(group.Name);
-      }catch{
-        this.showErrorMessage();
-      }
+      const uid = this.authService.getCurrentUserUid();
+      if (uid) {
+        const group: MailGroup = {
+          Name: this.addGroupFormGroup.value.name,
+          Description: this.addGroupFormGroup.value.description,
+          uid: uid
+        };
+        try {
+          this.mailGroupService.addNew(group);
+          this.showSuccessMessage(group.Name);
+        } catch {
+          this.showErrorMessage();
+        }
+      } else {
+        // Handle the case where UID is null (e.g., show an error message or redirect)
+        this.showAuthErrorMessage();
+      }      
     }
 
     showSuccessMessage(string: string) {
@@ -72,4 +81,11 @@ export class AddGroupComponent {
     showErrorMessage() {
       this.toastService.showError('Error', 'An error occurred during the operation.');
     }   
+
+    /*
+    * Failed to added the events to the Db 
+    */
+   showAuthErrorMessage() {
+     this.toastService.showError('Error', 'User is not authenticated');
+   } 
 }

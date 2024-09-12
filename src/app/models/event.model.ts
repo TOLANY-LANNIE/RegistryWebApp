@@ -8,5 +8,6 @@ export interface Event {
     Status: boolean; // Status of the event (active/inactive)
     Agenda: string[]; // List of agenda items
     Banner:string;
+    uid: string;  // User ID of the event creator
   }
   

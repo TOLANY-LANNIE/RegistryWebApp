@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
 import { EventsService } from '../../services/events/events.service';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { EventDetailsComponent } from '../../modals/event-details/event-details.component';
+import { EditEventComponent } from '../../modals/edit-event/edit-event.component';
 
 @Component({
   selector: 'app-calendar',
@@ -74,8 +74,8 @@ export class CalendarComponent {
     };
   }
 
-  viewDetails(event: any) {
-    const dialogRef = this.dialog.open(EventDetailsComponent, {
+  editEventDetails(event: any) {
+    const dialogRef = this.dialog.open(EditEventComponent, {
       data: event,
       disableClose: true,
       panelClass: 'fullscreen-dialog',
@@ -91,7 +91,7 @@ export class CalendarComponent {
   async getEventDetails(eventID: string) {
     this.eventService.getEventById(eventID).subscribe(
       event => {
-        this.viewDetails(event);
+        this.editEventDetails(event);
       },
       error => {
         console.log(error.message);

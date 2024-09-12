@@ -7,12 +7,12 @@ import { UserService } from '../users/users.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private userData: any;
+  private userData: any; // Holds user data
 
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
-    private userService: UserService // Inject UserService
+    private userService: UserService
   ) {
     // Subscribe to the authentication state
     this.afAuth.authState.subscribe((user) => {
@@ -22,12 +22,11 @@ export class AuthService {
         user.getIdToken().then((token) => {
           localStorage.setItem('user', JSON.stringify(this.userData));
           localStorage.setItem('token', token);
-          // Navigate to EventsBoardComponent if user is logged in
+          localStorage.setItem('uid', user.uid); // Store the user UID
           this.router.navigate(['/events-board']);
         });
       } else {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        this.clearLocalStorage();
       }
     });
   }
@@ -44,11 +43,10 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.userData = result.user;
-        // Save user data and token in local storage
         return result.user?.getIdToken().then((token) => {
           localStorage.setItem('user', JSON.stringify(this.userData));
           localStorage.setItem('token', token);
-          // Navigate to EventsBoardComponent after successful login
+          localStorage.setItem('uid', result.user?.uid || ''); // Store the user UID
           this.router.navigate(['/events-board']);
         });
       });
@@ -61,7 +59,6 @@ export class AuthService {
         this.userData = result.user;
         const userId = result.user?.uid;
 
-        // Store additional user information in Firestore
         const userData = {
           uid: userId,
           email: email,
@@ -72,11 +69,10 @@ export class AuthService {
         if (userId) {
           return this.userService.addUser(userId, userData)
             .then(() => {
-              // Save user data and token in local storage
               return result.user?.getIdToken().then((token) => {
                 localStorage.setItem('user', JSON.stringify(this.userData));
                 localStorage.setItem('token', token);
-                // Navigate to EventsBoardComponent after successful signup
+                localStorage.setItem('uid', userId); // Store the user UID
                 this.router.navigate(['/events-board']);
               });
             });
@@ -89,9 +85,7 @@ export class AuthService {
   logout(): Promise<void> {
     return this.afAuth.signOut().then(() => {
       this.userData = null;
-      localStorage.removeItem('user'); // Remove user data from local storage
-      localStorage.removeItem('token'); // Remove token from local storage
-      // Optionally navigate to the login page after logout
+      this.clearLocalStorage();
       this.router.navigate(['/auth/login']);
     });
   }
@@ -99,5 +93,21 @@ export class AuthService {
   // Method to send a password reset email
   sendPasswordResetEmail(email: string): Promise<void> {
     return this.afAuth.sendPasswordResetEmail(email);
+  }
+
+  // Method to get the current user's UID
+  getCurrentUserUid(): string {
+    const uid = localStorage.getItem('uid');
+    if (!uid) {
+      throw new Error('User is not authenticated'); // Explicit error if user isn't authenticated
+    }
+    return uid;
+  }
+
+  // Utility method to clear local storage on logout or when user is not authenticated
+  private clearLocalStorage(): void {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('uid');
   }
 }

@@ -27,30 +27,35 @@
                     Add
                   </button>
                 </div>
-               <mat-divider></mat-divider>
-
-                <!--Mail Group List-->
-                <mat-list>
-                <mat-list-item 
-                  *ngFor="let group of groups" 
-                  class="group-item" 
-                  [ngClass]="{'selected-group-item': isSelected(group)}"
-                  (click)="selectGroup(group)">
-                  <mat-icon matListItemIcon>
-                    <ng-container *ngIf="isSelected(group); else outlineIcon">
-                      <span class="material-icons">
-                        <mat-icon color="primary">group_work</mat-icon>
-                      </span>
-                    </ng-container>
-                    <ng-template #outlineIcon>
-                      <span class="material-icons-outlined">group_work</span>
-                    </ng-template>
-                  </mat-icon>
-                  <span matListItemTitle  [ngClass]="{'selected-title': isSelected(group)}">{{ group.Name }}</span>
-                  <mat-divider></mat-divider>
-                </mat-list-item>
-                </mat-list>              
-              </div>
+                <mat-divider></mat-divider>
+              
+                <!-- Message for No Mail Groups -->
+                <div *ngIf="!groups || groups.length === 0" class="no-groups-message">
+                  <p>No groups available. Click "Add" to create a new group.</p>
+                </div>
+              
+                <!-- Mail Group List -->
+                <mat-list *ngIf="groups && groups.length > 0">
+                  <mat-list-item 
+                    *ngFor="let group of groups" 
+                    class="group-item" 
+                    [ngClass]="{'selected-group-item': isSelected(group)}"
+                    (click)="selectGroup(group)">
+                    <mat-icon matListItemIcon>
+                      <ng-container *ngIf="isSelected(group); else outlineIcon">
+                        <span class="material-icons">
+                          <mat-icon color="primary">group_work</mat-icon>
+                        </span>
+                      </ng-container>
+                      <ng-template #outlineIcon>
+                        <span class="material-icons-outlined">group_work</span>
+                      </ng-template>
+                    </mat-icon>
+                    <span matListItemTitle [ngClass]="{'selected-title': isSelected(group)}">{{ group.Name }}</span>
+                    <mat-divider></mat-divider>
+                  </mat-list-item>
+                </mat-list>
+              </div>              
             </mat-card>
           
             <mat-card class="mat-elevation-z0 padded-card" fxFlex="75" fxFlex.lt-sm="100">
