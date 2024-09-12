@@ -11,7 +11,7 @@ import { CalendarComponent } from './features/calendar/calendar.component';
 import { LoginComponent } from './features/login/login.component';
 import { SignupComponent } from './features/signup/signup.component';
 import { AuthGuard } from './shared/guard/auth.guard';
-import { SecureInnerPageGuard } from './shared/guard/secure-inner-page.guard';
+import { ForgotPasswordComponent } from './features/forgot-password/forgot-password.component';
 
 
 export const routes: Routes = [
@@ -29,6 +29,7 @@ export const routes: Routes = [
         children: [
         {path: 'login', component: LoginComponent},
         {path: 'sign-up', component: SignupComponent},
+        {path: 'forgot-password', component: ForgotPasswordComponent},
         ]
     },
     {path: 'attendees', component:AttendeesListComponent,canActivate: [AuthGuard] },

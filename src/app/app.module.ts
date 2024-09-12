@@ -91,8 +91,7 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { environment } from '../environment/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { AuthService } from './services/auth/auth.service';
-
+import { ForgotPasswordComponent } from './features/forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -125,6 +124,7 @@ import { AuthService } from './services/auth/auth.service';
     CalendarComponent ,
     LoginComponent,
     SignupComponent,
+    ForgotPasswordComponent
   ],
   imports:[
     BrowserModule,

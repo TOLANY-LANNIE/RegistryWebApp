@@ -1,4 +1,6 @@
 import { Component, signal, Input, computed } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 export type MenuItem ={
   icon:string;
@@ -14,7 +16,10 @@ export type MenuItem ={
 export class SideMenuComponent {
  
   
-  constructor(){}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ){}
  /**
  * The following code defines a component class with properties and methods related to a collapsible sidenav.
  * It uses MobX signals to manage the state of the sidenavCollapsed property.
@@ -67,4 +72,12 @@ export class SideMenuComponent {
   ]);
 
   profilePicSize = computed(()=>this.sidenavCollapsed()?'32':'100')
+
+   // Logout method to handle the logout action
+   logout() {
+      // You can also navigate to the login page after logout if needed
+      sessionStorage.removeItem('user');
+      this.authService.logout();
+      this.router.navigate(['/auth/login']);
+  }
 }
