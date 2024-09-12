@@ -1,11 +1,12 @@
-<!--Side nav menu-->
+<!-- Side nav menu -->
 <mat-nav-list>
   <ng-container *ngFor="let item of menuItems(); let i = index">
     <!-- Divider before the last item -->
     <mat-divider *ngIf="i === menuItems().length - 1"></mat-divider>
     
     <!-- Menu item -->
-    <a 
+    <a
+      *ngIf="item.label !== 'Logout'; else logoutItem" 
       mat-list-item 
       class="menu-item"
       [routerLink]="item.route"
@@ -13,7 +14,8 @@
       #rla="routerLinkActive"
       [activated]="rla.isActive"
       [pTooltip]="sidenavCollapsed() ? item.label : ''" 
-      tooltipPosition="right">
+      tooltipPosition="right"
+    >
       <mat-icon matListItemIcon>
         <ng-container *ngIf="!rla.isActive; else outlineIcon">
           <span class="material-icons">{{ item.icon }}</span>
@@ -22,7 +24,23 @@
           <span class="material-icons-outlined">{{ item.icon }}</span>
         </ng-template>
       </mat-icon>
-      <span matListItemTitle *ngIf="!sidenavCollapsed()">{{item.label}}</span>
+      <span matListItemTitle *ngIf="!sidenavCollapsed()">{{ item.label }}</span>
     </a>
+
+    <!-- Logout item with click event -->
+    <ng-template #logoutItem>
+      <a 
+        mat-list-item 
+        class="menu-item"
+        (click)="logout()"
+        [pTooltip]="sidenavCollapsed() ? item.label : ''" 
+        tooltipPosition="right"
+      >
+        <mat-icon matListItemIcon>
+          <span class="material-icons">{{ item.icon }}</span>
+        </mat-icon>
+        <span matListItemTitle *ngIf="!sidenavCollapsed()">{{ item.label }}</span>
+      </a>
+    </ng-template>
   </ng-container>
 </mat-nav-list>

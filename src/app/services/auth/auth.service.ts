@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { UserService } from '../users/users.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -93,5 +94,10 @@ export class AuthService {
       // Optionally navigate to the login page after logout
       this.router.navigate(['/auth/login']);
     });
+  }
+
+  // Method to send a password reset email
+  sendPasswordResetEmail(email: string): Promise<void> {
+    return this.afAuth.sendPasswordResetEmail(email);
   }
 }
