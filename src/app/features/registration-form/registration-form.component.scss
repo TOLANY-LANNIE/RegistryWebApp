@@ -121,13 +121,19 @@ mat-icon {
 
 /* Logo styling */
 .logo-top-left {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 100%;
-  height: auto;
-  z-index: 1;
+  position: absolute; /* Position it absolutely relative to its nearest positioned ancestor */
+  top: 20px; /* Distance from the top of its container */
+  left: 20px; /* Distance from the left of its container */
+  width: 48px; /* Fixed width of the logo */
+  height: 48px; /* Fixed height to maintain the circular shape */
+  border-radius: 50%; /* Makes the image circular */
+  overflow: hidden; /* Ensures content fits within the circular shape */
+  z-index: 1; /* Stays on top of other elements */
+  display: flex; /* Centers content within the container */
+  justify-content: center; /* Horizontally centers content */
+  align-items: center; /* Vertically centers content */
 }
+
 
 /* Title styling */
 h1 {

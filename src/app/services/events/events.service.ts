@@ -83,4 +83,8 @@ export class EventsService {
         })
       );
   }
+
+  getEvents(): Observable<any[]> {
+    return this.db.collection('Events').valueChanges({ idField: 'id' });
+  }
 }

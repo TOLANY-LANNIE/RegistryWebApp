@@ -17,7 +17,7 @@
       </div>
       <br>
         <div fxLayout="row" fxLayoutAlign="stretch" fxLayoutGap="12px"fxLayout.lt-sm="column">
-            <mat-card class="mat-elevation-z0 padded-card" fxFlex="25" fxFlex.lt-sm="100">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="30" fxFlex.lt-sm="100">
               <!--Mail Group List Header-->
               <div class="mail-groups-list">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -51,14 +51,14 @@
                         <span class="material-icons-outlined">group_work</span>
                       </ng-template>
                     </mat-icon>
-                    <span matListItemTitle [ngClass]="{'selected-title': isSelected(group)}">{{ group.Name }}</span>
+                    <span matListItemTitle [ngClass]="{'selected-title': isSelected(group)}" pTooltip="{{ group.Name }}" tooltipPosition="right">{{ group.Name }}</span>
                     <mat-divider></mat-divider>
                   </mat-list-item>
                 </mat-list>
               </div>              
             </mat-card>
           
-            <mat-card class="mat-elevation-z0 padded-card" fxFlex="75" fxFlex.lt-sm="100">
+            <mat-card class="mat-elevation-z0 padded-card" fxFlex="70" fxFlex.lt-sm="100">
               <!--Recipients List-->
               <div class="recipients-list">
                 <div fxLayout="row" fxLayoutAlign="space-between center">

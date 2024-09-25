@@ -140,7 +140,7 @@ export class RegistrationFormComponent implements OnInit {
    * 
    */
   subscribeToEvents() {
-    this.eventsSubscription = this.eventService.getAllEvents().subscribe({
+    this.eventsSubscription = this.eventService.getEvents().subscribe({
       next: (events) => {
         // Filter events where event.Status is "Yes"
         this.events = events.filter((event: { Status: boolean }) => event.Status === true);
